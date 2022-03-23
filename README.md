@@ -6,8 +6,10 @@
 
 #### Step 1: Get the source code
 
+> You need SSH Keys configured in order to be allowed to clone the repository
+
 ```bash
-git clone https://github.com/MIAGE-Connection/assobot.git
+git clone git@github.com:MIAGE-Connection/assobot.git
 ```
 
 ### Step 2: Install Python and pip 
@@ -38,6 +40,8 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 ```
 
 ### Step 4: Install app
+
+* Go into project folder
 
 * Install App environment 
 
