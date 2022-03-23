@@ -5,7 +5,6 @@
 ### Windows 
 
 #### Step 1: Get the source code
-> You should fork the code instead if you wish to submit patches. You'll find information on that in 
 
 ```bash
 git clone https://github.com/MIAGE-Connection/assobot.git
