@@ -14,7 +14,7 @@ git clone git@github.com:MIAGE-Connection/assobot.git
 
 ### Step 2: Install Python and pip 
 
-* Install Python (3.8.13) from [here](https://www.python.org/downloads/release/python-3911/)
+* Install Python (3.8.13) from [here](https://www.python.org/downloads/release/python-3813/)
 
 > Don't forget to add Python to your PATH variable.
 
