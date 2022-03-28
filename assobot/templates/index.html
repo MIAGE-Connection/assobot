@@ -6,6 +6,14 @@
     </head>
 
     <body>
-        <h1>Hello world from AssoBot !</h1>
+        {% if current_user %}
+            <img src="{{current_user.avatar_url}}" alt="image_avatar">
+            <p>Logged in as {{current_user.username}}#{{current_user.discriminator}}</p>
+            <p>ID : {{current_user.id}}</p>
+            <a href="/logout"><button>Logout</button></a>
+        {% else %}
+            <a href="{{redirect_oauth_uri}}"><button>Login with discord</button></a>
+        {% endif %}
+
     </body>
 </html>
