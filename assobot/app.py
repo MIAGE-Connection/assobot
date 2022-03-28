@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-   return "Hello World from AssoBot!"
+   return render_template('index.html')
 
 @app.route("/plugins")
 def plugins():
