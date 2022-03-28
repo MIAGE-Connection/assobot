@@ -8,8 +8,9 @@ Choose your guild
 <!-- Main -->
 <div class="container">
     <h1>Sélectionner un serveur</h1>
+    {%- for row in guilds|batch(3) %}
     <div class="grid">
-        {% for guild in guilds %}
+        {%- for guild in row %}
         <article>
             <header>{{guild.name}}</header>
             <footer>
@@ -18,5 +19,6 @@ Choose your guild
         </article>
         {% endfor %}
     </div>
+    {%- endfor %}
 </div>
 {% endblock %}

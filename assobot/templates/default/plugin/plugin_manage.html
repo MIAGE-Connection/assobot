@@ -1,0 +1,51 @@
+{% extends 'default/layout/layout.html' %}
+
+{% block title %}
+Manage plugin
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="post" enctype=multipart/form-data>
+        <div>
+            <label for="file">Add plugin
+                <input type="file" id="file" name="file">
+            </label>
+        </div>
+        <div>
+            <button type="submit">Install</button>
+        </div>
+    </form>
+    <hr />
+    <h2>Plugin list :</h2>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Icon</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Settings</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plugin in plugins %}
+            <tr>
+                <td><img src="{{ url_for('static', filename='default/img/gears.png') }}" /></td>
+                <td>{{ plugin.name }}</td>
+                <td>{{ plugin.description }}</td>
+                <td>
+                    <a href="/plugin/{{ plugin.id }}/settings" role="button">
+                        <img src="{{ url_for('static', filename='default/img/settings.png') }}" alt="Open Settings" />
+                    </a>
+                </td>
+                <td>
+                    <a href="/plugin/{{ plugin.id }}/remove" role="button"> 
+                        <img src="{{ url_for('static', filename='default/img/x-mark.png') }}" alt="Uninstall" />
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+    </table>
+</div>
+{% endblock %}
