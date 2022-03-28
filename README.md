@@ -14,7 +14,7 @@ git clone git@github.com:MIAGE-Connection/assobot.git
 
 ### Step 2: Install Python and pip 
 
-* Install Python (3.8.13) from [here](https://www.python.org/downloads/release/python-3911/)
+* Install Python (3.8.13) from [here](https://www.python.org/downloads/release/python-3813/)
 
 > Don't forget to add Python to your PATH variable.
 
@@ -31,12 +31,12 @@ pip install --upgrade pip
 #### OSX / Linux / BashOnWindows install commands
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+pip install poetry
 ```
 #### Windows powershell install instructions
 
 ```powershell
-(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
+pip install poetry
 ```
 
 ### Step 4: Install app
