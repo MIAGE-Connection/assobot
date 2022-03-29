@@ -30,6 +30,7 @@ def create_plugin(plugin_path : str):
     print("\n")
 
     if result not in ['y', 'yes', 'Yes', 'YES']:
+        print('Error : Generation aborted')
         return
 
     current_dir = Path(plugin_path)
@@ -50,13 +51,14 @@ def create_plugin(plugin_path : str):
             wtr.write(replace_tokens_in_ligne(plugin_data, line))
 
     print("\n")
-    print("Plugin correctly generated !")
+    print("Info : Plugin correctly generated !")
 
 
 def build_plugin(plugin_path : str):
     plugin_path_object = Path(plugin_path)
     
     if not plugin_path_object.exists():
+        print(f"Error : {plugin_path} doesn't exist !")
         return
 
     dist_folder = plugin_path_object.parent / 'dist'
@@ -67,4 +69,7 @@ def build_plugin(plugin_path : str):
     current_dir = Path.cwd()
     plugin_name = f"{plugin_path_object.name}-0.0.0"
 
-    shutil.make_archive(str(dist_folder/plugin_name), 'zip', plugin_path_object)
+    result_path = shutil.make_archive(str(dist_folder/plugin_name), 'zip', plugin_path_object)
+
+    if Path(result_path).exists():
+        print("Info : Plugin correctly packaged !")
