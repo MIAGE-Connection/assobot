@@ -18,8 +18,10 @@ LOGGER = get_logger(__name__)
 
 class PluginManager:
 
-    def __init__(self) -> None:
+    def __init__(self, guild) -> None:
         self.__plugins = dict()
+        self.__guild = guild.lower().replace(' ', '_')
+        self.__plugins_folder = PLUGIN_FOLDER / self.__guild
         self.__load_plugins()
 
     @property
@@ -35,7 +37,11 @@ class PluginManager:
         self.__add_plugin(plugin_name)
 
     def __load_plugins(self) -> None:
-        for file in PLUGIN_FOLDER.iterdir():
+        if not self.__plugins_folder.exists(): self.__plugins_folder.mkdir()
+        init_plugins_folder = self.__plugins_folder / '__init__.py'
+        if not init_plugins_folder.exists(): init_plugins_folder.touch()
+
+        for file in self.__plugins_folder.iterdir():
             if file.is_dir():
                 self.__add_plugin(file.name)
 
@@ -57,17 +63,25 @@ class PluginManager:
         plugin_tmp_folder = ASSOBOT_PLUGIN_TEMP_FOLDER / plugin_name
 
         templates_tmp_plugin_folder = plugin_tmp_folder / 'templates'
-        templates_plugin_folder = TEMPLATE_PLUGIN_FOLDER / plugin_name
+        guild_templates_folder = TEMPLATE_PLUGIN_FOLDER / self.__guild
+        if not guild_templates_folder.exists(): guild_templates_folder.mkdir()
+        templates_plugin_folder = guild_templates_folder / plugin_name
 
         static_tmp_plugin_folder = plugin_tmp_folder / 'static'
-        static_plugin_folder = STATIC_PLUGIN_FOLDER / plugin_name
-
-        source_core_tmp_plugin_folder = plugin_tmp_folder / 'core'
-        source_core_plugin_folder = PLUGIN_FOLDER / plugin_name / 'core'
+        guild_static_plugin_folder = STATIC_PLUGIN_FOLDER / self.__guild
+        if not guild_static_plugin_folder.exists(): guild_static_plugin_folder.mkdir()
+        static_plugin_folder = guild_static_plugin_folder / plugin_name
 
         source_tmp_plugin_folder = ASSOBOT_PLUGIN_TEMP_FOLDER / plugin_name
-        source_plugin_folder = PLUGIN_FOLDER / plugin_name
+        guild_source_plugin_folder = PLUGIN_FOLDER / self.__guild
+        if not guild_source_plugin_folder.exists(): guild_source_plugin_folder.mkdir()
+        source_plugin_folder = guild_source_plugin_folder / plugin_name
 
+        source_core_tmp_plugin_folder = plugin_tmp_folder / 'core'
+        source_core_plugin_folder = guild_source_plugin_folder / plugin_name / 'core'
+
+        guild_settings_plugin_folder = ASSOBOT_PLUGIN_SETTING_FOLDER / plugin_name
+        if not guild_settings_plugin_folder.exists(): guild_settings_plugin_folder.mkdir()
         settings_plugin_folder = ASSOBOT_PLUGIN_SETTING_FOLDER / plugin_name
 
         if not settings_plugin_folder.exists():
@@ -104,7 +118,7 @@ class PluginManager:
             subprocess.call(['pip', 'install', '-r', requirements_file])
 
     def __add_plugin(self, plugin_name : str) -> None:
-        module = importlib.import_module(f"assobot.plugins.{plugin_name}.plugin")
+        module = importlib.import_module(f"assobot.plugins.{self.__guild}.{plugin_name}.plugin")
         plugin_class = getattr(module, f"{plugin_name}Plugin")
         plugin = plugin_class()
         BOT.add_cog(plugin)
@@ -116,9 +130,9 @@ class PluginManager:
         self.__remove_plugin(plugin)
 
     def __remove_from_plugin_folder(self, plugin_name : str) -> None:
-        templates_plugin_folder = TEMPLATE_PLUGIN_FOLDER / plugin_name
-        static_plugin_folder = STATIC_PLUGIN_FOLDER / plugin_name
-        source_plugin_folder = PLUGIN_FOLDER / plugin_name
+        templates_plugin_folder = TEMPLATE_PLUGIN_FOLDER / self.__guild / plugin_name
+        static_plugin_folder = STATIC_PLUGIN_FOLDER / self.__guild / plugin_name
+        source_plugin_folder = PLUGIN_FOLDER / self.__guild / plugin_name
 
         if not source_plugin_folder.exists():
             source_plugin_folder.mkdir()

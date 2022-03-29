@@ -1,7 +1,7 @@
 from flask import *
 from zenora import APIClient
 
-from assobot import APP, CLIENT, REDIRECT_OAUTH_URL, REDIRECT_URL
+from assobot import APP, AUTH_MANAGER, CLIENT, REDIRECT_OAUTH_URL, REDIRECT_URL
 
 @APP.route('/login')
 def login():
@@ -11,6 +11,7 @@ def login():
 
 @APP.route('/logout')
 def logout():
+    AUTH_MANAGER.remove_auth(session['token'])
     session.clear()
     return redirect("/")
 
@@ -19,6 +20,7 @@ def callback():
     code = request.args['code']
     access_token = CLIENT.oauth.get_access_token(code, REDIRECT_URL).access_token
     session['token'] = access_token
+    AUTH_MANAGER.create_auth(access_token)
     return redirect("/login")
 
 def current_user_function():
