@@ -1,1 +1,1 @@
-from .scripts import create_plugin
+from .scripts import *
