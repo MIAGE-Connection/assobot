@@ -289,3 +289,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Config.py
+./config.py
