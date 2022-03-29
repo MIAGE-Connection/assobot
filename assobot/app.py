@@ -12,13 +12,17 @@ def home():
     if 'token' in session:
         bearer_client = APIClient(session.get('token'), bearer=True)
         current_user = bearer_client.users.get_current_user()
-        return render_template('index.html', current_user=current_user)
+        user_guilds = list()
+        for guild in bearer_client.users.get_my_guilds():
+            if (int(guild.permissions) & 8) == 8:
+                user_guilds.append(guild)
+        return render_template('index.html', current_user=current_user, guilds=user_guilds)
     return render_template('index.html', redirect_oauth_uri=REDIRECT_OAUTH_URL)
 
 @app.route("/oauth/callback")
 def callback():
     code = request.args['code']
-    access_token =  client.oauth.get_access_token(code, REDIRECT_URL).access_token
+    access_token = client.oauth.get_access_token(code, REDIRECT_URL).access_token
     session['token'] = access_token
     return redirect("/")
 
