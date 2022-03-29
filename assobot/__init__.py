@@ -64,8 +64,8 @@ from assobot.core.settings.settings_manager import SettingManager
 APP_SETTINGS_MANAGER = SettingManager(ASSOBOT_SETTINGS_DEFAULT_FILE, ASSOBOT_SETTINGS_USER_FILE)
 APP_SETTINGS_MANAGER.save()
 
-from assobot.core.plugin.plugin_manager import PluginManager
+from assobot.core.auth import AuthManager
 
-PLUGIN_MANAGER = PluginManager()
+AUTH_MANAGER = AuthManager()
 
 from .core.error.error import *

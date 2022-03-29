@@ -3,7 +3,7 @@ import os
 import uuid
 from pathlib import Path
 
-from assobot import APP, PLUGIN_MANAGER, ASSOBOT_PLUGIN_TEMP_FOLDER
+from assobot import APP, AUTH_MANAGER, ASSOBOT_PLUGIN_TEMP_FOLDER
 from flask import *
 from werkzeug.utils import secure_filename
 
@@ -13,9 +13,12 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def get_plugin_manager():
+   return AUTH_MANAGER.get(session['token']).plugin_manager
+
 @APP.route('/plugin/<plugin_id>/settings')
 def plugin_settings_open(plugin_id):
-   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
       return redirect('/plugins')
@@ -24,7 +27,7 @@ def plugin_settings_open(plugin_id):
 
 @APP.route('/plugin/<plugin_id>/settings/update',  methods=['POST'])
 def plugin_settings_update(plugin_id):
-   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
       
    if plugin is None:
       return redirect('/')
@@ -37,18 +40,18 @@ def plugin_settings_update(plugin_id):
 
 @APP.route('/plugin/<plugin_id>/remove')
 def plugin_remove(plugin_id):
-   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
       redirect('/plugins/manage')
 
-   PLUGIN_MANAGER.unload_plugin(plugin)
+   get_plugin_manager().unload_plugin(plugin)
 
    return redirect('/plugins/manage')
 
 @APP.route('/plugin/<plugin_id>/enabled')
 def plugin_enable(plugin_id):
-   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is not None:
       plugin.enabled = True
@@ -57,7 +60,7 @@ def plugin_enable(plugin_id):
 
 @APP.route('/plugin/<plugin_id>/disabled')
 def plugin_disable(plugin_id):
-   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is not None:
       plugin.enabled = False
@@ -80,10 +83,10 @@ def plugin_manage():
          filename = secure_filename(file.filename)
          dst_file_path = Path(os.path.join(ASSOBOT_PLUGIN_TEMP_FOLDER, filename))
          file.save(dst_file_path)
-         PLUGIN_MANAGER.load_plugin(dst_file_path)
+         get_plugin_manager().load_plugin(dst_file_path)
 
-   return render_template('default/plugin/plugin_manage.html', plugins=list(PLUGIN_MANAGER.plugins.values()))
+   return render_template('default/plugin/plugin_manage.html', plugins=list(get_plugin_manager().plugins.values()))
 
 @APP.route('/plugins')
 def plugin_list():
-   return render_template('default/plugin/plugin_list.html', plugins=list(PLUGIN_MANAGER.plugins.values()))
+   return render_template('default/plugin/plugin_list.html', plugins=list(get_plugin_manager().plugins.values()))

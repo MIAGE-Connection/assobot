@@ -1,4 +1,4 @@
-from assobot import APP, BOT, PARTIAL_URL_BOT_ADD, PLUGIN_MANAGER
+from assobot import APP, BOT, PARTIAL_URL_BOT_ADD, AUTH_MANAGER
 from flask import *
 from zenora import APIClient
 
@@ -32,7 +32,10 @@ def guild_manage(idGuild=None):
     if 'token' in session and idGuild:
         bearer_client = APIClient(session.get('token'), bearer=True)
         guild_user = getGuildById(bearer_client.users.get_my_guilds(), idGuild)
-        return render_template('default/plugin/plugin_list.html', guild=guild_user, plugins=list(PLUGIN_MANAGER.plugins.values()))
+        ctx = AUTH_MANAGER.get(session['token'])
+        ctx.guild = guild_user.name
+        plugins_installed = list(ctx.plugin_manager.plugins.values())
+        return render_template('default/plugin/plugin_list.html', guild=guild_user, plugins=plugins_installed)
 
 @APP.route('/guild/callback')
 def callback_guild():
