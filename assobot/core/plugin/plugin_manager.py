@@ -105,7 +105,6 @@ class PluginManager:
     def __remove_from_plugin_folder(self, plugin_name : str) -> None:
         templates_plugin_folder = TEMPLATE_PLUGIN_FOLDER / plugin_name
         static_plugin_folder = STATIC_PLUGIN_FOLDER / plugin_name
-        source_core_plugin_folder = PLUGIN_FOLDER / plugin_name / 'core'
         source_plugin_folder = PLUGIN_FOLDER / plugin_name
 
         if not source_plugin_folder.exists():
@@ -118,12 +117,7 @@ class PluginManager:
         shutil.rmtree(static_plugin_folder)
 
         LOGGER.info("Remove source files")
-        for default_file in ['plugin.py', '__init__.py']:
-            source_file = source_plugin_folder / default_file
-            os.remove(source_file)
-
-        LOGGER.info("Remove core files")
-        shutil.rmtree(source_core_plugin_folder)
+        shutil.rmtree(source_plugin_folder)
 
     def __remove_plugin(self, plugin : AbstractPlugin) -> None:
         self.__plugins.pop(plugin.id)
