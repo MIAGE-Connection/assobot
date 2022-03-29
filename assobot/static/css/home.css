@@ -1,6 +1,10 @@
-.plugin-gallery {
+.home-content {
+    min-height: 100vh;
     background-color: #DCDDEE;
-    height: 100vh;
+}
+
+.plugin-gallery {
+    height: fit-content;
 }
 
 .plugin-gallery-section {
@@ -8,6 +12,15 @@
     flex-wrap: wrap;
     justify-content: center;
     flex-direction: row;
+}
+
+.plugin-gallery-title {
+    font-family: MontserratTitle;
+}
+
+
+.plugin-gallery-description {
+    font-family: HelveticaNeueText;
 }
 
 /* The switch - the box around the slider */
@@ -72,3 +85,21 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+.button-profile-discord {
+    background-color: #5865F2;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    color: white;
+    height: 42px;
+    font-family: HelveticaNeueText;
+}
+
+.button-disconnected-discord {
+    background-color: #F25858;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    color: white;
+    height: 42px;
+    font-family: HelveticaNeueText;
+}
