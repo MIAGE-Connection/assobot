@@ -2,9 +2,7 @@
 
 ## Getting Started with development
 
-### Windows 
-
-#### Step 1: Get the source code
+### Step 1: Get the source code
 
 > You need SSH Keys configured in order to be allowed to clone the repository
 
@@ -28,13 +26,6 @@ pip install --upgrade pip
 
 * Install Poetry in order to handle dependancy management and app building.
 
-#### OSX / Linux / BashOnWindows install commands
-
-```bash
-pip install poetry
-```
-#### Windows powershell install instructions
-
 ```powershell
 pip install poetry
 ```
@@ -56,3 +47,41 @@ poetry install
 ```python
 poetry run launch-bot
 ```
+
+## Create your first plugin
+
+In order to create your first assobot plugin you can use the assobot-sdk. This SDK contains various scripts that handle creation, package, etc for Assobot plugin.
+
+### Create a plugin
+
+In order to create your plugin you should use the command below.
+
+```bash
+assobot-sdk --create-plugin ./
+```
+
+Then, you just have to follow instructions in your terminal. 
+
+Finally, you will get a new folder which contains your plugin. The folder structure of the plugin is very easy. 
+
+```
+- root : <plugin_name>
+    - core   : main python package of your plugin
+    - static : folder which contains static resources used by the the web interface
+    - templates : the web interface main page
+    - __init__.py : file used to initialise python package
+    - plugin.py : file used to connect Assobot to your plugin
+```
+
+If you want add features you can code into the **core** folder and call it from the file **plugin.py**
+
+## Build your plugin
+
+When your plugin is ready, you can build it thanks to the command below.
+
+```
+assobot-sdk --build-plugin <path_to_your_plugin_folder>
+```
+Then you will find a **dist** folder with inside a file which looks like something like : **<plugin_name>-0.0.0.zip**. 
+
+Finally you can install this plugin web interface of the AssoBot.
