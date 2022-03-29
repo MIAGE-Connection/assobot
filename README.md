@@ -57,7 +57,7 @@ In order to create your first assobot plugin you can use the assobot-sdk. This S
 In order to create your plugin you should use the command below.
 
 ```bash
-assobot-sdk --create-plugin ./
+poetry run assobot-sdk --create-plugin ./
 ```
 
 Then, you just have to follow instructions in your terminal. 
@@ -80,7 +80,7 @@ If you want add features you can code into the **core** folder and call it from 
 When your plugin is ready, you can build it thanks to the command below.
 
 ```
-assobot-sdk --build-plugin <path_to_your_plugin_folder>
+poetry run assobot-sdk --build-plugin <path_to_your_plugin_folder>
 ```
 Then you will find a **dist** folder with inside a file which looks like something like : **<plugin_name>-0.0.0.zip**. 
 
