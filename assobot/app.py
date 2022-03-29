@@ -31,5 +31,9 @@ def logout():
     session.clear()
     return redirect("/")
 
+@app.route("/plugins")
+def plugins():
+   return render_template('home.html')
+
 def launch():
     app.run()
