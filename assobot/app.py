@@ -13,6 +13,8 @@ LOGGER = get_logger(__name__)
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = uuid.uuid4()
+
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 ALLOWED_EXTENSIONS = set(['zip'])
 
@@ -28,12 +30,11 @@ def upload_file():
 
    if request.method == 'POST':
       if 'file' not in request.files:
-         flash('No file part')
-         return redirect(request.url)
+         return redirect('/')
+
       file = request.files['file']
 
       if file.filename == '':
-         flash('No selected file')
          return redirect(request.url)
 
       if file and allowed_file(file.filename):
