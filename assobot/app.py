@@ -10,5 +10,9 @@ def home():
 def plugins():
    return render_template('home.html')
 
+@app.route("/plugins/welcome-message")
+def welcomeMessage():
+   return render_template('/plugins/welcome_message.html')
+
 def launch():
     app.run()
