@@ -77,7 +77,7 @@ class PluginManager:
         copy_and_overwrite(static_tmp_plugin_folder, static_plugin_folder)
 
         LOGGER.info("Copy source files")
-        for default_file in ['plugin.py', '__init__.py']:
+        for default_file in ['plugin.py', '__init__.py', 'settings.json']:
             source_tmp_file = source_tmp_plugin_folder / default_file
             source_file = source_plugin_folder / default_file
             shutil.copyfile(source_tmp_file, source_file)

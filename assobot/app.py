@@ -1,3 +1,4 @@
+from crypt import methods
 import os
 from pathlib import *
 import uuid
@@ -52,7 +53,20 @@ def open_plugin_settings(plugin_id):
    if plugin is None:
       return redirect('/')
 
-   return render_template(f"plugins/{plugin.namespace}/settings.html")
+   return render_template(f"plugins/{plugin.namespace}/settings.html", plugin=plugin)
+
+@app.route('/plugin/<plugin_id>/settings/update',  methods=['POST'])
+def update_plugin_settings(plugin_id):
+   plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
+      
+   if plugin is None:
+      return redirect('/')
+
+   data = request.form.to_dict(flat=False)
+
+   plugin.settings.update(data)
+
+   return redirect(f'/plugin/{plugin.id}/settings')
 
 @app.route('/plugin/<plugin_id>/remove')
 def remove_plugin(plugin_id):
