@@ -17,7 +17,7 @@
     .div-switch {width: fit-content; margin-left: auto; margin-right: 0;}
     .accordion {width: 75vw;}
     .accordion-item {background-color: rgb(233 234 244);}
-    .accordion-body {display: inline-block;}
+    .accordion-body {display: block;}
     .plugin-gallery-title {width: 75vw; text-align: left; font-size: 25px; margin-bottom: 15px; margin-left: auto; margin-right: auto;}
     .plugin-gallery-description {width: 75vw; text-align: left; font-size: 14px; margin-bottom: 20px; margin-left: auto; margin-right: auto;}
     .logo-img {width: 250px;}
@@ -25,6 +25,8 @@
     .bot-discord-buttons {text-align: end; padding: 20px;}
     .button-discord-img {width: 25px; margin-right: 8px;}
     .bottom {padding-top: 30px; padding-bottom: 30px; text-align: center; background-color:#DCDDEE; font-family: HelveticaNeueText;}
+    .align-left {margin-right: auto; left: 0; margin-left: 0;}
+    .param-description {margin-bottom: 10px; font-family: HelveticaNeueText;}
 </style>
 <body>
   <div class="home">
@@ -45,18 +47,20 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Envoyer un message quand un membre rejoint votre serveur
+                          Envoyer un message quand un membre rejoint votre serveur
                         </button>
-                        <div class="div-switch">
-                            <label class="switch" style="right: 0; margin-left: auto;">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
                       </h2>
                       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            In progress...
+                            <div class="accordion-body-block">
+                                <div class="param-description">Activé</div>
+                                <div class="div-switch align-left">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider round"></span>
+                                      </label>
+                                  </div>
+                            </div>
                         </div>
                       </div>
                     </div>
