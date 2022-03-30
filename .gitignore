@@ -297,6 +297,6 @@ $RECYCLE.BIN/
 */dist
 
 # Plugins folders
-./assobot/plugins/**
-./assobot/static/plugins/**
-./assobot/templates/plugins/**
+assobot/plugins/*/**
+assobot/static/plugins/*/**
+assobot/templates/plugins/*/**
