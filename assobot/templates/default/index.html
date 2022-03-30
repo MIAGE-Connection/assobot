@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Upload Plugin</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h3 class="text-muted">Upload Assobot plugin</h3>
+        </div>
+
+        <form method=post enctype=multipart/form-data>
+            <input type=file name=file>
+            <input type=submit value=Upload>
+        </form>
+    </div>
+    <div>
+        <ul>
+            {% for plugin in plugins %}
+            <li> {{ plugin.name }} - {{ plugin.description }} - <a href="/plugin/{{ plugin.id }}/settings"">Settings</a> <a href="/plugin/{{ plugin.id }}/remove">Remove plugin</a> 
+                {% if plugin.enabled %}
+                    <a href="/plugin/{{plugin.id}}/disabled">Disable Plugin</a>
+                {% else %}
+                    <a href="/plugin/{{plugin.id}}/enabled">Enable Plugin</a>
+                {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>
