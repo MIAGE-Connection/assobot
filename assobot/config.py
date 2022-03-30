@@ -1,6 +1,5 @@
 from urllib import parse
 
-DEBUG=True
 TOKEN="OTU3OTM4OTU1OTE4MTM1MzQ2.YkGELA.M1CLMonwQZ6ZBZIzYgrflpmrEBk"
 CLIENT_SECRET="M8v2APwEsqslYc78EsawJT5cTjTItrWa"
 REDIRECT_URL="http://127.0.0.1:5000/oauth/callback"
