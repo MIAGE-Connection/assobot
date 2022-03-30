@@ -1,6 +1,6 @@
 import uuid
 
-from assobot import SOURCE_PLUGIN_FOLDER, STATIC_PLUGIN_FOLDER, TEMPLATE_PLUGIN_FOLDER
+from assobot import BOT, SOURCE_PLUGIN_FOLDER, STATIC_PLUGIN_FOLDER, TEMPLATE_PLUGIN_FOLDER
 from assobot.core.settings.settings_manager import SettingManager
 
 __all__ = ['AbstractPlugin']
@@ -9,6 +9,7 @@ class AbstractPlugin:
 
     def __init__(self, name, description) -> None:
         self.__id = uuid.uuid4()
+        self.__bot = BOT
         self.__enabled = False
         self.__name = name
         self.__description = description
@@ -51,6 +52,10 @@ class AbstractPlugin:
     @property
     def settings(self):
         return self.__settings
+
+    @property
+    def bot(self):
+        return self.__bot
 
     def __str__(self) -> str:
         return f"<{self.id}> - {self.name}"

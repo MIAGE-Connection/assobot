@@ -6,24 +6,6 @@ LOGGER = get_logger(__name__)
 
 __all__ = ['SettingManager']
 
-class Setting:
-
-    def __init__(self, name : str, value) -> None:
-        self.__n = name
-        self.__v = value
-    
-    @property
-    def name(self):
-        return self.__n
-
-    @property
-    def value(self):
-        return self.__v
-    
-    @value.setter
-    def value(self, n_value):
-        self.__v = n_value
-
 class SettingManager:
 
     def __init__(self, setting_path) -> None:
@@ -31,11 +13,11 @@ class SettingManager:
         self.__setting_path = Path(setting_path)
         self.load()
 
-    def get(self, key) -> Setting:
+    def get(self, key):
         if self.__settings.get(key, None) is None:
-            return Setting("Unknown Settings", "[[UNKNOWN SETTINGS]]")
+            return "[[UNKNOWN SETTINGS]]"
         
-        return Setting(key, self.__settings[key])
+        return self.__settings[key]
     
     def add(self, key : str, value):
         self.__settings[key] = value
