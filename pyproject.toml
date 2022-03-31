@@ -8,6 +8,7 @@ license = "MIT License"
 [tool.poetry.dependencies]
 python = "^3.8"
 Flask = "^2.0.3"
+Zenora = "^0.0.3"
 "discord.py" = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
