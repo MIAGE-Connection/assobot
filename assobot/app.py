@@ -1,17 +1,17 @@
-from assobot.config import CLIENT_SECRET, REDIRECT_OAUTH_URL, REDIRECT_URL
-from assobot import APP, BOT, BOT_SECRET, TMP_FOLDER_PLUGIN
-from zenora import APIClient
-from flask import *
-from threading import Thread
-from functools import partial
 import os
-from pathlib import *
 import uuid
-from werkzeug.utils import secure_filename
-import discord
+from functools import partial
+from pathlib import *
+from threading import Thread
 
-from assobot.core.utils.logger import get_logger
+import discord
+from flask import *
+from werkzeug.utils import secure_filename
+from zenora import APIClient
+
+from assobot import APP, BOT, BOT_SECRET, TMP_FOLDER_PLUGIN, CLIENT_SECRET, REDIRECT_OAUTH_URL, REDIRECT_URL
 from assobot.core.plugin.plugin_manager import PluginManager
+from assobot.core.utils.logger import get_logger
 
 LOGGER = get_logger(__name__)
 
@@ -111,17 +111,17 @@ def showGuilds():
         for guild in bearer_client.users.get_my_guilds():
             if (int(guild.permissions) & 8) == 8:
                 user_guilds.append(guild)
-        return render_template('guilds.html', current_user=current_user, guilds=user_guilds)
-    return render_template('login.html', redirect_oauth_uri=REDIRECT_OAUTH_URL)
+        return render_template('default/guilds.html', current_user=current_user, guilds=user_guilds)
+    return render_template('default/login.html', redirect_oauth_uri=REDIRECT_OAUTH_URL)
 
 
-@APP.route('/pluginGallery/<idGuild>')
+@APP.route('/guild/<idGuild>')
 def pluginGallery(idGuild=None):
     if 'token' in session and idGuild:
         bearer_client = APIClient(session.get('token'), bearer=True)
         current_user = bearer_client.users.get_current_user()
         guild_user = getGuildById(bearer_client.users.get_my_guilds(), idGuild)
-        return render_template('pluginGallery.html', current_user=current_user, guild=guild_user)
+        return render_template('default/plugins.html', current_user=current_user, guild=guild_user)
 
 
 @APP.route('/oauth/callback')
@@ -140,7 +140,7 @@ def logout():
 
 @APP.route('/plugins')
 def plugins():
-    return render_template('pluginGallery.html')
+    return render_template('default/plugins.html')
 
 def launch():
    LOGGER.info('START Assobot Application')

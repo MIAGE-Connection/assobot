@@ -1,0 +1,22 @@
+{% extends 'default/layout/layout.html' %}
+
+{% block title %}
+Choose your guild
+{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<div class="container">
+    <h1>Sélectionner un serveur</h1>
+    <div class="grid">
+        {% for guild in guilds %}
+        <article>
+            <header>{{guild.name}}</header>
+            <footer>
+                <a href="/guild/{{guild.id}}" class="btn btn-primary">Configurer</a>
+            </footer>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'default/layout/layout.html' %}
+
+{% block title %}
+{{guild.name}} - Admin Page
+{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<div class="container">
+  <h1>Lorem Ipsum</h1>
+  <p>Excepteur mollit cupidatat cupidatat veniam et irure ex aliquip deserunt velit eiusmod nulla commodo veniam. Aute
+    elit consectetur dolore fugiat consectetur. Ea ut esse officia ex dolor.</p>
+
+  <p>Non deserunt labore occaecat duis aute qui officia excepteur. Sunt nostrud labore minim anim aute excepteur proident. Cillum consequat irure mollit magna sit aliqua excepteur amet. Nisi labore sunt esse ullamco. Velit pariatur et incididunt elit enim cupidatat Lorem ipsum ut est enim.</p>
+  <details open>
+    <summary>Administration</summary>
+    <div class="grid">
+      <article>
+        <header>
+          <nav>
+            <ul>
+              <li> <img src="{{ url_for('static', filename='default/img/welcome.png') }}" /></li>
+              <li>Lorem Ipsum</li>
+            </ul>
+            <ul>
+              <li>
+                <label for="switch">
+                  <input type="checkbox" id="switch" name="switch" role="switch" value="true">
+                </label>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <p>Lorem ipsus Fsqosidid pqsidjq paosksnx jjsodkf oqkqksj dkinqod</p>
+        <footer>
+          <a href="#" role="button">Configure</a>
+        </footer>
+      </article>
+      <article>
+        <header>
+          <nav>
+            <ul>
+              <li> <img src="{{ url_for('static', filename='default/img/welcome.png') }}" /></li>
+              <li>Lorem Ipsum</li>
+            </ul>
+            <ul>
+              <li>
+                <label for="switch">
+                  <input type="checkbox" id="switch" name="switch" role="switch" value="true">
+                </label>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <p>Lorem ipsus Fsqosidid pqsidjq paosksnx jjsodkf oqkqksj dkinqod</p>
+        <footer>
+          <a href="#" role="button">Configure</a>
+        </footer>
+      </article>
+    </div>
+  </details>
+
+  <details>
+    <summary>Réseaux Sociaux</summary>
+    <div class="grid">
+      <article>
+        <header>
+          <nav>
+            <ul>
+              <li> <img src="{{ url_for('static', filename='default/img/facebook.png') }}" /></li>
+              <li>Facebook</li>
+            </ul>
+            <ul>
+              <li>
+                <label for="switch">
+                  <input type="checkbox" id="switch" name="switch" role="switch" value="true">
+                </label>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <p>Lorem ipsus Fsqosidid pqsidjq paosksnx jjsodkf oqkqksj dkinqod</p>
+        <footer>
+          <a href="#" role="button">Configure</a>
+        </footer>
+      </article>
+      <article>
+        <header>
+          <nav>
+            <ul>
+              <li> <img src="{{ url_for('static', filename='default/img/instagram.png') }}" /></li>
+              <li>Instagram</li>
+            </ul>
+            <ul>
+              <li>
+                <label for="switch">
+                  <input type="checkbox" id="switch" name="switch" role="switch" value="true">
+                </label>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <p>Lorem ipsus Fsqosidid pqsidjq paosksnx jjsodkf oqkqksj dkinqod</p>
+        <footer>
+          <a href="#" role="button">Configure</a>
+        </footer>
+      </article>
+    </div>
+  </details>
+</div>
+{% endblock %}

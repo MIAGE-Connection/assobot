@@ -1,4 +1,4 @@
-from .config import BOT_SECRET
+from .config import *
 from flask import Flask
 from pathlib import Path
 import discord

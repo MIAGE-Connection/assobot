@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} {% endblock %}</title>
+    <meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS.">
+
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='default/css/default.css') }}">
+
+    {% block custom_stylesheet %} {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='default/img/favicon.ico') }}">
+</head>
+<body class="container">
+    <div id="layout-header" class="container-fluid">
+        {% include 'default/layout/header.html' %}
+    </div>
+
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+
+    <footer id='layout-footer' class="container-fluid">
+        {% include 'default/layout/footer.html' %}
+    </footer>
+</body>
+
+</html>

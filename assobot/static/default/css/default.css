@@ -1,0 +1,30 @@
+:root {
+    --primary: #2B309B;
+}
+
+@font-face {
+    font-family: "MontserratTitle";
+    src: url("../fonts/montserrat/Montserrat-ExtraBold.ttf");
+}
+
+@font-face {
+    font-family: "HelveticaNeueText";
+    src: url("../fonts/helveticaneue/FreeSans.ttf");
+}
+
+#layout-footer {
+    text-align: center;
+}
+
+#mc-logo-header {
+    width: 25%;
+    height: auto;
+}
+
+#login-section {
+    text-align: center;
+}
+
+#header-layout {
+    text-align: center;
+}
