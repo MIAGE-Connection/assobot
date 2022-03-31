@@ -1,15 +1,19 @@
-from .config import *
-from flask import Flask
-from pathlib import Path
-import discord
-from discord.ext import commands
 import json
 import sys
+from pathlib import Path
+
+import discord
+from discord.ext import commands
+from flask import Flask
+from zenora import APIClient
+
+from .config import *
 
 sys.dont_write_bytecode = True
 
 APP = Flask(__name__)
 BOT = commands.Bot(command_prefix='>', intents=discord.Intents.all())
+CLIENT = APIClient(BOT_SECRET, client_secret=CLIENT_SECRET)
 
 @BOT.event
 async def on_connect():
