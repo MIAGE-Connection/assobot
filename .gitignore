@@ -289,3 +289,14 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Config files
+assobot/config.py
+
+# Dist folders
+*/dist
+
+# Plugins folders
+assobot/plugins/*/**
+assobot/static/plugins/*/**
+assobot/templates/plugins/*/**
