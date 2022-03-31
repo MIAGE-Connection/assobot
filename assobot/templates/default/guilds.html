@@ -17,7 +17,7 @@ Choose your guild
                 <nav>
                     <ul>
                         <li>
-                            {% if guild.icon_url %}}
+                            {% if guild.icon_url %}
                             <img src="{{ guild.icon_url}}" alt="Guild Icon URL" style="border-radius: 100px;" />
                             {% else %}
                             <img src="{{ url_for('static', filename='default/img/default-guild.png') }}" alt="Guild Icon URL" style="border-radius: 100px;" />
