@@ -14,6 +14,7 @@ sys.dont_write_bytecode = True
 APP = Flask(__name__)
 BOT = commands.Bot(command_prefix='>', intents=discord.Intents.all())
 CLIENT = APIClient(BOT_SECRET, client_secret=CLIENT_SECRET)
+CURRENT_USER = None
 
 @BOT.event
 async def on_connect():
