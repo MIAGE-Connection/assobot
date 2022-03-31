@@ -1,33 +1,31 @@
-from crypt import methods
+from assobot import APP, BOT, BOT_SECRET, TMP_FOLDER_PLUGIN
+from flask import *
+from threading import Thread
+from functools import partial
 import os
 from pathlib import *
 import uuid
-from assobot import TMP_FOLDER_PLUGIN
-from flask import Flask, render_template, flash, redirect, request, url_for
 from werkzeug.utils import secure_filename
-
+import discord
 
 from assobot.core.utils.logger import get_logger
 from assobot.core.plugin.plugin_manager import PluginManager
 
 LOGGER = get_logger(__name__)
 
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = uuid.uuid4()
+APP.config['SECRET_KEY'] = uuid.uuid4()
 
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 ALLOWED_EXTENSIONS = set(['zip'])
 
-app = Flask(__name__)
 manager = PluginManager()
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/', methods=['GET', 'POST'])
-def upload_file():
+@APP.route('/', methods=['GET', 'POST'])
+def home():
 
    if request.method == 'POST':
       if 'file' not in request.files:
@@ -46,7 +44,7 @@ def upload_file():
 
    return render_template('default/index.html', plugins=list(manager.plugins.values()))
 
-@app.route('/plugin/<plugin_id>/settings')
+@APP.route('/plugin/<plugin_id>/settings')
 def open_plugin_settings(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
@@ -55,7 +53,7 @@ def open_plugin_settings(plugin_id):
 
    return render_template(f"plugins/{plugin.namespace}/settings.html", plugin=plugin)
 
-@app.route('/plugin/<plugin_id>/settings/update',  methods=['POST'])
+@APP.route('/plugin/<plugin_id>/settings/update',  methods=['POST'])
 def update_plugin_settings(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
       
@@ -68,7 +66,7 @@ def update_plugin_settings(plugin_id):
 
    return redirect(f'/plugin/{plugin.id}/settings')
 
-@app.route('/plugin/<plugin_id>/remove')
+@APP.route('/plugin/<plugin_id>/remove')
 def remove_plugin(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
@@ -79,7 +77,7 @@ def remove_plugin(plugin_id):
 
    return redirect('/')
 
-@app.route('/plugin/<plugin_id>/enabled')
+@APP.route('/plugin/<plugin_id>/enabled')
 def enable_plugin(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
@@ -90,7 +88,7 @@ def enable_plugin(plugin_id):
 
    return redirect('/')
 
-@app.route('/plugin/<plugin_id>/disabled')
+@APP.route('/plugin/<plugin_id>/disabled')
 def disable_plugin(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
@@ -103,5 +101,7 @@ def disable_plugin(plugin_id):
 
 def launch():
    LOGGER.info('START Assobot Application')
-   app.run()
+   partial_run = partial(APP.run, host="127.0.0.1", port=5000, debug=True, use_reloader=False)
+   Thread(target=partial_run).start()
+   BOT.run(BOT_SECRET)
    LOGGER.info('STOP Assobot Application')

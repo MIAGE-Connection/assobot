@@ -1,11 +1,19 @@
-import sys
-import json
+from .config import BOT_SECRET
+from flask import Flask
+from pathlib import Path
 import discord
 from discord.ext import commands
+import json
+import sys
 
 sys.dont_write_bytecode = True
 
-from pathlib import Path
+APP = Flask(__name__)
+BOT = commands.Bot(command_prefix='>', intents=discord.Intents.all())
+
+@BOT.event
+async def on_connect():
+    print("The BOT have started !")
 
 def get_or_create_folder_path(path : Path) -> Path:
     if not path.exists():
@@ -22,8 +30,6 @@ def get_or_create_json_file_path(path: Path) -> Path:
         with open(path, 'w') as wtr:
             json.dump(dict(), wtr)
     return path
-
-BOT = commands.Bot(command_prefix='>', intents=discord.Intents.default())
 
 ASSOBOT_FOLDER = get_or_create_folder_path(Path().home() / '.assobot')
 ASSOBOT_SETTINGS_FILE = get_or_create_json_file_path(ASSOBOT_FOLDER / 'settings.json')
