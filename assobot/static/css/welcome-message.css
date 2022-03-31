@@ -1,0 +1,88 @@
+.card {
+  background-color: #2b309b;
+  color: white;
+  border-radius: 20px;
+}
+
+.card-img-top {
+  width: 125px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+.card-title {
+  margin-bottom: 10px;
+  font-family: HelveticaNeueText;
+}
+.card-text {
+  margin-bottom: 20px;
+  font-family: HelveticaNeueText;
+}
+.div-switch {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 0;
+}
+.accordion {
+  width: 75vw;
+}
+.accordion-item {
+  background-color: rgb(233 234 244);
+}
+.accordion-body {
+  display: block;
+}
+.plugin-gallery-title {
+  width: 75vw;
+  text-align: left;
+  font-size: 25px;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.plugin-gallery-description {
+  width: 75vw;
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.logo-img {
+  width: 250px;
+}
+.bot-discord-logo {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+.bot-discord-buttons {
+  text-align: end;
+  padding: 20px;
+}
+.button-discord-img {
+  width: 25px;
+  margin-right: 8px;
+}
+.bottom {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  background-color: #dcddee;
+  font-family: HelveticaNeueText;
+}
+.align-left {
+  margin-right: auto;
+  left: 0;
+  margin-left: 0;
+}
+.param-description {
+  margin-bottom: 10px;
+  font-family: HelveticaNeueText;
+}
+.title-img {
+  width: 60px;
+  margin-right: 20px;
+}

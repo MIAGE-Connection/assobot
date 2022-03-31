@@ -1,105 +1,193 @@
 .home-content {
-    min-height: 100vh;
-    background-color: #DCDDEE;
+  min-height: 100vh;
+  background-color: #dcddee;
 }
 
 .plugin-gallery {
-    height: fit-content;
+  height: fit-content;
 }
 
 .plugin-gallery-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .plugin-gallery-title {
-    font-family: MontserratTitle;
+  font-family: MontserratTitle;
 }
 
-
 .plugin-gallery-description {
-    font-family: HelveticaNeueText;
+  font-family: HelveticaNeueText;
 }
 
 /* The switch - the box around the slider */
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #00CA57;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #00CA57;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #00ca57;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #00ca57;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
 .button-profile-discord {
-    background-color: #5865F2;
-    padding: 5px 10px 5px 10px;
-    border-radius: 10px;
-    color: white;
-    height: 42px;
-    font-family: HelveticaNeueText;
+  background-color: #5865f2;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  color: white;
+  height: 42px;
+  font-family: HelveticaNeueText;
 }
 
 .button-disconnected-discord {
-    background-color: #F25858;
-    padding: 5px 10px 5px 10px;
-    border-radius: 10px;
-    color: white;
-    height: 42px;
-    font-family: HelveticaNeueText;
+  background-color: #f25858;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  color: white;
+  height: 42px;
+  font-family: HelveticaNeueText;
+}
+
+.card {
+  background-color: #2b309b !important;
+  color: white !important;
+  border-radius: 20px !important;
+}
+
+.card-img-top {
+  width: 125px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 25px !important;
+  margin-bottom: 10px !important;
+}
+
+.card-title {
+  margin-bottom: 10px !important;
+  font-family: HelveticaNeueText !important;
+}
+
+.card-text {
+  margin-bottom: 20px !important;
+  font-family: HelveticaNeueText !important;
+}
+
+.div-switch {
+  width: fit-content !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+.accordion {
+  width: 75vw !important;
+}
+
+.accordion-item {
+  background-color: rgb(233 234 244) !important;
+}
+
+.accordion-body {
+  display: inline-block !important;
+}
+
+.plugin-gallery-title {
+  width: 75vw !important;
+  text-align: left !important;
+  font-size: 25px !important;
+  margin-bottom: 15px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.plugin-gallery-description {
+  width: 75vw !important;
+  text-align: left !important;
+  font-size: 14px !important;
+  margin-bottom: 20px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.logo-img {
+  width: 250px !important;
+}
+
+.bot-discord-logo {
+  width: fit-content !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: 40px !important;
+}
+
+.bot-discord-buttons {
+  text-align: end !important;
+  padding: 20px !important;
+}
+
+.button-discord-img {
+  width: 25px !important;
+  margin-right: 8px !important;
+}
+
+.bottom {
+  padding-top: 30px !important;
+  padding-bottom: 30px !important;
+  text-align: center !important;
+  background-color: #dcddee !important;
+  font-family: HelveticaNeueText !important;
 }
