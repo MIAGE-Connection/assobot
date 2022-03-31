@@ -20,7 +20,7 @@ def open_plugin_settings(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
-      return redirect('/')
+      return redirect('/plugins')
 
    return render_template(f"plugins/{plugin.namespace}/settings.html", plugin=plugin)
 
