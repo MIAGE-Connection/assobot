@@ -11,6 +11,7 @@ from zenora import APIClient
 from assobot import APP, BOT, BOT_SECRET, TMP_FOLDER_PLUGIN, CLIENT_SECRET, REDIRECT_OAUTH_URL, REDIRECT_URL
 from assobot.core.plugin.plugin_manager import PluginManager
 from assobot.core.utils.logger import get_logger
+from assobot.core.plugin.plugin_manager import PluginManager
 
 LOGGER = get_logger(__name__)
 
