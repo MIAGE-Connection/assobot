@@ -11,6 +11,5 @@ class welcomePlugin(AbstractPlugin):
 
     @commands.command()
     async def hello(self, ctx):
-        self.enabled = True
         if not self.enabled: return
         await ctx.channel.send(self.settings.get("hello-message"))
