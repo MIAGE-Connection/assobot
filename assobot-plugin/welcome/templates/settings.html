@@ -1,0 +1,20 @@
+{% extends 'default/layout/layout.html' %}
+
+{% block title %}
+{{ plugin.name }} - Settings
+{% endblock %}
+
+{% block plugin_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/{{ plugin.name }}/css/plugin.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<div class="container">
+    <h1>Hello world</h1>
+</div>
+{% endblock %}
+
+{% block plugin_script %}
+<script src="{{ url_for('static', filename='plugins/{{ plugin.name }}/js/plugin.js') }}"></script>
+{% endblock %}
