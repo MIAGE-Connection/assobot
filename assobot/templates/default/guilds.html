@@ -8,7 +8,7 @@ Choose your guild
 <!-- Main -->
 <div class="container">
     <h1>Sélectionner un serveur</h1>
-    {%- for row in guilds|batch(3) %}
+    {%- for row in guilds_joined|batch(3) %}
 
     <div class="grid">
         {% for guild in row %}
@@ -27,7 +27,33 @@ Choose your guild
                     </ul>
                 </nav>
             </header>
-            <a href="/guild/{{guild.id}}" role="button">Configurer</a>
+            <a href="/guild/{{ guild.id }}" role="button">Configurer</a>
+        </article>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+
+    {%- for row in guilds_not_joined|batch(3) %}
+
+    <div class="grid">
+        {% for guild in row %}
+        <article>
+            <header>
+                <nav>
+                    <ul>
+                        <li>
+                            {% if guild.icon_url %}
+                            <img src="{{ guild.icon_url}}" alt="Guild Icon URL" style="border-radius: 100px;" />
+                            {% else %}
+                            <img src="{{ url_for('static', filename='default/img/default-guild.png') }}" alt="Guild Icon URL" style="border-radius: 100px;" />
+                            {% endif %}
+                        </li>
+                        <li>{{ guild.name}}</li>
+                    </ul>
+                </nav>
+            </header>
+            <a href="{{ partial_url }}{{ guild.id }}" role="button">Ajouter</a>
         </article>
         {% endfor %}
     </div>
