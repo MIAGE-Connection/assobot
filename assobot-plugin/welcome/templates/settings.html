@@ -11,7 +11,7 @@
 {% block content %}
 
 <div class="container">
-  <form action="/plugin/{{plugin.id}}/settings/update" method="post">
+  <form action="/plugin/{{ plugin.id }}/settings/update" method="post">
     <h1><img src="{{url_for('static', filename='default/img/welcome.png')}}"> Welcome message</h1>
 
     <p>Do quis tempor amet labore est non dolore anim dolor pariatur. Ipsum ea proident culpa dolor duis. Laboris sunt
@@ -25,7 +25,7 @@
         <summary>
           <nav>
             <ul>
-              <li>Envoyer un message quand un membre rejoint votre serveur</li>
+              <li><strong>Hello command</strong> : Send hello to your members</li>
             </ul>
             <ul>
               <li>
@@ -36,50 +36,9 @@
             </ul>
           </nav>
         </summary>
-
-        <p>Ullamco sint tempor aliqua in. Nostrud amet officia consequat eu reprehenderit proident aute nisi fugiat
-          incididunt fugiat ea incididunt. Qui elit laborum ea mollit velit aliquip sint quis adipisicing.</p>
-      </details>
-
-      <details>
-        <summary>
-          <nav>
-            <ul>
-              <li>Envoyer un message privé quand un membre rejoint votre serveur</li>
-            </ul>
-            <ul>
-              <li>
-                <label for="switch">
-                  <input type="checkbox" id="switch" name="switch" role="switch">
-                </label>
-              </li>
-            </ul>
-          </nav>
-        </summary>
-        <p>Tempor laboris amet quis sunt pariatur officia consectetur culpa dolor do laboris adipisicing. Non cillum ex
-          incididunt magna magna anim do incididunt in excepteur. Voluptate cillum laboris dolore nulla eu fugiat
-          officia
-          irure eiusmod ut. Commodo eu tempor deserunt aliqua proident amet. Sint voluptate ad est veniam officia enim
-          irure est nostrud qui cupidatat.</p>
-      </details>
-
-      <details>
-        <summary>
-          <nav>
-            <ul>
-              <li>Envoyer un message quand un membre quitte votre serveur</li>
-            </ul>
-            <ul>
-              <li>
-                <label for="switch">
-                  <input type="checkbox" id="switch" name="switch" role="switch">
-                </label>
-              </li>
-            </ul>
-          </nav>
-        </summary>
-        <p>Aliqua nisi ipsum enim consectetur sint. Adipisicing ut reprehenderit proident laborum deserunt anim eu sint
-          anim anim. Occaecat aute nisi do id officia eiusmod cillum nostrud.</p>
+        <p>Personalize the welcoming message send with the command <strong>'>hello'</strong>.</p>
+        <input type="text" id="hello-message" name="hello-message" placeholder="Hello message"
+          value="{{ plugin.settings.get('hello-message') }}">
       </details>
     </div>
 
