@@ -1,6 +1,6 @@
 import discord
 
-from assobot import APP, BOT, CURRENT_USER, PARTIAL_URL_BOT_ADD
+from assobot import APP, BOT, CURRENT_USER, PARTIAL_URL_BOT_ADD, PLUGIN_MANAGER
 from flask import *
 from zenora import APIClient
 
@@ -35,7 +35,7 @@ def guild_manage(idGuild=None):
         bearer_client = APIClient(session.get('token'), bearer=True)
         CURRENT_USER = bearer_client.users.get_current_user()
         guild_user = getGuildById(bearer_client.users.get_my_guilds(), idGuild)
-        return render_template('default/plugin/plugin_list.html', current_user=CURRENT_USER, guild=guild_user)
+        return render_template('default/plugin/plugin_list.html', current_user=CURRENT_USER, guild=guild_user, plugins=list(PLUGIN_MANAGER.plugins.values()))
 
 @APP.route('/guild/callback')
 def callback_guild():
