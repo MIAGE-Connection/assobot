@@ -71,6 +71,7 @@ The project is composed of 2 project :
 
 - Assobot (Discord Bot and WebServer)
 - Assobot-sdk (CLI and plugin tools)
+- Assobot-plugin (Source code of default plugins)
 
 #### Assobot
 
