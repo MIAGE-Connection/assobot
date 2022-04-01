@@ -48,7 +48,49 @@ poetry install
 poetry run launch-bot
 ```
 
-## Create your first plugin
+
+
+## Project development
+
+### FrontEnd
+
+In order to simplify the development of new page for the website we decided to use de micro framework CSS PicoCSS. 
+
+* [Website](https://picocss.com)
+* [Documentation](https://picocss.com/docs/)
+
+### Backend
+
+#### Route 
+
+All route are initialized in python package ***assobot.core.package.route***, and each functionnal domain has it own file (plugin, guild, etc..)
+
+#### File Structure
+
+The project is composed of 2 project :
+
+- Assobot (Discord Bot and WebServer)
+- Assobot-sdk (CLI and plugin tools)
+
+#### Assobot
+
+The Assobot project contains many folders and files :
+- core (source code of the project)
+- plugins (install folder of all assobot plugin)
+- static/default (resources files of default website)
+- static/plugins (resources files of plugins)
+- templates/default (HTML file of default website)
+- templates/plugins (HTML file of plugins)
+
+> For ***static*** and ***templates*** each plugin has it's own folder.
+
+#### Assobot-sdk
+
+The SDK project contains many folders and files :
+- plugin/plugin_template (template used to initialise new plugin)
+- plugin/plugin_default (folder which contains source code of default plugin like '**WelcomePlugin**')
+
+## Plugin development
 
 In order to create your first assobot plugin you can use the assobot-sdk. This SDK contains various scripts that handle creation, package, etc for Assobot plugin.
 
@@ -75,7 +117,7 @@ Finally, you will get a new folder which contains your plugin. The folder struct
 
 If you want add features you can code into the **core** folder and call it from the file **plugin.py**
 
-## Build your plugin
+### Build your plugin
 
 When your plugin is ready, you can build it thanks to the command below.
 
