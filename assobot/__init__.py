@@ -1,3 +1,4 @@
+import imp
 import json
 import sys
 from pathlib import Path
@@ -8,6 +9,7 @@ from flask import Flask
 from zenora import APIClient
 
 from .config import *
+
 
 sys.dont_write_bytecode = True
 
@@ -57,3 +59,8 @@ SOURCE_PLUGIN_FOLDER = get_or_create_folder_path(Path(__file__).parent / 'plugin
 
 APP_SETTINGS_MANAGER = SettingManager(ASSOBOT_SETTINGS_FILE)
 APP_SETTINGS_MANAGER.save()
+
+
+from assobot.core.plugin.plugin_manager import PluginManager
+
+PLUGIN_MANAGER = PluginManager()

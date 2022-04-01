@@ -2,14 +2,11 @@ import os
 import uuid
 from pathlib import Path
 
-from assobot import APP, TMP_FOLDER_PLUGIN
-from assobot.core.plugin.plugin_manager import PluginManager
+from assobot import APP, PLUGIN_MANAGER, TMP_FOLDER_PLUGIN
 from flask import *
 from werkzeug.utils import secure_filename
 
 ALLOWED_EXTENSIONS = set(['zip'])
-
-manager = PluginManager()
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -17,7 +14,7 @@ def allowed_file(filename):
 
 @APP.route('/plugin/<plugin_id>/settings')
 def plugin_settings_open(plugin_id):
-   plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
       return redirect('/plugins')
@@ -26,7 +23,7 @@ def plugin_settings_open(plugin_id):
 
 @APP.route('/plugin/<plugin_id>/settings/update',  methods=['POST'])
 def plugin_settings_update(plugin_id):
-   plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
       
    if plugin is None:
       return redirect('/')
@@ -39,18 +36,18 @@ def plugin_settings_update(plugin_id):
 
 @APP.route('/plugin/<plugin_id>/remove')
 def plugin_remove(plugin_id):
-   plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
       redirect('/plugins/manage')
 
-   manager.unload_plugin(plugin)
+   PLUGIN_MANAGER.unload_plugin(plugin)
 
    return redirect('/plugins/manage')
 
 @APP.route('/plugin/<plugin_id>/enabled')
 def plugin_enable(plugin_id):
-   plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
       redirect('/')
@@ -61,7 +58,7 @@ def plugin_enable(plugin_id):
 
 @APP.route('/plugin/<plugin_id>/disabled')
 def plugin_disable(plugin_id):
-   plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
+   plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
       redirect('/')
@@ -86,10 +83,10 @@ def plugin_manage():
          filename = secure_filename(file.filename)
          dst_file_path = Path(os.path.join(TMP_FOLDER_PLUGIN, filename))
          file.save(dst_file_path)
-         manager.load_plugin(dst_file_path)
+         PLUGIN_MANAGER.load_plugin(dst_file_path)
 
-   return render_template('default/plugin/plugin_manage.html', plugins=list(manager.plugins.values()))
+   return render_template('default/plugin/plugin_manage.html', plugins=list(PLUGIN_MANAGER.plugins.values()))
 
 @APP.route('/plugins')
 def plugin_list():
-    return render_template('default/plugin/plugin_list.html')
+   return render_template('default/plugin/plugin_list.html', plugins=list(PLUGIN_MANAGER.plugins.values()))

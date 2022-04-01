@@ -14,99 +14,36 @@
   <p>Non deserunt labore occaecat duis aute qui officia excepteur. Sunt nostrud labore minim anim aute excepteur
     proident. Cillum consequat irure mollit magna sit aliqua excepteur amet. Nisi labore sunt esse ullamco. Velit
     pariatur et incididunt elit enim cupidatat Lorem ipsum ut est enim.</p>
-  <div class="grid">
-    <article>
-      <header>
-        <nav>
-          <ul>
-            <li> <img src="{{ url_for('static', filename='default/img/welcome.png') }}" /></li>
-            <li>Lorem Ipsum</li>
-          </ul>
-          <ul>
-            <li>
-              <label for="switch">
-                <input type="checkbox" id="switch" name="switch" role="switch" value="true">
-              </label>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <p>Lorem ipsus Fsqosidid pqsidjq paosksnx jjsodkf oqkqksj dkinqod</p>
-      <footer>
-        <a href="#" role="button">Configure</a>
-      </footer>
-    </article>
-    <article>
-      <header>
-        <nav>
-          <ul>
-            <li><img src="{{ url_for('static', filename='default/img/welcome.png') }}" /></li>
-            <li>Lorem Ipsum</li>
-          </ul>
-          <ul>
-            <li>
-              <label for="switch">
-                <input type="checkbox" id="switch" name="switch" role="switch" value="true">
-              </label>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <p>Lorem ipsus Fsqosidid pqsidjq paosksnx jjsodkf oqkqksj dkinqod</p>
-      <footer>
-        <a href="#" role="button">Configure</a>
-      </footer>
-    </article>
-    <article>
-      <header>
-        <nav>
-          <ul>
-            <li> <img src="{{ url_for('static', filename='default/img/facebook.png') }}" /></li>
-            <li>Facebook</li>
-          </ul>
-          <ul>
-            <li>
-              <label for="switch">
-                <input type="checkbox" id="switch" name="switch" role="switch" value="true">
-              </label>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <p>Lorem ipsus Fsqosidid pqsidjq paosksnx jjsodkf oqkqksj dkinqod</p>
-      <footer>
-        <a href="#" role="button">Configure</a>
-      </footer>
-    </article>
-  </div>
-  <div class="grid">
-    <article>
-      <header>
-        <nav>
-          <ul>
-            <li> <img src="{{ url_for('static', filename='default/img/instagram.png') }}" /></li>
-            <li>Instagram</li>
-          </ul>
-          <ul>
-            <li>
-              <label for="switch">
-                <input type="checkbox" id="switch" name="switch" role="switch" value="true">
-              </label>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <p>Lorem ipsus Fsqosidid pqsidjq paosksnx jjsodkf oqkqksj dkinqod</p>
-      <footer>
-        <a href="#" role="button">Configure</a>
-      </footer>
-    </article>
-    <div></div>
-    <div></div>
-  </div>
 
-  <a href="/plugins/manage">
-    <button>Manage plugin</button>
-  </a>
-</div>
-{% endblock %}
+  {% for plugin_row in plugins|batch(2)%}
+  <div class="grid">
+    {% for plugin in plugin_row %}
+      <article>
+        <header>
+          <nav>
+            <ul>
+              <li> <img src="{{ url_for('static', filename='default/img/welcome.png') }}" /></li>
+              <li>{{ plugin.name }}</li>
+            </ul>
+            <ul>
+              <li>
+                <label for="switch">
+                  <input type="checkbox" id="switch" name="switch" role="switch" value="true">
+                </label>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <p>{{ plugin.description }}</p>
+        <footer>
+          <a href="/plugin/{{plugin.id}}/settings" role="button">Configure</a>
+        </footer>
+      </article>
+      {% endfor %}
+    </div>
+  {% endfor %}
+    <a href="/plugins/manage">
+      <button>Manage plugin</button>
+    </a>
+  </div>
+  {% endblock %}
