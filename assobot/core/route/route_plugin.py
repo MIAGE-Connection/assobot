@@ -16,7 +16,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @APP.route('/plugin/<plugin_id>/settings')
-def open_plugin_settings(plugin_id):
+def plugin_settings_open(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
@@ -25,7 +25,7 @@ def open_plugin_settings(plugin_id):
    return render_template(f"plugins/{plugin.namespace}/settings.html", plugin=plugin)
 
 @APP.route('/plugin/<plugin_id>/settings/update',  methods=['POST'])
-def update_plugin_settings(plugin_id):
+def plugin_settings_update(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
       
    if plugin is None:
@@ -38,7 +38,7 @@ def update_plugin_settings(plugin_id):
    return redirect(f'/plugin/{plugin.id}/settings')
 
 @APP.route('/plugin/<plugin_id>/remove')
-def remove_plugin(plugin_id):
+def plugin_remove(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
@@ -49,7 +49,7 @@ def remove_plugin(plugin_id):
    return redirect('/plugins/manage')
 
 @APP.route('/plugin/<plugin_id>/enabled')
-def enable_plugin(plugin_id):
+def plugin_enable(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
@@ -60,7 +60,7 @@ def enable_plugin(plugin_id):
    return redirect('/')
 
 @APP.route('/plugin/<plugin_id>/disabled')
-def disable_plugin(plugin_id):
+def plugin_disable(plugin_id):
    plugin = manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
@@ -71,7 +71,7 @@ def disable_plugin(plugin_id):
    return redirect('/')
 
 @APP.route('/plugins/manage', methods=['GET', 'POST'])
-def plugin_upload():
+def plugin_manage():
 
    if request.method == 'POST':
       if 'file' not in request.files:
@@ -91,5 +91,5 @@ def plugin_upload():
    return render_template('default/plugin/plugin_manage.html', plugins=list(manager.plugins.values()))
 
 @APP.route('/plugins')
-def plugins_list():
+def plugin_list():
     return render_template('default/plugin/plugin_list.html')

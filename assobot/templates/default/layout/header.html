@@ -1,9 +1,10 @@
 <nav>
     <ul>
-        <li><img id="mc-logo-header" src="{{ url_for('static', filename='default/img/logo-miage-connection.png')}}"></li>
+        <li><a href="/"><img id="mc-logo-header" src="{{ url_for('static', filename='default/img/logo-miage-connection.png')}}"></a></li>
     </ul>
     {% if current_user %}
     <ul>
+        <li><a href="/guilds" role="button">Guilds</a></li>
         <li><a role="button" class="outline">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord"
                     viewBox="0 0 16 16">
