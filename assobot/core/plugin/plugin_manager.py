@@ -5,7 +5,7 @@ import importlib
 import subprocess
 from pathlib import Path
 
-from assobot import PLUGIN_FOLDER, STATIC_PLUGIN_FOLDER, TEMPLATE_PLUGIN_FOLDER, TMP_FOLDER_PLUGIN
+from assobot import BOT, PLUGIN_FOLDER, STATIC_PLUGIN_FOLDER, TEMPLATE_PLUGIN_FOLDER, TMP_FOLDER_PLUGIN
 from assobot.core.plugin import AbstractPlugin
 
 from assobot.core.utils import get_logger
@@ -93,8 +93,9 @@ class PluginManager:
 
     def __add_plugin(self, plugin_name : str) -> None:
         module = importlib.import_module(f"assobot.plugins.{plugin_name}.plugin")
-        plugin_class = getattr(module, 'Plugin')
+        plugin_class = getattr(module, f"{plugin_name}Plugin")
         plugin = plugin_class()
+        BOT.add_cog(plugin)
         self.__plugins[plugin.id] = plugin
 
     def unload_plugin(self, plugin : AbstractPlugin) -> None:
@@ -119,5 +120,6 @@ class PluginManager:
         LOGGER.info("Remove source files")
         shutil.rmtree(source_plugin_folder)
 
-    def __remove_plugin(self, plugin : AbstractPlugin) -> None:
+    def __remove_plugin(self, plugin) -> None:
+        BOT.remove_cog(f"{plugin.name}Plugin")
         self.__plugins.pop(plugin.id)

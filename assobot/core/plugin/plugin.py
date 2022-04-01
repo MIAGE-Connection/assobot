@@ -1,16 +1,18 @@
 import uuid
 
+from discord.ext import commands
+
 from assobot import BOT, SOURCE_PLUGIN_FOLDER, STATIC_PLUGIN_FOLDER, TEMPLATE_PLUGIN_FOLDER
 from assobot.core.settings.settings_manager import SettingManager
 
 __all__ = ['AbstractPlugin']
 
-class AbstractPlugin:
+class AbstractPlugin(commands.Cog):
 
     def __init__(self, name, description) -> None:
         self.__id = uuid.uuid4()
         self.__bot = BOT
-        self.__enabled = False
+        self.__enabled = True
         self.__name = name
         self.__description = description
         self.__static_folder = STATIC_PLUGIN_FOLDER / self.__name.lower()
