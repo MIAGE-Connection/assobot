@@ -28,7 +28,7 @@
             <ul>
               <li>
                 <label for="switch">
-                  <input type="checkbox" id="switch" name="switch" role="switch" value="true">
+                  <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch" value="true" {% if plugin.enabled %} checked {% endif %}>
                 </label>
               </li>
             </ul>

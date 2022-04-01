@@ -1,3 +1,4 @@
+import json
 import os
 import uuid
 from pathlib import Path
@@ -49,23 +50,19 @@ def plugin_remove(plugin_id):
 def plugin_enable(plugin_id):
    plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
    
-   if plugin is None:
-      redirect('/')
+   if plugin is not None:
+      plugin.enabled = True
 
-   plugin.enabled = True
-
-   return redirect('/')
+   return jsonify(success=plugin is not None)
 
 @APP.route('/plugin/<plugin_id>/disabled')
 def plugin_disable(plugin_id):
    plugin = PLUGIN_MANAGER.plugins.get(uuid.UUID(plugin_id), None)
    
-   if plugin is None:
-      redirect('/')
+   if plugin is not None:
+      plugin.enabled = False
 
-   plugin.enabled = False
-
-   return redirect('/')
+   return jsonify(success=plugin is not None)
 
 @APP.route('/plugins/manage', methods=['GET', 'POST'])
 def plugin_manage():
