@@ -6,7 +6,7 @@ from threading import Thread
 import discord
 from flask import *
 
-from assobot import APP, BOT, BOT_SECRET, CLIENT_SECRET, REDIRECT_OAUTH_URL, REDIRECT_URL
+from assobot import APP, CLIENT, BOT, BOT_SECRET, CLIENT_SECRET, REDIRECT_OAUTH_URL, REDIRECT_URL
 from assobot.core.route import *
 from assobot.core.utils.logger import get_logger
 
@@ -18,7 +18,10 @@ UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
 @APP.route('/')
 def home():
-   return render_template('default/index.html', redirect_oauth_uri=REDIRECT_OAUTH_URL)
+   if 'token' in session:
+      bearer_client = APIClient(session.get('token'), bearer=True)
+      current_user = bearer_client.users.get_current_user()
+   return render_template('default/index.html', redirect_oauth_uri=REDIRECT_OAUTH_URL, current_user=current_user)
 
 def launch():
    LOGGER.info('START Assobot Application')
