@@ -18,6 +18,7 @@ UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
 @APP.route('/')
 def home():
+   current_user = None
    if 'token' in session:
       bearer_client = APIClient(session.get('token'), bearer=True)
       current_user = bearer_client.users.get_current_user()
