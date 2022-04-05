@@ -1,11 +1,12 @@
 import os
+import json
 import shutil
 import zipfile
 import importlib
 import subprocess
 from pathlib import Path
 
-from assobot import BOT, PLUGIN_FOLDER, STATIC_PLUGIN_FOLDER, TEMPLATE_PLUGIN_FOLDER, TMP_FOLDER_PLUGIN
+from assobot import ASSOBOT_PLUGIN_SETTING_FOLDER, BOT, PLUGIN_FOLDER, STATIC_PLUGIN_FOLDER, TEMPLATE_PLUGIN_FOLDER, ASSOBOT_PLUGIN_TEMP_FOLDER
 from assobot.core.plugin import AbstractPlugin
 
 from assobot.core.utils import get_logger
@@ -46,14 +47,14 @@ class PluginManager:
             LOGGER.error(f"Plugin file doesn't exist ({plugin_path})")
             return
         
-        plugin_tmp_folder = TMP_FOLDER_PLUGIN / plugin_name
+        plugin_tmp_folder = ASSOBOT_PLUGIN_TEMP_FOLDER / plugin_name
 
         LOGGER.info("Extract plugin")
         with zipfile.ZipFile(plugin_path, 'r') as zip_ref:
             zip_ref.extractall(plugin_tmp_folder)
 
     def __copy_to_plugin_folder(self, plugin_name : str) -> None:
-        plugin_tmp_folder = TMP_FOLDER_PLUGIN / plugin_name
+        plugin_tmp_folder = ASSOBOT_PLUGIN_TEMP_FOLDER / plugin_name
 
         templates_tmp_plugin_folder = plugin_tmp_folder / 'templates'
         templates_plugin_folder = TEMPLATE_PLUGIN_FOLDER / plugin_name
@@ -64,8 +65,19 @@ class PluginManager:
         source_core_tmp_plugin_folder = plugin_tmp_folder / 'core'
         source_core_plugin_folder = PLUGIN_FOLDER / plugin_name / 'core'
 
-        source_tmp_plugin_folder = TMP_FOLDER_PLUGIN / plugin_name
+        source_tmp_plugin_folder = ASSOBOT_PLUGIN_TEMP_FOLDER / plugin_name
         source_plugin_folder = PLUGIN_FOLDER / plugin_name
+
+        settings_plugin_folder = ASSOBOT_PLUGIN_SETTING_FOLDER / plugin_name
+
+        if not settings_plugin_folder.exists():
+            settings_plugin_folder.mkdir()
+
+        settings_plugin_file = settings_plugin_folder / 'settings.json'
+
+        if not settings_plugin_file.exists():
+            with open(settings_plugin_file, 'w') as wtr:
+                json.dump(dict(), wtr)
 
         if not source_plugin_folder.exists():
             source_plugin_folder.mkdir()
@@ -86,7 +98,7 @@ class PluginManager:
         copy_and_overwrite(source_core_tmp_plugin_folder, source_core_plugin_folder)
 
     def __install_dependencies(self, plugin_name : str) -> None:
-        plugin_tmp_folder = TMP_FOLDER_PLUGIN / plugin_name
+        plugin_tmp_folder = ASSOBOT_PLUGIN_TEMP_FOLDER / plugin_name
         requirements_file = plugin_tmp_folder / 'requirements.txt'
         if requirements_file.exists():
             subprocess.call(['pip', 'install', '-r', requirements_file])

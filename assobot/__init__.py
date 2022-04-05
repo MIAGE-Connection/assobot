@@ -39,12 +39,15 @@ def get_or_create_json_file_path(path: Path) -> Path:
     return path
 
 ASSOBOT_FOLDER = get_or_create_folder_path(Path().home() / '.assobot')
-ASSOBOT_SETTINGS_FILE = get_or_create_json_file_path(ASSOBOT_FOLDER / 'settings.json')
-ASSOBOT_PLUGIN_SETTING_FOLDER = get_or_create_folder_path(ASSOBOT_FOLDER / 'setting-plugin')
 
-from assobot.core.settings.settings_manager import SettingManager
+ASSOBOT_SETTINGS_DEFAULT_FILE = get_or_create_json_file_path(Path(__file__).parent / 'settings.json')
+ASSOBOT_SETTINGS_USER_FILE = get_or_create_json_file_path(ASSOBOT_FOLDER / 'settings.json')
 
-TMP_FOLDER_PLUGIN = get_or_create_folder_path(ASSOBOT_FOLDER / 'tmp-plugin')
+ASSOBOT_PLUGIN_SETTING_FOLDER = get_or_create_folder_path(ASSOBOT_FOLDER / 'plugins-settings')
+ASSOBOT_PLUGIN_TEMP_FOLDER = get_or_create_folder_path(ASSOBOT_FOLDER / 'plugins-tmp')
+
+
+
 PLUGIN_FOLDER = get_or_create_folder_path(Path(__file__).parent / 'plugins')
 
 STATIC_FOLDER = get_or_create_folder_path(Path(__file__).parent / 'static')
@@ -57,9 +60,10 @@ TEMPLATE_PLUGIN_FOLDER = get_or_create_folder_path(TEMPLATE_FOLDER / 'plugins')
 
 SOURCE_PLUGIN_FOLDER = get_or_create_folder_path(Path(__file__).parent / 'plugins')
 
-APP_SETTINGS_MANAGER = SettingManager(ASSOBOT_SETTINGS_FILE)
-APP_SETTINGS_MANAGER.save()
+from assobot.core.settings.settings_manager import SettingManager
 
+APP_SETTINGS_MANAGER = SettingManager(ASSOBOT_SETTINGS_DEFAULT_FILE, ASSOBOT_SETTINGS_USER_FILE)
+APP_SETTINGS_MANAGER.save()
 
 from assobot.core.plugin.plugin_manager import PluginManager
 

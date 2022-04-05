@@ -3,7 +3,7 @@ import os
 import uuid
 from pathlib import Path
 
-from assobot import APP, PLUGIN_MANAGER, TMP_FOLDER_PLUGIN
+from assobot import APP, PLUGIN_MANAGER, ASSOBOT_PLUGIN_TEMP_FOLDER
 from flask import *
 from werkzeug.utils import secure_filename
 
@@ -78,7 +78,7 @@ def plugin_manage():
 
       if file and allowed_file(file.filename):
          filename = secure_filename(file.filename)
-         dst_file_path = Path(os.path.join(TMP_FOLDER_PLUGIN, filename))
+         dst_file_path = Path(os.path.join(ASSOBOT_PLUGIN_TEMP_FOLDER, filename))
          file.save(dst_file_path)
          PLUGIN_MANAGER.load_plugin(dst_file_path)
 
