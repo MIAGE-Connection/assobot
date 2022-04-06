@@ -1,8 +1,6 @@
 from flask import *
 
-from zenora import APIClient
 from assobot import APP, CLIENT, REDIRECT_OAUTH_URL, REDIRECT_URL
-
 
 @APP.route('/login')
 def login():

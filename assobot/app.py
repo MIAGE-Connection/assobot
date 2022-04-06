@@ -1,12 +1,7 @@
-import os
 from functools import partial
-from pathlib import *
 from threading import Thread
 
-import discord
-from flask import *
-
-from assobot import APP, BOT, BOT_SECRET, CLIENT_SECRET, REDIRECT_OAUTH_URL, REDIRECT_URL
+from .secret import BOT_SECRET
 from assobot.core.route import *
 from assobot.core.utils.logger import get_logger
 
@@ -18,7 +13,11 @@ UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
 @APP.route('/')
 def home():
-   return render_template('default/index.html', redirect_oauth_uri=REDIRECT_OAUTH_URL)
+   current_user = None
+   if 'token' in session:
+      bearer_client = APIClient(session.get('token'), bearer=True)
+      current_user = bearer_client.users.get_current_user()
+   return render_template('default/index.html', redirect_oauth_uri=REDIRECT_OAUTH_URL, current_user=current_user)
 
 def launch():
    LOGGER.info('START Assobot Application')

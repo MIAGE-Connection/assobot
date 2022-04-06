@@ -291,7 +291,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # Config files
-assobot/config.py
+assobot/secret.py
 
 # Dist folders
 */dist
