@@ -2,8 +2,9 @@
     <ul>
         <li><a href="/"><img id="mc-logo-header" src="{{ url_for('static', filename='default/img/logo-miage-connection.png')}}"></a></li>
     </ul>
-    {% if current_user %}
-    <ul>
+    {% if not error %}
+        {% if current_user %}
+        <ul>
         {% if request.endpoint != 'guild_list' %}
             <li><a href="/guilds" role="button">Guilds</a></li>
         {% endif %}
@@ -16,8 +17,8 @@
             </a></li>
         <li><a href="/logout" role="button">Logout</a></li>
     </ul>
-    {% else %}
-    <ul>
+        {% else %}
+        <ul>
         <li>
             <a href="{{redirect_oauth_uri}}">
                 <button>Se connecter avec
@@ -30,5 +31,6 @@
             </a>
         </li>
     </ul>   
+        {% endif %}
     {% endif %}
 </nav>
