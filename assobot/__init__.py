@@ -10,7 +10,6 @@ from zenora import APIClient
 from .config import *
 from .secret import *
 
-
 sys.dont_write_bytecode = True
 
 APP = Flask(__name__)
@@ -64,3 +63,5 @@ APP_SETTINGS_MANAGER.save()
 from assobot.core.plugin.plugin_manager import PluginManager
 
 PLUGIN_MANAGER = PluginManager()
+
+from .core.error.error import *
