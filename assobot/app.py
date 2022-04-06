@@ -1,12 +1,6 @@
-import os
 from functools import partial
-from pathlib import *
 from threading import Thread
 
-import discord
-from flask import *
-
-from assobot import APP, CLIENT, BOT, BOT_SECRET, CLIENT_SECRET, REDIRECT_OAUTH_URL, REDIRECT_URL
 from assobot.core.route import *
 from assobot.core.utils.logger import get_logger
 

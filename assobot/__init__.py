@@ -1,4 +1,3 @@
-import imp
 import json
 import sys
 from pathlib import Path
@@ -9,6 +8,7 @@ from flask import Flask
 from zenora import APIClient
 
 from .config import *
+from .secret import *
 
 
 sys.dont_write_bytecode = True
