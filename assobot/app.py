@@ -1,6 +1,7 @@
 from functools import partial
 from threading import Thread
 
+from .secret import BOT_SECRET
 from assobot.core.route import *
 from assobot.core.utils.logger import get_logger
 
