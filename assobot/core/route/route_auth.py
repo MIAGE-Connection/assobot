@@ -21,7 +21,7 @@ def callback():
     session['token'] = access_token
     return redirect("/login")
 
-def current_user():
+def current_user_function():
     CURRENT_USER = None
     if 'token' in session :
         bearer_client = APIClient(session.get('token'), bearer=True)
@@ -30,4 +30,4 @@ def current_user():
 
 @APP.context_processor
 def context_processor():
-    return dict(current_user=current_user)
+    return dict(current_user=current_user_function)

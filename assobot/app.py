@@ -13,11 +13,7 @@ UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
 @APP.route('/')
 def home():
-   current_user = None
-   if 'token' in session:
-      bearer_client = APIClient(session.get('token'), bearer=True)
-      current_user = bearer_client.users.get_current_user()
-   return render_template('default/index.html', redirect_oauth_uri=REDIRECT_OAUTH_URL, current_user=current_user)
+   return render_template('default/index.html', redirect_oauth_uri=REDIRECT_OAUTH_URL)
 
 def launch():
    LOGGER.info('START Assobot Application')
