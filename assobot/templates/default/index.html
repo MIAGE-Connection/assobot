@@ -5,107 +5,91 @@ Assobot - MIAGE Connection
 {% endblock %}
 
 {% block content %}
-
-
 <main>
-    <div>
-        <section>
-            <hgroup>
-                <h2>Assobot</h2>
-                <h3>Qu'est ce que c'est ?</h3>
-            </hgroup>
-            <p>
-                Un discord c'est compliquer à configuer ? Mais surtout ça prend du temps et ce sont beaucoup de tâches récurrentes ? <br>
-                Ce Bot discord a été mis en place dans le but de faire gagner du temps aux associations en les assistant dans le management et l'utilisation de leur serveur Discord.
-                L'avantage c'est qu'il est facilement modulable afin de personnaliser son serveur en fonction de ses besoins.
-                <br>
-                Pour configurer votre Bot, vous retrouverez différentes fonctionnalités en vous connectant et en choisissant votre serveur.
-                Ainsi, vous allez pouvoir retrouver des fonctionnalités tel que : <br>
-            </p>
-
-            <div class="grid">
-                <div>
-                    <img src="{{ url_for('static', filename='default/img/admin-accueil.png') }}" alt="admin accueil" style="border-radius: 100px;" />
-                    <p style="text-align: justify;">
-                    <h6>Management du serveur</h6>
-                    <small>
-                        Vous pourrez retrouver différents modules pour administrer facilement votre serveur depuis la plateforme web. <br>
-                        Parmi ces modules de base vous retrouverez la possibilité d'avoir un message d'accueil pour les nouveaux arrivant sur votre serveur,
-                        de mettre en place des rôles aux utilisateurs grâce à la réaction à un message dédié à l'attribution des rôles,
-                        ou encore permettre aux utilisateurs de demander de l'aide aux bonnes personnes de votre association en fonction de la demande.
-                    </small>
-                    </p>
-                </div>
-                <div>
-                    <img src="{{ url_for('static', filename='default/img/reseaux-sociaux-accueil.png') }}" alt="réseaux sociaux accueil" style="border-radius: 100px;" />
-                    <p>
-                    <h6>Réseaux sociaux</h6>
-                    <small>
-                        L'objectif des modules de réseaux sociaux de publier sur un canal de discussion donné, des notifications issues des différents réseaux sociaux de l'association.
-                        Vous aurez donc la possibilité d'activer les modules qui vont sont utiles en fonction de vos réseau (Twitter, Instagram, facebook, ou encore Youtube).
-                    </small>
-                    </p>
-                </div>
-                <div>
-                    <img src="{{ url_for('static', filename='default/img/plugins-accueil.png') }}" alt="plugins accueil" style="border-radius: 100px;" />
-                    <p>
-                    <h6>Ajout de vos propres Plugins</h6>
-                    <small>
-                        Pour que ce Bot soit vraiment modulaire, nous laissons la possibilité aux utilisateurs d'ajouter leurs propres fonctionnalités
-                        grâce à l’installation de Plugin directement depuis l’interface graphique.
-                        Le code étant disponible, il vous est possible de réveiller votre âme de développeur pour créer votre propre module.
-
-                    </small>
-                    </p>
-                </div>
+    <section>
+        <hgroup>
+            <h2>Assobot</h2>
+            <h3>Qu'est ce que c'est ?</h3>
+        </hgroup>
+        <p>
+            Un discord c'est compliquer à configuer ? Mais surtout ça prend du temps et ce sont beaucoup de tâches récurrentes ?
+            <br>
+            Ce Bot discord a été mis en place dans le but de faire gagner du temps aux associations en les assistant dans le management et l'utilisation de leur serveur Discord.
+            L'avantage c'est qu'il est facilement modulable afin de personnaliser son serveur en fonction de ses besoins.
+            <br>
+            Pour configurer votre Bot, vous retrouverez différentes fonctionnalités en vous connectant et en choisissant votre serveur.
+            Ainsi, vous allez pouvoir retrouver des fonctionnalités tels que :
+        </p>
+        <div class="grid">
+            <div>
+                <img src="{{ url_for('static', filename='default/img/admin-accueil.png') }}" alt="admin accueil" />
+                <h6>Management du serveur</h6>
+                <small>
+                    Vous pourrez retrouver différents modules pour administrer facilement votre serveur depuis la plateforme web. <br>
+                    Parmi ces modules de base vous retrouverez la possibilité d'avoir un message d'accueil pour les nouveaux arrivant sur votre serveur,
+                    de mettre en place des rôles aux utilisateurs grâce à la réaction à un message dédié à l'attribution des rôles,
+                    ou encore permettre aux utilisateurs de demander de l'aide aux bonnes personnes de votre association en fonction de la demande.
+                </small>
             </div>
-            <p>
-                <em>Le code de ce Bot est disponible en opensource sur le compte github de la fédération MIAGE Connection (<a href="https://github.com/MIAGE-Connection/assobot">Github disponible ici</a>).</em>
-            </p>
-
-        </section>
-
-        <section>
-            <hgroup>
-                <h2>MIAGE Connection</h2>
-                <h3>Qu'est ce que c'est ?</h3>
-            </hgroup>
-            <p>
-                MIAGE Connection est une association suivant la loi de 1901, qui a été créée en 2004.
-                C'est une fédération de filière et elle regroupe donc les associations reliées au Master MIAGE.
-                Elle a pour objet :
-            <ul>
-                <li>De représenter et de défendre les droits et intérêts du diplôme.</li>
-                <li>De promouvoir le diplôme MIAGE auprès des futurs étudiants, des institutions et du monde professionnel.</li>
-                <li>De contribuer au développement de toute action permettant de favoriser l’insertion professionnelle des étudiants en MIAGE.</li>
-                <li>De développer les liens, les échanges, la coopération et la solidarité entre ses associations membres.</li>
-                <li>De promouvoir l’esprit d’association, l’esprit d'entrepreneuriat et de de solidarité chez les étudiants de MIAGE.</li>
-                <li>De réaliser des actions pour former et informer les étudiants, les diplômés MIAGE et leurs représentants de la filière MIAGE au sein des instances de l’enseignement supérieur.</li>
-            </ul>
-            </p>
-            <figure>
-                <img src="{{ url_for('static', filename='default/img/reseau-accueil.png') }}" alt="reseau accueil" style="border-radius: 100px;" />
-            </figure>
-        </section>
-
-    </div>
-
-    <section aria-label="Contact">
+            <div>
+                <img src="{{ url_for('static', filename='default/img/reseaux-sociaux-accueil.png') }}" alt="réseaux sociaux accueil"/>
+                <h6>Réseaux sociaux</h6>
+                <small>
+                    L'objectif des modules de réseaux sociaux de publier sur un canal de discussion donné, des notifications issues des différents réseaux sociaux de l'association.
+                    Vous aurez donc la possibilité d'activer les modules qui vont sont utiles en fonction de vos réseau (Twitter, Instagram, facebook, ou encore Youtube).
+                </small>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='default/img/plugins-accueil.png') }}" alt="plugins accueil" />
+                <h6>Ajout de vos propres Plugins</h6>
+                <small>
+                    Pour que ce Bot soit vraiment modulaire, nous laissons la possibilité aux utilisateurs d'ajouter leurs propres fonctionnalités
+                    grâce à l’installation de Plugin directement depuis l’interface graphique.
+                    Le code étant disponible, il vous est possible de réveiller votre âme de développeur pour créer votre propre module.
+                </small>
+            </div>
+        </div>
+        <br>
+        <p>Le code de ce Bot est disponible en opensource sur le compte github de la fédération MIAGE Connection (<a href="https://github.com/MIAGE-Connection/assobot">Github disponible ici</a>).</p>
+    </section>
+    <section>
+        <hgroup>
+            <h2>MIAGE Connection</h2>
+            <h3>Qu'est ce que c'est ?</h3>
+        </hgroup>
+        <p>
+            MIAGE Connection est une association suivant la loi de 1901, qui a été créée en 2004.
+            C'est une fédération de filière et elle regroupe donc les associations reliées au Master MIAGE.
+            Elle a pour objet :
+        <ul>
+        <li>De représenter et de défendre les droits et intérêts du diplôme.</li>
+        <li>De promouvoir le diplôme MIAGE auprès des futurs étudiants, des institutions et du monde professionnel.</li>
+        <li>De contribuer au développement de toute action permettant de favoriser l’insertion professionnelle des étudiants en MIAGE.</li>
+        <li>De développer les liens, les échanges, la coopération et la solidarité entre ses associations membres.</li>
+        <li>De promouvoir l’esprit d’association, l’esprit d'entrepreneuriat et de de solidarité chez les étudiants de MIAGE.</li>
+        <li>De réaliser des actions pour former et informer les étudiants, les diplômés MIAGE et leurs représentants de la filière MIAGE au sein des instances de l’enseignement supérieur.</li>
+        </ul>
+        <img src="{{ url_for('static', filename='default/img/reseau-accueil.png') }}" alt="reseau accueil"/>
+        </p>
+    </section>
+    <section>
         <div class="container">
             <article>
+                <hgroup>
                     <h2>Nous contacter</h2>
-                    <p>Tu as une question concernant le Bot Discord, ou plus généralement MIAGE Connection ?</p>
+                    <h3>Tu as une question concernant le Bot Discord, ou plus généralement MIAGE Connection ?</h3>
+                </hgroup>
                 <form class="grid">
                     <dl>
-                            <input type="text" id="firstname" name="firstname" placeholder="Nom et Prénom" aria-label="First name" required="">
-                            <input type="email" id="email" name="email" placeholder="Votre adresse email" aria-label="Email address" required="">
-                            <textarea type="texte" id="texte" name="texte" placeholder="Votre message..." aria-label="Texte" required="" style="resize: none"></textarea>
-                            <button type="submit" onclick="event.preventDefault()">Envoyer</button>
+                        <input type="text" id="nom" name="nom" placeholder="Nom et Prénom" aria-label="Nom" required="">
+                        <input type="email" id="email" name="email" placeholder="Votre adresse email" aria-label="Email" required="">
+                        <input type="text" id="objet" name="objet" placeholder="Objet du mail" aria-label="Objet" required="">
+                        <textarea type="texte" id="message" name="message" placeholder="Votre message..." aria-label="Texte" required="" style="resize: none"></textarea>
+                        <button type="submit" onclick="event.preventDefault()">Envoyer</button>
                     </dl>
                 </form>
             </article>
         </div>
     </section>
 </main>
-
 {% endblock %}
