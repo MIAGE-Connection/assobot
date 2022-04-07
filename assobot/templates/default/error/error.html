@@ -1,0 +1,18 @@
+{% extends 'default/layout/layout.html' %}
+
+{% block title %}
+{{ titre }}
+{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<div class="container">
+    <div id="login-section">
+        <h1>{{ titre }}</h1>
+        <p>{{ message }}</p>
+        <a href="/">
+            <button>Retour vers le site.</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
