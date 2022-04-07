@@ -6,8 +6,8 @@ from .core import *
 
 class welcomePlugin(AbstractPlugin):
 
-    def __init__(self) -> None:
-        super().__init__('welcome', 'Allow bot to welcoming new members')
+    def __init__(self, install_path) -> None:
+        super().__init__('welcome', 'Allow bot to welcoming new members', install_path)
 
     @commands.command()
     async def hello(self, ctx):

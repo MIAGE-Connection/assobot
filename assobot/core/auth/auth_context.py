@@ -18,6 +18,8 @@ class AuthContext:
     @guild.setter
     def guild(self, nguild):
         self.__guild = nguild
+        if self.__plugin_manager is not None:
+            self.__plugin_manager.reset()
         self.__plugin_manager = None if nguild is None else PluginManager(nguild)
 
     @property

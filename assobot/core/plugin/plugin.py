@@ -9,15 +9,16 @@ __all__ = ['AbstractPlugin']
 
 class AbstractPlugin(commands.Cog):
 
-    def __init__(self, name, description) -> None:
+    def __init__(self, name, description, install_path) -> None:
         self.__id = uuid.uuid4()
         self.__bot = BOT
         self.__enabled = True
         self.__name = name
         self.__description = description
-        self.__static_folder = STATIC_PLUGIN_FOLDER / self.__name.lower()
-        self.__templates_folder = TEMPLATE_PLUGIN_FOLDER / self.__name.lower()
-        self.__settings = SettingManager(SOURCE_PLUGIN_FOLDER / self.__name.lower() / 'settings.json', ASSOBOT_PLUGIN_SETTING_FOLDER / self.name.lower() / 'settings.json')
+        self.__install_path = install_path
+        self.__static_folder = STATIC_PLUGIN_FOLDER / self.__install_path.name /self.__name.lower()
+        self.__templates_folder = TEMPLATE_PLUGIN_FOLDER / self.__install_path.name / self.__name.lower()
+        self.__settings = SettingManager(self.__install_path / self.name.lower() / 'settings.json', ASSOBOT_PLUGIN_SETTING_FOLDER / self.__install_path.name / self.name.lower() / 'settings.json')
 
     @property
     def id(self):

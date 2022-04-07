@@ -80,9 +80,10 @@ class PluginManager:
         source_core_tmp_plugin_folder = plugin_tmp_folder / 'core'
         source_core_plugin_folder = guild_source_plugin_folder / plugin_name / 'core'
 
-        guild_settings_plugin_folder = ASSOBOT_PLUGIN_SETTING_FOLDER / plugin_name
+        guild_settings_plugin_folder = ASSOBOT_PLUGIN_SETTING_FOLDER / self.__guild
         if not guild_settings_plugin_folder.exists(): guild_settings_plugin_folder.mkdir()
-        settings_plugin_folder = ASSOBOT_PLUGIN_SETTING_FOLDER / plugin_name
+
+        settings_plugin_folder = guild_settings_plugin_folder / plugin_name
 
         if not settings_plugin_folder.exists():
             settings_plugin_folder.mkdir()
@@ -118,9 +119,10 @@ class PluginManager:
             subprocess.call(['pip', 'install', '-r', requirements_file])
 
     def __add_plugin(self, plugin_name : str) -> None:
+        install_path = PLUGIN_FOLDER / self.__guild
         module = importlib.import_module(f"assobot.plugins.{self.__guild}.{plugin_name}.plugin")
         plugin_class = getattr(module, f"{plugin_name}Plugin")
-        plugin = plugin_class()
+        plugin = plugin_class(install_path)
         BOT.add_cog(plugin)
         self.__plugins[plugin.id] = plugin
 
@@ -149,3 +151,9 @@ class PluginManager:
     def __remove_plugin(self, plugin) -> None:
         BOT.remove_cog(f"{plugin.name}Plugin")
         self.__plugins.pop(plugin.id)
+
+    def reset(self) -> None:
+        for p in list(self.plugins.keys()):
+            plugin = self.plugins[p]
+            BOT.remove_cog(f"{plugin.name}Plugin")
+            self.__plugins.pop(p)

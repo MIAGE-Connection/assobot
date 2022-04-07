@@ -13,21 +13,28 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def get_auth_context():
+   return AUTH_MANAGER.get(session['token'])
+
 def get_plugin_manager():
    return AUTH_MANAGER.get(session['token']).plugin_manager
 
 @APP.route('/plugin/<plugin_id>/settings')
 def plugin_settings_open(plugin_id):
-   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
+   ctx = get_auth_context()
+   guild_folder = ctx.guild.lower().replace(' ', '_')
+   plugin = ctx.plugin_manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
       return redirect('/plugins')
 
-   return render_template(f"plugins/{plugin.namespace}/settings.html", plugin=plugin)
+   return render_template(f"plugins/{guild_folder}/{plugin.namespace}/settings.html", plugin=plugin)
 
 @APP.route('/plugin/<plugin_id>/settings/update',  methods=['POST'])
 def plugin_settings_update(plugin_id):
-   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
+   ctx = get_auth_context()
+   guild_folder = ctx.guild.lower().replace(' ', '_')
+   plugin = ctx.plugin_manager.plugins.get(uuid.UUID(plugin_id), None)
       
    if plugin is None:
       return redirect('/')
@@ -36,11 +43,12 @@ def plugin_settings_update(plugin_id):
 
    plugin.settings.update(data)
 
-   return redirect(f'/plugin/{plugin.id}/settings')
+   return redirect(f'/plugin/{guild_folder}/{plugin.id}/settings')
 
 @APP.route('/plugin/<plugin_id>/remove')
 def plugin_remove(plugin_id):
-   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
+   ctx = get_auth_context()
+   plugin = ctx.plugin_manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is None:
       redirect('/plugins/manage')
@@ -51,7 +59,9 @@ def plugin_remove(plugin_id):
 
 @APP.route('/plugin/<plugin_id>/enabled')
 def plugin_enable(plugin_id):
-   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
+   ctx = get_auth_context()
+   guild_folder = ctx.guild.lower().replace(' ', '_')
+   plugin = ctx.plugin_manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is not None:
       plugin.enabled = True
@@ -60,7 +70,9 @@ def plugin_enable(plugin_id):
 
 @APP.route('/plugin/<plugin_id>/disabled')
 def plugin_disable(plugin_id):
-   plugin = get_plugin_manager().plugins.get(uuid.UUID(plugin_id), None)
+   ctx = get_auth_context()
+   guild_folder = ctx.guild.lower().replace(' ', '_')
+   plugin = ctx.plugin_manager.plugins.get(uuid.UUID(plugin_id), None)
    
    if plugin is not None:
       plugin.enabled = False

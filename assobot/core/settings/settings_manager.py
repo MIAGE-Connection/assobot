@@ -37,13 +37,13 @@ class SettingManager:
             LOGGER.info(f'Creation {self.__default_setting_path} file')
             self.__default_setting_path.touch()
 
-        with open(self.__default_setting_path, 'r') as settings_file:
+        with open(self.__default_setting_path, 'r') as default_settings_file:
             LOGGER.info(f"Reading of {self.__default_setting_path} settings file")
-            self.__settings.update(json.load(settings_file))
+            self.__settings.update(json.load(default_settings_file))
 
-        with open(self.__user_setting_path, 'r') as settings_file:
+        with open(self.__user_setting_path, 'r') as user_settings_file:
             LOGGER.info(f"Reading of {self.__user_setting_path} settings file")
-            self.__settings.update(json.load(settings_file))
+            self.__settings.update(json.load(user_settings_file))
 
     
     def save(self):

@@ -3,7 +3,7 @@
         <li><a href="/"><img id="mc-logo-header" src="{{ url_for('static', filename='default/img/logo-miage-connection.png')}}"></a></li>
     </ul>
     {% if not error %}
-        {% if current_user %}
+        {% if current_user() %}
         <ul>
         {% if request.endpoint != 'guild_list' %}
             <li><a href="/guilds" role="button">Guilds</a></li>
