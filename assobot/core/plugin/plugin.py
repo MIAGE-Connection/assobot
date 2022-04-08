@@ -1,5 +1,6 @@
-import shutil
+import os
 import uuid
+import shutil
 from assobot.core.plugin import plugin_factory
 
 from discord.ext import commands
@@ -66,6 +67,12 @@ class AbstractPlugin(commands.Cog):
         plugin_user_settings = ASSOBOT_GUILDS_FOLDER / guild_name_formatted / 'plugins' / f"{self.name.lower()}-settings.json"
         if not plugin_user_settings.exists():
             shutil.copy(self.__default_settings_file, plugin_user_settings)
+
+    def remove_settings(self, guild_name):
+        guild_name_formatted = guild_name.lower().replace(' ', '_')
+        plugin_user_settings = ASSOBOT_GUILDS_FOLDER / guild_name_formatted / 'plugins' / f"{self.name.lower()}-settings.json"
+        if plugin_user_settings.exists():
+            os.remove(plugin_user_settings)
 
     def __str__(self) -> str:
         return f"<{self.id}> - {self.name}"

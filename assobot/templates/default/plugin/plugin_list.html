@@ -39,7 +39,7 @@
             <ul>
               <li>
                 <label for="switch">
-                  <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch"
+                  <input type="checkbox" id="switch" class="plugin-switch" name="{{guild.id}}~{{plugin.id}}" role="switch"
                     value="true" {% if plugin.enabled %} checked {% endif %}>
                 </label>
               </li>
@@ -54,7 +54,7 @@
             </ul>
             <ul>
               <li>
-                <a href="/guilds/{{ guild.id }}/plugins/{{plugin.id}}/remove" role="button">
+                <a href="/guilds/{{ guild.id }}/plugins/{{plugin.id}}/uninstall" role="button">
                   <img src="{{ url_for('static', filename='default/img/x-mark.png') }}" alt="Uninstall" />
                 </a>
               </li>

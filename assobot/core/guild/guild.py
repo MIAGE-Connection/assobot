@@ -48,6 +48,10 @@ class Guild:
         self.__plugins[plugin.id] = plugin
         plugin.init_settings(self.name)
 
+    def remove_plugin(self, plugin):
+        self.__plugins.pop(plugin.id)
+        plugin.remove_settings(self.name)
+
     def get_plugin_settings(self, plugin_name):
         guild_formatted_name = self.__name.lower().replace(' ', '_')
         return SettingManager(ASSOBOT_GUILDS_FOLDER / guild_formatted_name / f"{plugin_name.lower()}-settings.json")
