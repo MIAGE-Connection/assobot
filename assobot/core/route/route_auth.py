@@ -32,6 +32,11 @@ def current_user_function():
         CURRENT_USER = bearer_client.users.get_current_user()
     return CURRENT_USER
 
+def current_guild():
+    if 'token' in session:
+        return AUTH_MANAGER.get_current_ctx().guild
+    return None
+
 @APP.context_processor
 def context_processor():
-    return dict(current_user=current_user_function)
+    return dict(current_user=current_user_function, guild=current_guild())

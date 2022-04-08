@@ -1,5 +1,8 @@
+from assobot import APP
 from assobot.core.auth import AuthContext
 from assobot.core.utils.logger import get_logger
+
+from flask import session
 
 LOGGER = get_logger(__name__)
 
@@ -21,3 +24,6 @@ class AuthManager:
         if not self.__auth_manager.__contains__(user):
             raise Exception('No user corresponding')
         return self.__auth_manager[user]
+
+    def get_current_ctx(self):
+        return self.__auth_manager[session['token']]

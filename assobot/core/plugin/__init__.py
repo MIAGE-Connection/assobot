@@ -1,2 +1,2 @@
-from .plugin import *
-from .plugin_manager import *
+from .plugin import AbstractPlugin
+from .plugin_factory import PluginFactory

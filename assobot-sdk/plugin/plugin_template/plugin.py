@@ -12,5 +12,6 @@ class [[PLUGIN_NAME]]Plugin(AbstractPlugin):
 
     @commands.command()
     async def hello(self, ctx):
-        if not self.enabled: return
-        await ctx.channel.send(self.settings.get("hello-message"))
+        settings_manager = self.get_settings_manager(ctx.guild)
+        if not bool(settings_manager.get("enabled")): return
+        await ctx.channel.send(settings_manager.get("hello-message"))

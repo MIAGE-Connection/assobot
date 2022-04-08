@@ -11,7 +11,7 @@
 {% block content %}
 
 <div class="container">
-  <form action="/plugin/{{ plugin.id }}/settings/update" method="post">
+  <form action="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}" method="post">
     <h1><img src="{{url_for('static', filename='default/img/welcome.png')}}"> Welcome message</h1>
 
     <p>Do quis tempor amet labore est non dolore anim dolor pariatur. Ipsum ea proident culpa dolor duis. Laboris sunt
@@ -38,7 +38,7 @@
         </summary>
         <p>Personalize the welcoming message send with the command <strong>'>hello'</strong>.</p>
         <input type="text" id="hello-message" name="hello-message" placeholder="Hello message"
-          value="{{ plugin.settings.get('hello-message') }}">
+          value="{{ plugin.get_settings_manager().get('hello-message') }}">
       </details>
     </div>
 

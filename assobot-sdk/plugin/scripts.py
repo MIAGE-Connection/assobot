@@ -67,7 +67,7 @@ def build_plugin(plugin_path : str):
         dist_folder.mkdir()
 
     current_dir = Path.cwd()
-    plugin_name = f"{plugin_path_object.name}-0.0.0"
+    plugin_name = f"{plugin_path_object.name}"
 
     result_path = shutil.make_archive(str(dist_folder/plugin_name), 'zip', plugin_path_object)
 

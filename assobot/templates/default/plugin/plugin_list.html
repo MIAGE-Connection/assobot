@@ -7,17 +7,28 @@
 {% block content %}
 <!-- Main -->
 <div class="container">
-  <h1>Lorem Ipsum</h1>
+  <h1>
+    {% if guild.icon_url %}
+    <img src="{{ guild.icon_url}}" alt="Guild Icon URL" style="border-radius: 100px;" />
+    {% else %}
+    <img src="{{ url_for('static', filename='default/img/default-guild.png') }}" alt="Guild Icon URL"
+      style="border-radius: 100px;" />
+    {% endif %}
+    &nbsp; {{ guild.name }}
+  </h1>
   <p>Excepteur mollit cupidatat cupidatat veniam et irure ex aliquip deserunt velit eiusmod nulla commodo veniam. Aute
     elit consectetur dolore fugiat consectetur. Ea ut esse officia ex dolor.</p>
 
   <p>Non deserunt labore occaecat duis aute qui officia excepteur. Sunt nostrud labore minim anim aute excepteur
     proident. Cillum consequat irure mollit magna sit aliqua excepteur amet. Nisi labore sunt esse ullamco. Velit
     pariatur et incididunt elit enim cupidatat Lorem ipsum ut est enim.</p>
-
-  {% for plugin_row in plugins|batch(2)%}
-  <div class="grid">
-    {% for plugin in plugin_row %}
+  <details open>
+    <summary>
+      List Plugins
+    </summary>
+    {% for plugin_row in guild.plugin_list|batch(2)%}
+    <div class="grid">
+      {% for plugin in plugin_row %}
       <article>
         <header>
           <nav>
@@ -28,7 +39,8 @@
             <ul>
               <li>
                 <label for="switch">
-                  <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch" value="true" {% if plugin.enabled %} checked {% endif %}>
+                  <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch"
+                    value="true" {% if plugin.enabled %} checked {% endif %}>
                 </label>
               </li>
             </ul>
@@ -36,14 +48,45 @@
         </header>
         <p>{{ plugin.description }}</p>
         <footer>
-          <a href="/plugin/{{plugin.id}}/settings" role="button">Configure</a>
+          <nav>
+            <ul>
+              <li><a href="/guilds/{{ guild.id }}/plugins/{{plugin.id}}" role="button">Configure</a></li>
+            </ul>
+            <ul>
+              <li>
+                <a href="/guilds/{{ guild.id }}/plugins/{{plugin.id}}/remove" role="button">
+                  <img src="{{ url_for('static', filename='default/img/x-mark.png') }}" alt="Uninstall" />
+                </a>
+              </li>
+            </ul>
+          </nav>
         </footer>
       </article>
       {% endfor %}
     </div>
-  {% endfor %}
-    <a href="/plugins/manage">
-      <button>Manage plugin</button>
-    </a>
-  </div>
-  {% endblock %}
+    {% endfor %}
+  </details>
+  </hr>
+  <details>
+    <summary>
+      Install Plugin
+    </summary>
+    <div class="grid">
+      <div></div>
+      <div>
+        <form method="post" enctype=multipart/form-data>
+          <div>
+            <label for="file">Add plugin
+              <input type="file" id="file" name="file">
+            </label>
+          </div>
+          <div>
+            <button type="submit">Install</button>
+          </div>
+        </form>
+      </div>
+      <div></div>
+    </div>
+  </details>
+</div>
+{% endblock %}

@@ -1,13 +1,9 @@
-from assobot import APP, BOT, PARTIAL_URL_BOT_ADD, AUTH_MANAGER
+import os
 from flask import *
+from pathlib import Path
 from zenora import APIClient
-
-
-def getGuildById(guilds, idGuild):
-    for guild in guilds:
-        if str(guild.id) == idGuild:
-            return guild
-
+from werkzeug.utils import secure_filename
+from assobot import APP, ASSOBOT_PLUGIN_TEMP_FOLDER, BOT, GUILD_MANAGER, PARTIAL_URL_BOT_ADD, AUTH_MANAGER, PLUGIN_FACTORY
 
 @APP.route('/guilds')
 def guild_list():
@@ -15,36 +11,37 @@ def guild_list():
     
     bearer_client = APIClient(session.get('token'), bearer=True)
 
-    not_joined_guilds = list()
-    joined_guilds = list()
     for guild in bearer_client.users.get_my_guilds():
             if (int(guild.permissions) & 8) == 8:
-                if (has_already_join(guild.id)):
-                    joined_guilds.append(guild)
-                else:
-                    not_joined_guilds.append(guild)
-    
-    return render_template('default/guilds.html', guilds_not_joined=not_joined_guilds, guilds_joined=joined_guilds, partial_url=PARTIAL_URL_BOT_ADD)
+                GUILD_MANAGER.add(guild)
+    return render_template('default/guilds.html', guilds=GUILD_MANAGER.guilds, partial_url=PARTIAL_URL_BOT_ADD)
 
 
-@APP.route('/guild/<idGuild>')
-def guild_manage(idGuild=None):
-    if 'token' in session and idGuild:
-        bearer_client = APIClient(session.get('token'), bearer=True)
-        guild_user = getGuildById(bearer_client.users.get_my_guilds(), idGuild)
-        ctx = AUTH_MANAGER.get(session['token'])
-        ctx.guild = guild_user.name
-        plugins_installed = list(ctx.plugin_manager.plugins.values())
-        return render_template('default/plugin/plugin_list.html', guild=guild_user, plugins=plugins_installed)
+@APP.route('/guilds/<guild_id>', methods=['GET', 'POST'])
+def guild_manage(guild_id):
+    if 'token' in session and guild_id:
+        ctx = AUTH_MANAGER.get_current_ctx()
+        ctx.guild = GUILD_MANAGER.get(int(guild_id))
+
+        if request.method == 'POST':
+            if 'file' not in request.files:
+                return redirect(request.url)
+
+            file = request.files['file']
+
+            if file.filename == '':
+                return redirect(request.url)
+
+            if file:
+                filename = secure_filename(file.filename)
+                dst_file_path = Path(os.path.join(ASSOBOT_PLUGIN_TEMP_FOLDER, filename))
+                file.save(dst_file_path)
+                plugin = PLUGIN_FACTORY.install_plugin(dst_file_path)
+                ctx.guild.add_plugin(plugin)
+
+    return render_template('default/plugin/plugin_list.html', guild=ctx.guild)
 
 @APP.route('/guild/callback')
 def callback_guild():
     guild_id = request.args['guild_id']
     return redirect(f"/guild/{guild_id}")
-
-def has_already_join(guild_id):
-    guild = BOT.get_guild(guild_id)
-    if guild is not None and guild.members is not None:
-        return True
-    else:
-        return False

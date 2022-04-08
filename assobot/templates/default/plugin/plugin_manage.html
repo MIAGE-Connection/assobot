@@ -31,7 +31,7 @@ Manage plugin
         <tbody>
             {% for plugin in plugins %}
             <tr>
-                <td><img src="{{ url_for('static', filename='default/img/gears.png') }}" /></td>
+                <td><img src="{{ url_for('static', filename='plugins/' + plugin.name + '/img/icon.png') }}" /></td>
                 <td>{{ plugin.name }}</td>
                 <td>{{ plugin.description }}</td>
                 <td>
