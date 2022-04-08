@@ -11,11 +11,17 @@ def guild_list():
     
     bearer_client = APIClient(session.get('token'), bearer=True)
 
+    guilds_joined = list()
+    guilds_not_joined = list()
+
     for guild in bearer_client.users.get_my_guilds():
             if (int(guild.permissions) & 8) == 8:
                 GUILD_MANAGER.add(guild)
-    return render_template('default/guilds.html', guilds=GUILD_MANAGER.guilds, partial_url=PARTIAL_URL_BOT_ADD)
-
+                if GUILD_MANAGER.get(guild.id).is_bot_member():
+                    guilds_joined.append(guild)
+                else:
+                    guilds_not_joined.append(guild)
+    return render_template('default/guilds.html', guilds_joined=guilds_joined, guilds_not_joined=guilds_not_joined, partial_url=PARTIAL_URL_BOT_ADD)
 
 @APP.route('/guilds/<guild_id>', methods=['GET', 'POST'])
 def guild_manage(guild_id):
