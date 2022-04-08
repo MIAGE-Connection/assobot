@@ -55,3 +55,10 @@ class Guild:
     def get_plugin_settings(self, plugin_name):
         guild_formatted_name = self.__name.lower().replace(' ', '_')
         return SettingManager(ASSOBOT_GUILDS_FOLDER / guild_formatted_name / f"{plugin_name.lower()}-settings.json")
+
+    def get_channels(self):
+        guild_channels = list()
+        for channel in BOT.get_all_channels():
+            if channel.guild.id == self.__id:
+                guild_channels.append(channel)
+        return guild_channels
