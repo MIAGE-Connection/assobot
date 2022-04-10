@@ -8,7 +8,10 @@ from assobot import APP
 def generic_handle_HTTP_Exception(e):
     titre =f'{e.code} {e.name}'
     if (e.code > 400 and e.code < 500):
-        message='Oups... Il semblerait que vous vous êtes perdu'
+        if (e.code == 403 ) :
+            message='Oups... permission requise'
+        else :
+            message='Oups... Il semblerait que vous vous êtes perdu'
         return render_template('default/error/error.html', titre=titre, message=message, error=True), e.code
     else:
         message='Oups... Une erreur est survenue. Veillez réessayer plus tard'

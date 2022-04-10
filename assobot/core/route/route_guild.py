@@ -7,7 +7,7 @@ from assobot import APP, ASSOBOT_PLUGIN_TEMP_FOLDER, BOT, GUILD_MANAGER, PARTIAL
 
 @APP.route('/guilds')
 def guild_list():
-    if not 'token' in session: return
+    if not 'token' in session: return abort(403, description="Unauthorized action")
     
     bearer_client = APIClient(session.get('token'), bearer=True)
 
@@ -38,8 +38,11 @@ def guild_manage(guild_id):
                 file.save(dst_file_path)
                 plugin = PLUGIN_FACTORY.install_plugin(dst_file_path)
                 ctx.guild.add_plugin(plugin)
+        return render_template('default/plugin/plugin_list.html', guild=ctx.guild)
+    else:
+        return abort(404, description="Unauthorized action")
 
-    return render_template('default/plugin/plugin_list.html', guild=ctx.guild)
+
 
 @APP.route('/guild/callback')
 def callback_guild():
