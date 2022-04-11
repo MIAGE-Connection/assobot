@@ -56,6 +56,7 @@ class Guild:
 
     def get_plugin_settings(self, plugin_name):
         guild_formatted_name = self.__name.lower().replace(' ', '_')
+<<<<<<< HEAD
         return SettingManager(ASSOBOT_GUILDS_FOLDER / guild_formatted_name / f"{plugin_name.lower()}-settings.json")
 
     def get_all_channels(self):
@@ -71,3 +72,6 @@ class Guild:
             if isinstance(channel, TextChannel) and channel.guild.id == self.__id:
                 guild_channels.append(channel)
         return guild_channels
+=======
+        return SettingManager(ASSOBOT_GUILDS_FOLDER / guild_formatted_name / f"{plugin_name.lower()}-settings.json")
+>>>>>>> Revert "feat(guild): list channel of guild"
