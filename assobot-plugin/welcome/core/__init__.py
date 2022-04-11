@@ -1,0 +1,1 @@
+from .message_parser import parse_welcome_message
