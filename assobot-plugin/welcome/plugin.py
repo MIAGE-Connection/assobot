@@ -29,7 +29,7 @@ class welcomePlugin(AbstractPlugin):
         welcome_message = settings_manager.get('welcome-message')
 
         if welcome_channel:
-            await welcome_channel.send(welcome_message)
+            await welcome_channel.send(parse_welcome_message(welcome_message, member, welcome_channel))
         else:
             LOGGER.error(f"Error : no channel with ID {id}")
             return

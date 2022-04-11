@@ -11,8 +11,23 @@
 {% block content %}
 
 <div class="container">
-  <form action="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}" method="post">
-    <h1><img src="{{url_for('static', filename='default/img/welcome.png')}}"> Welcome message</h1>
+  <form action="/guilds/{{guild.id}}/plugins/{{ plugin.id }}" method="post">
+    <h1>
+      <nav>
+        <ul>
+          <li><img src="{{url_for('static', filename='default/img/welcome.png')}}"></li>
+          <li>Welcome message</li> 
+        </ul>
+        <ul>
+          <li>
+            <label for="switch">
+              <input type="checkbox" id="switch" class="plugin-switch" name="{{guild.id}}~{{plugin.id}}"
+                role="switch" value="true" {% if plugin.enabled %} checked {% endif %}>
+            </label>
+          </li> 
+        </ul> 
+      </nav>
+    </h1>
 
     <p>Do quis tempor amet labore est non dolore anim dolor pariatur. Ipsum ea proident culpa dolor duis. Laboris sunt
       quis officia non. Cupidatat velit ad nulla officia nostrud sint do. Adipisicing commodo pariatur voluptate sunt
@@ -27,18 +42,35 @@
             <ul>
               <li><strong>Hello command</strong> : Send hello to your members</li>
             </ul>
-            <ul>
-              <li>
-                <label for="switch">
-                  <input type="checkbox" id="switch" name="switch" role="switch">
-                </label>
-              </li>
-            </ul>
           </nav>
         </summary>
         <p>Personalize the welcoming message send with the command <strong>'>hello'</strong>.</p>
         <input type="text" id="hello-message" name="hello-message" placeholder="Hello message"
           value="{{ plugin.get_settings_manager().get('hello-message') }}">
+      </details>
+
+      <details>
+        <summary>
+          <nav>
+            <ul>
+              <li><strong>Welcome message</strong> : Send welcome to new server's members</li>
+            </ul>
+          </nav>
+        </summary>
+        <p>Personalize the welcoming message sends when new member enter in the server.</p>
+        <label for="welcome-message-channel">
+          Channel :
+          <select id="welcome-message-channel" name="welcome-message-channel">
+            <option value="-1">Select channel to send the message...</option>
+            {% for channel in guild.get_text_channels() %}
+              <option value="{{ channel.id }}" {% if channel.id | string == plugin.get_settings_manager().get('welcome-message-channel') %} selected {% endif %}> {{channel.name}}</option>
+            {% endfor%}
+          </select>
+        <label for="welcome-message">
+          Welcome message <em data-tooltip="You can add some special values with [[MEMBER]], [[GUILD]] and [[CHANNEL]]"><i class="fa-solid fa-question"></i></em>:
+          <input type="text" id="welcome-message" name="welcome-message" placeholder="Channel"
+            value="{{ plugin.get_settings_manager().get('welcome-message') }}">
+        </label>
       </details>
     </div>
 
