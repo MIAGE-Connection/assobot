@@ -19,7 +19,7 @@ def plugin_settings_open(guild_id, plugin_id):
 
    if request.method == 'POST':
       data = request.form.to_dict(flat=False)
-      plugin.settings.update(data)
+      plugin.get_settings_manager().update(data)
 
    return render_template(f"plugins/{plugin.namespace}/settings.html", plugin=plugin)
 

@@ -1,4 +1,7 @@
 {
     "enabled": true,
-    "hello-message": "Hello World !"
+    "hello-message": "Hello !",
+
+    "welcome-message-channel" : -1,
+    "welcome-message" : "Hello ! Welcome on the server !"
 }

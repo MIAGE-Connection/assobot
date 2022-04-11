@@ -1,4 +1,6 @@
 
+from discord import TextChannel
+
 from assobot import BOT, ASSOBOT_GUILDS_FOLDER, PLUGIN_FACTORY, get_or_create_folder_path, get_or_create_json_file_path
 from assobot.core.settings import SettingManager
 
@@ -56,9 +58,16 @@ class Guild:
         guild_formatted_name = self.__name.lower().replace(' ', '_')
         return SettingManager(ASSOBOT_GUILDS_FOLDER / guild_formatted_name / f"{plugin_name.lower()}-settings.json")
 
-    def get_channels(self):
+    def get_all_channels(self):
         guild_channels = list()
         for channel in BOT.get_all_channels():
             if channel.guild.id == self.__id:
+                guild_channels.append(channel)
+        return guild_channels
+
+    def get_text_channels(self):
+        guild_channels = list()
+        for channel in BOT.get_all_channels():
+            if isinstance(channel, TextChannel) and channel.guild.id == self.__id:
                 guild_channels.append(channel)
         return guild_channels
