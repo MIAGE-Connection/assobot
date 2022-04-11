@@ -45,8 +45,11 @@
           </nav>
         </summary>
         <p>Personalize the welcoming message send with the command <strong>'>hello'</strong>.</p>
-        <input type="text" id="hello-message" name="hello-message" placeholder="Hello message"
+        <label>
+          Hello message <em data-tooltip="You can add some special values with [[MEMBER]], [[GUILD]] and [[CHANNEL]]"><i class="fa-solid fa-question"></i></em> :
+          <input type="text" id="hello-message" name="hello-message" placeholder="Hello message"
           value="{{ plugin.get_settings_manager().get('hello-message') }}">
+        </label>
       </details>
 
       <details>
@@ -67,7 +70,7 @@
             {% endfor%}
           </select>
         <label for="welcome-message">
-          Welcome message <em data-tooltip="You can add some special values with [[MEMBER]], [[GUILD]] and [[CHANNEL]]"><i class="fa-solid fa-question"></i></em>:
+          Welcome message <em data-tooltip="You can add some special values with [[MEMBER]], [[GUILD]] and [[CHANNEL]]"><i class="fa-solid fa-question"></i></em> :
           <input type="text" id="welcome-message" name="welcome-message" placeholder="Channel"
             value="{{ plugin.get_settings_manager().get('welcome-message') }}">
         </label>

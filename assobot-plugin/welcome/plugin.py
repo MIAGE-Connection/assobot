@@ -16,7 +16,10 @@ class welcomePlugin(AbstractPlugin):
     async def hello(self, ctx):
         settings_manager = self.get_settings_manager(ctx.guild)
         if not bool(settings_manager.get("enabled")): return
-        await ctx.channel.send(settings_manager.get("hello-message"))
+
+        welcome_message = settings_manager.get("hello-message")
+
+        await ctx.channel.send(parse_welcome_message(welcome_message, ctx.author, ctx.channel))
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
