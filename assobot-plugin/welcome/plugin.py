@@ -35,4 +35,3 @@ class welcomePlugin(AbstractPlugin):
             await welcome_channel.send(parse_welcome_message(welcome_message, member, welcome_channel))
         else:
             LOGGER.error(f"Error : no channel with ID {id}")
-            return
