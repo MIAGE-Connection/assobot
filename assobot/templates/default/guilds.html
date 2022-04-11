@@ -36,7 +36,7 @@ Choose your guild
                         </ul>
                     </nav>
                 </header>
-                <a href="/guild/{{ guild.id }}" role="button">Configurer</a>
+                <a href="/guilds/{{ guild.id }}" role="button">Configurer</a>
             </article>
             {% endfor %}
             {% if row_lenght>0 %}
@@ -79,11 +79,7 @@ Choose your guild
                     </ul>
                 </nav>
             </header>
-            {% if guild.is_bot_member() %}
-                <a href="/guilds/{{ guild.id }}" role="button">Configurer</a>
-            {% else %}
                 <a href="{{ partial_url }}{{ guild.id }}" role="button">Ajouter</a>
-            {% endif %}
         </article>
         {% endfor %}
         {% if row_lenght > 0 %}
