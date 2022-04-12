@@ -7,8 +7,8 @@ from .core import *
 
 class [[PLUGIN_NAME]]Plugin(AbstractPlugin):
 
-    def __init__(self, install_path) -> None:
-        super().__init__('[[PLUGIN_NAME]]', '[[PLUGIN_DESCRIPTION]]', install_path)
+    def __init__(self) -> None:
+        super().__init__('[[PLUGIN_NAME]]', '[[PLUGIN_DESCRIPTION]]')
 
     @commands.command()
     async def hello(self, ctx):
