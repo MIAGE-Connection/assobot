@@ -1,0 +1,110 @@
+{% extends 'default/layout/layout.html' %}
+
+{% block title %}
+{{ plugin.name }} - Settings
+{% endblock %}
+
+{% block plugin_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/' + plugin.name + '/css/plugin.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<div class="container">
+  <form action="/guilds/{{guild.id}}/plugins/{{ plugin.id }}" method="post">
+    <h2>
+      <nav>
+        <ul>
+          <li><img src="{{url_for('static', filename='default/img/default-plugin.png')}}"></li>
+          <li>{{ plugin.name.title() }}</li>
+        </ul>
+        <ul>
+          <li>
+            <label for="switch">
+              <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch" value="true"
+                {% if plugin.enabled %} checked {% endif %}>
+            </label>
+          </li>
+        </ul>
+      </nav>
+    </h2>
+
+    <p>{{ plugin.description }}</p>
+
+    <div id="settings">
+      <article>
+        <header>Reactions role message</header>
+        <label for="reaction-role-channel">
+          Channel
+          <select id="reaction-role-channel" name="reaction-role-channel">
+            <option value="-1">Please select a channel...</option>
+            {% for channel in guild.get_text_channels() %}
+            <option value="{{ channel.id }}" {% if channel.id |
+              string==plugin.get_settings_manager().get('reaction-role-channel') %} selected {% endif %}>
+              {{channel.name}}</option>
+            {% endfor%}
+          </select>
+          <label for="reaction-role-message">
+            Message
+            <input type="text" id="reaction-role-message" name="reaction-role-message" placeholder="Messsage"
+              value="{{ plugin.get_settings_manager().get('reaction-role-message') }}">
+          </label>
+          <hr>
+          <label for="reaction-role-multiple-mode">
+            Allow members to pick up multiple roles
+            <input type="checkbox" id="reaction-role-multiple-mode" name="reaction-role-multiple-mode" role="switch" {%
+              if plugin.get_settings_manager().get('reaction-role-multiple-mode') %} checked {% endif %}>
+          </label>
+          
+          <div id="reactions">
+            <div id="reactions-list">
+              <div class="grid">
+                <select>
+                  {% for role in guild.get_reactions() %}
+                  <option value="{{ role.id }}">{{ role.name }}</option>
+                  {% endfor %}
+                </select>
+                <select>
+                  {% for role in guild.get_roles() %}
+                  <option value="{{ role.id }}">{{ role.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <input type="button" id="add-reaction" name="add-reaction" value="Add Reaction">
+          </div>
+          <hr>
+          <fieldset>
+            <legend>Mode</legend>
+            <label for="reaction-role-default-mode">
+              <input type="radio" id="reaction-role-default-mode" name="reaction-role-mode" value="default" {% if plugin.get_settings_manager().get('reaction-role-mode') == 'default' %} checked {% endif %}>
+              Default Mode
+              <p>Reaction roles messages are special messages that let your members automatically pick up roles when
+                they react to a particular message. It is especially useful when making a verification system for your
+                Discord server. </p>
+            </label>
+            <label for="reaction-role-reverse-mode">
+              <input type="radio" id="reaction-role-reverse-mode" name="reaction-role-mode" value="reverse" {% if plugin.get_settings_manager().get('reaction-role-mode') == 'reverse' %} checked {% endif %}>
+              Reverse Mode
+              <p>
+                Remove roles when you click on a reaction, give them back when you remove your reaction
+              </p>
+            </label>
+          </fieldset>
+      </article>
+    </div>
+
+    <div class="grid">
+      <div></div>
+      <div>
+        <input type="submit" value="Save settings" />
+      </div>
+      <div></div>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block plugin_script %}
+<script src="{{ url_for('static', filename='plugins/' + plugin.name + '/js/plugin.js') }}"></script>
+{% endblock %}
