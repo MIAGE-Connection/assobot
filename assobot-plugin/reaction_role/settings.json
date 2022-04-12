@@ -1,0 +1,7 @@
+{
+    "enabled" : true,
+    "reaction-role-channel" : "-1",
+    "reaction-role-message" : "React to this message to get your roles !",
+    "reaction-role-multiple-mode" : true,
+    "reaction-role-mode" : "default"
+}
