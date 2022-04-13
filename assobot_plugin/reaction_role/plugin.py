@@ -6,6 +6,7 @@ from discord.ext.commands import has_permissions
 from assobot.core.plugin import AbstractPlugin
 from .core import *
 
+
 class reaction_rolePlugin(AbstractPlugin):
 
     def __init__(self) -> None:
@@ -41,20 +42,42 @@ class reaction_rolePlugin(AbstractPlugin):
             if (id_role_channel != payload.channel_id): return
 
             id_role_message = int(settings_manager.get("reaction-role-message-id"))
-            if (id_role_message != payload.message_id):return
+            if (id_role_message != payload.message_id): return
 
             role = self.get_role_from_emoji(payload, guild)
 
             if role is not None:
-                print(role)
                 member = payload.member
                 if member is not None:
                     await member.add_roles(role)
-                    print("done")
                 else:
                     print("member not found")
             else:
                 print("role not found")
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, payload):
+        guild = discord.utils.find(lambda g: g.id == payload.guild_id, self.bot.guilds)
+        member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+
+        settings_manager = self.get_settings_manager(guild)
+        if not bool(settings_manager.get("enabled")): return
+
+        id_role_channel = int(settings_manager.get("reaction-role-channel"))
+        if (id_role_channel != payload.channel_id): return
+
+        id_role_message = int(settings_manager.get("reaction-role-message-id"))
+        if (id_role_message != payload.message_id): return
+
+        role = self.get_role_from_emoji(payload, guild)
+
+        if role is not None:
+            if member is not None:
+                await member.remove_roles(role)
+            else:
+                print("member not found")
+        else:
+            print("role not found")
 
     async def send_reaction_role_message(self, ctx):
         settings_manager = self.get_settings_manager(ctx.guild)
@@ -88,7 +111,6 @@ class reaction_rolePlugin(AbstractPlugin):
         for role_emoji in list_roles_emojis:
             emoji_name = role_emoji['emoji_name']
             emoji_name = emoji_name[emoji_name.find(':')+1:emoji_name.rfind(':')]
-            print(emoji_name + ' ' + payload.emoji.name)
             if role_emoji['emoji_name'] == payload.emoji.name or emoji_name == payload.emoji.name:
                 role = discord.utils.get(guild.roles, id=int(role_emoji['role_id']))
         return role
