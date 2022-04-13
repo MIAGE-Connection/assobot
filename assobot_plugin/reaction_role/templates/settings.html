@@ -15,8 +15,8 @@
     <h2>
       <nav>
         <ul>
-          <li><img src="{{url_for('static', filename='default/img/default-plugin.png')}}"></li>
-          <li>{{ plugin.name.title() }}</li>
+          <li><img src="{{url_for('static', filename='default/img/reaction_role.svg')}}"></li>
+          <li>Reaction Role</li>
         </ul>
         <ul>
           <li>
@@ -60,8 +60,8 @@
             <div id="reactions-list">
               <div class="grid">
                 <select>
-                  {% for role in guild.get_reactions() %}
-                  <option value="{{ role.id }}">{{ role.name }}</option>
+                  {% for emoji in guild.get_reactions() %}
+                  <option value="{{ emoji.id }}">{{ emoji.name }}</option>
                   {% endfor %}
                 </select>
                 <select>
