@@ -10,12 +10,13 @@ python = "^3.8"
 Flask = "^2.0.3"
 Zenora = "^0.0.3"
 "discord.py" = "^1.7.3"
+emoji = "^1.7.0"
 
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.scripts]
-launch-bot = "assobot.app:launch"
-assobot-sdk = "assobot-sdk.sdk:cli"
+launch_bot="assobot.app:launch"
+assobot_sdk="assobot_sdk.sdk:cli"
 
 
 [build-system]
