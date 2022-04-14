@@ -1,105 +1,87 @@
 {% extends 'default/layout/layout.html' %}
 
 {% block title %}
-    {{ guild.name }} - Admin Page
+{{ guild.name }} - Admin Page
 {% endblock %}
 
 {% block content %}
-    <!-- Main -->
-    <div class="container">
-        <h1>
-            {% if guild.icon_url %}
-                <img src="{{ guild.icon_url }}" alt="Guild Icon URL" style="border-radius: 100px;"/>
-            {% else %}
-                <img src="{{ url_for('static', filename='default/img/default-guild.png') }}" alt="Guild Icon URL"
-                     style="border-radius: 100px;"/>
-            {% endif %}
-            &nbsp; {{ guild.name }}
-        </h1>
-        <p>Excepteur mollit cupidatat cupidatat veniam et irure ex aliquip deserunt velit eiusmod nulla commodo veniam.
-            Aute
-            elit consectetur dolore fugiat consectetur. Ea ut esse officia ex dolor.</p>
+<!-- Main -->
+<div class="container">
+    <h1>
+        {% if guild.icon_url %}
+        <img src="{{ guild.icon_url }}" alt="Guild Icon URL" style="border-radius: 100px;" />
+        {% else %}
+        <img src="{{ url_for('static', filename='default/img/default-guild.png') }}" alt="Guild Icon URL"
+            style="border-radius: 100px;" />
+        {% endif %}
+        &nbsp; {{ guild.name }}
+    </h1>
+    <p>Excepteur mollit cupidatat cupidatat veniam et irure ex aliquip deserunt velit eiusmod nulla commodo veniam.
+        Aute
+        elit consectetur dolore fugiat consectetur. Ea ut esse officia ex dolor.</p>
 
-        <p>Non deserunt labore occaecat duis aute qui officia excepteur. Sunt nostrud labore minim anim aute excepteur
-            proident. Cillum consequat irure mollit magna sit aliqua excepteur amet. Nisi labore sunt esse ullamco.
-            Velit
-            pariatur et incididunt elit enim cupidatat Lorem ipsum ut est enim.</p>
-        <details open>
-            <summary>
-                List Plugins
-            </summary>
-            {% for plugin_row in guild.plugin_list|batch(2) %}
-                <div class="grid">
-                    {% for plugin in plugin_row %}
-                        <article>
-                            <details>
-                                <summary>
-                                    <nav>
-                                        <ul>
-                                            <li><img
-                                                    src="{{ url_for('static', filename='default/img/default-plugin.png') }}"/>
-                                            </li>
-                                            <li>{{ plugin.name }}</li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <label for="switch">
-                                                    <input type="checkbox" id="switch" class="plugin-switch"
-                                                           name="{{ guild.id }}~{{ plugin.id }}"
-                                                           role="switch" value="true" {% if plugin.enabled %}
-                                                           checked {% endif %}>
-                                                </label>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    </header>
-                                </summary>
-                                <p>{{ plugin.description }}</p>
-                                <footer>
-                                    <nav>
-                                        <ul>
-                                            <li><a href="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}" role="button">Configure</a>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <a href="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}/uninstall"
-                                                   role="button"
-                                                   onclick="return confirm('Are you sure you want to uninstall this plugin {{ plugin.name }} ?')">
-                                                    <img src="{{ url_for('static', filename='default/img/x-mark.png') }}"
-                                                         alt="Uninstall"/>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </footer>
-                            </details>
-                        </article>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-        </details>
-        </hr>
-        <details>
-            <summary>
-                Install Plugin
-            </summary>
-            <div class="grid">
-                <div></div>
-                <div>
-                    <form method="post" enctype=multipart/form-data>
-                        <div>
-                            <label for="file">Add plugin
-                                <input type="file" id="file" name="file">
+    <p>Non deserunt labore occaecat duis aute qui officia excepteur. Sunt nostrud labore minim anim aute excepteur
+        proident. Cillum consequat irure mollit magna sit aliqua excepteur amet. Nisi labore sunt esse ullamco.
+        Velit
+        pariatur et incididunt elit enim cupidatat Lorem ipsum ut est enim.</p>
+
+    <h2>List Plugins</h2>
+    {% for plugin_row in guild.plugin_list|batch(2) %}
+    {% set row_lenght=plugin_row|length % 2 %}
+    <div class="grid">
+        {% for plugin in plugin_row %}
+        <article>
+            <header>
+                <nav>
+                    <ul>
+                        <li><img src="{{ url_for('static', filename='default/img/default-plugin.png') }}" />
+                        </li>
+                        <li>{{ plugin.name }}</li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <label for="switch">
+                                <input type="checkbox" id="switch" class="plugin-switch"
+                                    name="{{ guild.id }}~{{ plugin.id }}" role="switch" value="true" {% if
+                                    plugin.enabled %} checked {% endif %}>
                             </label>
-                        </div>
-                        <div>
-                            <button type="submit">Install</button>
-                        </div>
-                    </form>
-                </div>
-                <div></div>
-            </div>
-        </details>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            <p>{{ plugin.description }}</p>
+            <footer>
+                <nav>
+                    <ul>
+                        <li><a href="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}" role="button">Configure</a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a href="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}/uninstall" role="button"
+                                onclick="return confirm('Are you sure you want to uninstall this plugin {{ plugin.name }} ?')">
+                                <img src="{{ url_for('static', filename='default/img/x-mark.png') }}" alt="Uninstall" />
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </article>
+        {% endfor %}
+        {% if row_lenght > 0 %}
+        {%- for n in range (2-row_lenght) %}
+        <div></div>
+        {% endfor %}
+        {% endif %}
     </div>
+    {% endfor %}
+    </hr>
+    <h2>Install Plugin</h2>
+    <form method="post" enctype=multipart/form-data>
+        <label for="file">Add plugin
+            <input type="file" id="file" name="file">
+        </label>
+        <button type="submit">Install</button>
+    </form>
+</div>
 {% endblock %}
