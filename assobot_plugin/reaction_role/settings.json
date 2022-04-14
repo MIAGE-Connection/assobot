@@ -1,21 +1,10 @@
 {
     "enabled": true,
-    "reaction-role-channel": 765930970955907092,
+    "reaction-role-channel": "-1",
     "reaction-role-message": "React to this message to get your roles !",
     "reaction-role-multiple-mode": true,
     "reaction-role-mode": "default",
     "reaction-role-message-id": "-1",
-    "roles_emoji": [
-        {
-            "role_id": "758072406735847574",
-            "emoji_name": "AmongUsDeadYellow",
-            "emoji_id": 757691267248554013,
-            "emoji": "<:AmongUsDeadYellow:757691267248554013>"
-        },
-        {
-            "role_id": "758072570871283873",
-            "emoji_name": "\uD83D\uDE02"
-
-        }
-    ]
+    "reaction-emoji" : ":older_man:",
+    "reaction-role" : "Ancien"
 }

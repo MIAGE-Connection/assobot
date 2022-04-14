@@ -32,8 +32,7 @@ class SettingManager:
     def update(self, data : dict) -> None:
         LOGGER.info("Update of plugin settings")
         for key in data:
-            if self.__settings.__contains__(key):
-                self.__settings[key] = data[key][0]
+            self.__settings[key] = data[key][0]
         self.save()
 
     def load(self):
