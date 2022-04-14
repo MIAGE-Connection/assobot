@@ -1,10 +1,8 @@
 import discord
 from discord.ext import commands
-import emoji
 from discord.ext.commands import has_permissions
 
 from assobot.core.plugin import AbstractPlugin
-from .core import *
 
 
 class reaction_rolePlugin(AbstractPlugin):
@@ -98,11 +96,6 @@ class reaction_rolePlugin(AbstractPlugin):
         list_roles_emojis = settings_manager.get('roles_emoji')
         for role_emoji in list_roles_emojis:
             await message.add_reaction(role_emoji['emoji_name'])
-
-    @has_permissions(administrator=True)
-    @commands.command(name='del')
-    async def delete_message(self, ctx):
-        await ctx.message.channel.purge(limit=2)
 
     def get_role_from_emoji(self, payload, guild):
         settings_manager = self.get_settings_manager(guild)

@@ -1,0 +1,50 @@
+{% extends 'default/layout/layout.html' %}
+
+{% block title %}
+{{ plugin.name }} - Settings
+{% endblock %}
+
+{% block plugin_stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/' + plugin.name + '/css/plugin.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<div class="container">
+  <form action="/guilds/{{guild.id}}/plugins/{{ plugin.id }}" method="post">
+      <h2>
+        <nav>
+          <ul>
+            <li><img src="{{url_for('static', filename='default/img/default-plugin.png')}}"></li>
+            <li>{{ plugin.name.title() }}</li>
+          </ul>
+          <ul>
+            <li>
+              <label for="switch">
+                <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch" value="true" {% if plugin.enabled %} checked {% endif %}>
+              </label>
+            </li>
+          </ul>
+        </nav>
+      </h2>
+
+      <p>{{ plugin.description }}</p>
+
+      <div id="settings">
+        <!-- TODO : Implements your settings form here -->
+      </div>
+  
+      <div class="grid">
+        <div></div>
+        <div>
+          <input type="submit" value="Save settings" />
+        </div>
+        <div></div>
+      </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block plugin_script %}
+<script src="{{ url_for('static', filename='plugins/' + plugin.name + '/js/plugin.js') }}"></script>
+{% endblock %}
