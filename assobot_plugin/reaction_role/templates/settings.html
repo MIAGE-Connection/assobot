@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block plugin_stylesheet %}
-<link rel="stylesheet" href="{{ url_for('static', filename='plugins/' + plugin.name + '/css/plugin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/' + plugin.name.lower() + '/css/plugin.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -39,7 +39,8 @@
           <select id="reaction-role-channel" name="reaction-role-channel">
             <option value="-1">Please select a channel...</option>
             {% for channel in guild.get_text_channels() %}
-            <option value="{{ channel.id }}" {% if channel.id | string == plugin.get_settings_manager().get('reaction-role-channel') %} selected {% endif %}>
+            <option value="{{ channel.id }}" {% if channel.id |
+              string==plugin.get_settings_manager().get('reaction-role-channel') %} selected {% endif %}>
               {{channel.name}}
             </option>
             {% endfor%}
@@ -49,17 +50,35 @@
             <input type="text" id="reaction-role-message" name="reaction-role-message" placeholder="Messsage"
               value="{{ plugin.get_settings_manager().get('reaction-role-message') }}">
           </label>
+          <div id="reaction-role-list">
+            {% set reaction_emojis = plugin.get_settings_manager().get('reaction-emoji-groups') %}
+            {% set reaction_roles = plugin.get_settings_manager().get('reaction-role-groups') %}
+            {% for index in range(reaction_emojis|length) %}
+            <div class="grid">
+              <label for="reaction-emojis">
+                Emoji
+                <input type="text" id="reaction-emojis" name="reaction-emoji-groups" placeholder="Entrer une réaction.."
+                  value="{{ reaction_emojis[index] }}">
+              </label>
+              <label for="reaction-roles">
+                Role
+                <select id="reaction-roles" name="reaction-role-groups" placeholder="Selectionner un rôle...">
+                  {% for role in guild.get_roles() %}
+                  <option value="{{ role.id }}" {% if role.id | string == reaction_roles[index] | string %} selected {% endif %}> {{ role.name }}</option>
+                  {% endfor %}
+                </select>
+              </label>
+            </div>
+            {% endfor %}
+          </div>
           <div class="grid">
-            <label for="reaction-emoji">
-              Emoji
-              <input type="text" id="reaction-emoji" name="reaction-emoji"
-                placeholder="Entrer une réaction.." value="{{ plugin.get_settings_manager().get('reaction-emoji') }}">
-            </label>
-            <label for="reaction-role">
-              Role
-              <input type="text" id="reaction-role" name="reaction-role"
-                placeholder="Entre le nom d'un rôle" value="{{ plugin.get_settings_manager().get('reaction-role') }}">
-            </label>
+            <div>
+              <input type="button" value="Add Reaction" onclick="add_reaction()"/>
+            </div>
+            <div></div>
+            <div>
+              <input type="button" value="Remove Reaction" onclick="remove_reaction()"/>
+            </div>
           </div>
       </article>
     </div>

@@ -1,10 +1,12 @@
 {
     "enabled": true,
-    "reaction-role-channel": "-1",
+    "reaction-role-channel": -1,
     "reaction-role-message": "React to this message to get your roles !",
-    "reaction-role-multiple-mode": true,
-    "reaction-role-mode": "default",
-    "reaction-role-message-id": "-1",
-    "reaction-emoji" : ":older_man:",
-    "reaction-role" : "Ancien"
+    "reaction-role-message-id": -1,
+    "reaction-emojis": [
+        ":white_check_mark:"
+    ],
+    "reaction-roles": [
+        "-1"
+    ]
 }
