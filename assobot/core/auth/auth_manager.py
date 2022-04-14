@@ -2,7 +2,7 @@ from assobot import APP
 from assobot.core.auth import AuthContext
 from assobot.core.utils.logger import get_logger
 
-from flask import session, abort
+from flask import session
 
 LOGGER = get_logger(__name__)
 
@@ -26,8 +26,4 @@ class AuthManager:
         return self.__auth_manager[user]
 
     def get_current_ctx(self):
-        if 'token' in session and session['token'] in self.__auth_manager:
-            return self.__auth_manager[session['token']]
-        else:
-            session.clear()
-            abort(500, 'Oups... something went wrong...')
+        return self.__auth_manager[session['token']]

@@ -11,7 +11,6 @@ class Guild:
         self.__name = zenora_guild.name
         self.__icon_url = zenora_guild.icon_url
         self.__plugins = dict()
-        self.__discord_guild = BOT.get_guild(self.id)
         self.__init_guild_folder()
 
     def __init_guild_folder(self):
@@ -38,10 +37,6 @@ class Guild:
     @property
     def plugins(self):
         return self.__plugins
-
-    @property
-    def discord_guild(self):
-        return self.__discord_guild
 
     @property
     def plugin_list(self):
@@ -76,9 +71,3 @@ class Guild:
             if isinstance(channel, TextChannel) and channel.guild.id == self.__id:
                 guild_channels.append(channel)
         return guild_channels
-
-    def get_roles(self):
-        return self.discord_guild.roles
-
-    def get_reactions(self):
-        return self.discord_guild.emojis
