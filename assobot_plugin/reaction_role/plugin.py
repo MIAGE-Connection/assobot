@@ -6,7 +6,6 @@ import emojis
 from discord.ext.commands import has_permissions
 
 from assobot.core.plugin import AbstractPlugin
-from .core import *
 
 
 class reaction_rolePlugin(AbstractPlugin):
@@ -95,11 +94,11 @@ class reaction_rolePlugin(AbstractPlugin):
         settings_manager.set('reaction-role-message-id', sended_reaction_role_message.id)
         settings_manager.save()
 
-    async def add_all_reactions_to_message(self, guild, settings_manager, message):
-        emoji_list = settings_manager.get('reaction-emoji-groups')
-        for emoji in emoji_list:
-            await message.add_reaction(emojis.encode(emoji))
-            
+    async def add_all_reactions_to_message(self, settings_manager, message):
+        list_roles_emojis = settings_manager.get('roles_emoji')
+        for role_emoji in list_roles_emojis:
+            await message.add_reaction(role_emoji['emoji_name'])
+
     def get_role_from_emoji(self, payload, guild):
         settings_manager = self.get_settings_manager(guild)
         emoji_list = settings_manager.get('reaction-emoji-groups')
