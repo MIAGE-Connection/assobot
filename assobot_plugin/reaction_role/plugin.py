@@ -1,6 +1,8 @@
+from assobot import CLIENT
+from assobot.core.auth.auth_manager import LOGGER
 import discord
 from discord.ext import commands
-import emoji
+import emojis
 from discord.ext.commands import has_permissions
 
 from assobot.core.plugin import AbstractPlugin
@@ -13,7 +15,7 @@ class reaction_rolePlugin(AbstractPlugin):
         super().__init__('Reaction_Role', 'Give roles on member reactions')
 
     @has_permissions(administrator=True)
-    @commands.command(name='rr')
+    @commands.command(name='reaction_role')
     async def invoke_reaction_role_message(self, ctx):
         settings_manager = self.get_settings_manager(ctx.guild)
         if not bool(settings_manager.get("enabled")): return
@@ -51,9 +53,9 @@ class reaction_rolePlugin(AbstractPlugin):
                 if member is not None:
                     await member.add_roles(role)
                 else:
-                    print("member not found")
+                    LOGGER.error("Member not found")
             else:
-                print("role not found")
+                LOGGER.error("Role not found")
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
@@ -75,9 +77,9 @@ class reaction_rolePlugin(AbstractPlugin):
             if member is not None:
                 await member.remove_roles(role)
             else:
-                print("member not found")
+                LOGGER.error("Member not found")
         else:
-            print("role not found")
+            LOGGER.error("Role not found")
 
     async def send_reaction_role_message(self, ctx):
         settings_manager = self.get_settings_manager(ctx.guild)
@@ -88,29 +90,19 @@ class reaction_rolePlugin(AbstractPlugin):
         reaction_role_message = settings_manager.get('reaction-role-message')
 
         sended_reaction_role_message = await reaction_role_channel.send(reaction_role_message)
-
         await self.add_all_reactions_to_message(settings_manager, sended_reaction_role_message)
 
         settings_manager.set('reaction-role-message-id', sended_reaction_role_message.id)
         settings_manager.save()
 
-    async def add_all_reactions_to_message(self, settings_manager, message):
-        list_roles_emojis = settings_manager.get('roles_emoji')
-        for role_emoji in list_roles_emojis:
-            await message.add_reaction(role_emoji['emoji_name'])
-
-    @has_permissions(administrator=True)
-    @commands.command(name='del')
-    async def delete_message(self, ctx):
-        await ctx.message.channel.purge(limit=2)
-
+    async def add_all_reactions_to_message(self, guild, settings_manager, message):
+        emoji_list = settings_manager.get('reaction-emoji-groups')
+        for emoji in emoji_list:
+            await message.add_reaction(emojis.encode(emoji))
+            
     def get_role_from_emoji(self, payload, guild):
         settings_manager = self.get_settings_manager(guild)
-        list_roles_emojis = settings_manager.get('roles_emoji')
-        role = None
-        for role_emoji in list_roles_emojis:
-            emoji_name = role_emoji['emoji_name']
-            emoji_name = emoji_name[emoji_name.find(':')+1:emoji_name.rfind(':')]
-            if role_emoji['emoji_name'] == payload.emoji.name or emoji_name == payload.emoji.name:
-                role = discord.utils.get(guild.roles, id=int(role_emoji['role_id']))
-        return role
+        emoji_list = settings_manager.get('reaction-emoji-groups')
+        role_list = settings_manager.get('reaction-role-groups')
+        index = emoji_list.index(emojis.decode(payload.emoji.name))
+        return discord.utils.get(guild.roles, id=int(role_list[index]))

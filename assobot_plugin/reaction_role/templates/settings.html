@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block plugin_stylesheet %}
-<link rel="stylesheet" href="{{ url_for('static', filename='plugins/' + plugin.name + '/css/plugin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/' + plugin.name.lower() + '/css/plugin.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -15,8 +15,8 @@
     <h2>
       <nav>
         <ul>
-          <li><img src="{{url_for('static', filename='default/img/reaction_role.svg')}}"></li>
-          <li>Reaction Role</li>
+          <li><img src="{{url_for('static', filename='default/img/default-plugin.png')}}"></li>
+          <li>{{ plugin.name.title() }}</li>
         </ul>
         <ul>
           <li>
@@ -41,7 +41,8 @@
             {% for channel in guild.get_text_channels() %}
             <option value="{{ channel.id }}" {% if channel.id |
               string==plugin.get_settings_manager().get('reaction-role-channel') %} selected {% endif %}>
-              {{channel.name}}</option>
+              {{channel.name}}
+            </option>
             {% endfor%}
           </select>
           <label for="reaction-role-message">
@@ -49,48 +50,36 @@
             <input type="text" id="reaction-role-message" name="reaction-role-message" placeholder="Messsage"
               value="{{ plugin.get_settings_manager().get('reaction-role-message') }}">
           </label>
-          <hr>
-          <label for="reaction-role-multiple-mode">
-            Allow members to pick up multiple roles
-            <input type="checkbox" id="reaction-role-multiple-mode" name="reaction-role-multiple-mode" role="switch" {%
-              if plugin.get_settings_manager().get('reaction-role-multiple-mode') %} checked {% endif %}>
-          </label>
-          
-          <div id="reactions">
-            <div id="reactions-list">
-              <div class="grid">
-                <select>
-                  {% for emoji in guild.get_reactions() %}
-                  <option value="{{ emoji.id }}">{{ emoji.name }}</option>
-                  {% endfor %}
-                </select>
-                <select>
+          <div id="reaction-role-list">
+            {% set reaction_emojis = plugin.get_settings_manager().get('reaction-emoji-groups') %}
+            {% set reaction_roles = plugin.get_settings_manager().get('reaction-role-groups') %}
+            {% for index in range(reaction_emojis|length) %}
+            <div class="grid">
+              <label for="reaction-emojis">
+                Emoji
+                <input type="text" id="reaction-emojis" name="reaction-emoji-groups" placeholder="Entrer une réaction.."
+                  value="{{ reaction_emojis[index] }}">
+              </label>
+              <label for="reaction-roles">
+                Role
+                <select id="reaction-roles" name="reaction-role-groups" placeholder="Selectionner un rôle...">
                   {% for role in guild.get_roles() %}
-                  <option value="{{ role.id }}">{{ role.name }}</option>
+                  <option value="{{ role.id }}" {% if role.id | string == reaction_roles[index] | string %} selected {% endif %}> {{ role.name }}</option>
                   {% endfor %}
                 </select>
-              </div>
+              </label>
             </div>
-            <input type="button" id="add-reaction" name="add-reaction" value="Add Reaction">
+            {% endfor %}
           </div>
-          <hr>
-          <fieldset>
-            <legend>Mode</legend>
-            <label for="reaction-role-default-mode">
-              <input type="radio" id="reaction-role-default-mode" name="reaction-role-mode" value="default" {% if plugin.get_settings_manager().get('reaction-role-mode') == 'default' %} checked {% endif %}>
-              Default Mode
-              <p>Reaction roles messages are special messages that let your members automatically pick up roles when
-                they react to a particular message. It is especially useful when making a verification system for your
-                Discord server. </p>
-            </label>
-            <label for="reaction-role-reverse-mode">
-              <input type="radio" id="reaction-role-reverse-mode" name="reaction-role-mode" value="reverse" {% if plugin.get_settings_manager().get('reaction-role-mode') == 'reverse' %} checked {% endif %}>
-              Reverse Mode
-              <p>
-                Remove roles when you click on a reaction, give them back when you remove your reaction
-              </p>
-            </label>
-          </fieldset>
+          <div class="grid">
+            <div>
+              <input type="button" value="Add Reaction" onclick="add_reaction()"/>
+            </div>
+            <div></div>
+            <div>
+              <input type="button" value="Remove Reaction" onclick="remove_reaction()"/>
+            </div>
+          </div>
       </article>
     </div>
 
@@ -106,5 +95,5 @@
 {% endblock %}
 
 {% block plugin_script %}
-<script src="{{ url_for('static', filename='plugins/' + plugin.name + '/js/plugin.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/' + plugin.name.lower() + '/js/plugin.js') }}"></script>
 {% endblock %}
