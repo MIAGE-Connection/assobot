@@ -1,94 +1,98 @@
 {% extends 'default/layout/layout.html' %}
 
 {% block title %}
-Choose your guild
+    Choose your guild
 {% endblock %}
 
 {% block content %}
-<!-- Main -->
-<div class="container">
-    <h1>Sélectionner un serveur</h1>
-    <h3 style="padding-top: 50px;">Configurer vos serveurs :</h3>
-    {% if guilds_joined|length == 0 %}
-    <div class="grid">
-        <div></div>
-        <div><h4>Assobot est présent sur aucun de vos serveurs</h4></div>
-        <div></div>
-    </div>
-    {% else %}
-
-        {% for row in guilds_joined|batch(3) %}
-        <div class="grid">
-            {% set row_lenght=row|length % 3 %}
-            {% for guild in row %}
-            <article>
-                <header style="height: 85%;">
-                    <nav>
-                        <ul>
-                            <li>
-                                {% if guild.icon_url %}
-                                <img src="{{ guild.icon_url}}" alt="Guild Icon URL" style="border-radius: 100px;" />
-                                {% else %}
-                                <img src="{{ url_for('static', filename='default/img/default-guild.png') }}" alt="Guild Icon URL" style="border-radius: 100px;" />
-                                {% endif %}
-                            </li>
-                            <li>{{ guild.name}}</li>
-                        </ul>
-                    </nav>
-                </header>
-                <a href="/guilds/{{ guild.id }}" role="button">Configurer</a>
-            </article>
-            {% endfor %}
-            {% if row_lenght>0 %}
-        {%- for n in range (3-row_lenght)%}
-        <div></div>
-        {% endfor %}
-        {% endif %}
-        </div>
-        {% endfor %}
-    {% endif %}
-
-
-
-
-    <h3 style="padding-top: 50px;">Ajouter le bot à vos serveurs :</h3>
-    {% if guilds_not_joined|length == 0 %}
-    <div class="grid">
-        <div></div>
-        <div><h4>Assobot est présent sur tous vos serveurs</h4></div>
-        <div></div>
-    </div>
-    {% else %}
-
-    {% for row in guilds_not_joined|batch(3) %}
-    <div class="grid">
-        {% set row_lenght=row|length % 3 %}
-        {% for guild in row %}
-        <article>
-            <header style="height: 85%;">
-                <nav>
-                    <ul>
-                        <li>
-                            {% if guild.icon_url %}
-                            <img src="{{ guild.icon_url}}" alt="Guild Icon URL" style="border-radius: 100px;" />
-                            {% else %}
-                            <img src="{{ url_for('static', filename='default/img/default-guild.png') }}" alt="Guild Icon URL" style="border-radius: 100px;" />
-                            {% endif %}
-                        </li>
-                        <li>{{ guild.name}}</li>
-                    </ul>
-                </nav>
-            </header>
-                <a href="{{ partial_url }}{{ guild.id }}" role="button">Ajouter</a>
-        </article>
-        {% endfor %}
-        {% if row_lenght > 0 %}
-            {%- for n in range (3-row_lenght)%}
+    <!-- Main -->
+    <div class="container">
+        <h1>Sélectionner un serveur</h1>
+        <h3 style="padding-top: 50px;">Configurer vos serveurs :</h3>
+        {% if guilds_joined|length == 0 %}
+            <div class="grid">
                 <div></div>
+                <div><h4>Assobot est présent sur aucun de vos serveurs</h4></div>
+                <div></div>
+            </div>
+        {% else %}
+
+            {% for row in guilds_joined|batch(3) %}
+                <div class="grid">
+                    {% set row_lenght=row|length % 3 %}
+                    {% for guild in row %}
+                        <article>
+                            <header style="height: 85%;">
+                                <nav>
+                                    <ul>
+                                        <li>
+                                            {% if guild.icon_url %}
+                                                <img src="{{ guild.icon_url }}" alt="Guild Icon URL"
+                                                     style="border-radius: 100px;"/>
+                                            {% else %}
+                                                <img src="{{ url_for('static', filename='default/img/default-guild.png') }}"
+                                                     alt="Guild Icon URL" style="border-radius: 100px;"/>
+                                            {% endif %}
+                                        </li>
+                                        <li>{{ guild.name }}</li>
+                                    </ul>
+                                </nav>
+                            </header>
+                            <a href="/guilds/{{ guild.id }}" role="button">Configurer</a>
+                        </article>
+                    {% endfor %}
+                    {% if row_lenght>0 %}
+                        {%- for n in range (3-row_lenght) %}
+                            <div></div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+
+
+        <h3 style="padding-top: 50px;">Ajouter le bot à vos serveurs :</h3>
+        {% if guilds_not_joined|length == 0 %}
+            <div class="grid">
+                <div></div>
+                <div><h4>Assobot est présent sur tous vos serveurs</h4></div>
+                <div></div>
+            </div>
+        {% else %}
+
+            {% for row in guilds_not_joined|batch(3) %}
+                <div class="grid">
+                    {% set row_lenght=row|length % 3 %}
+                    {% for guild in row %}
+                        <article>
+                            <header style="height: 85%;">
+                                <nav>
+                                    <ul>
+                                        <li>
+                                            {% if guild.icon_url %}
+                                                <img src="{{ guild.icon_url }}" alt="Guild Icon URL"
+                                                     style="border-radius: 100px;"/>
+                                            {% else %}
+                                                <img src="{{ url_for('static', filename='default/img/default-guild.png') }}"
+                                                     alt="Guild Icon URL" style="border-radius: 100px;"/>
+                                            {% endif %}
+                                        </li>
+                                        <li>{{ guild.name }}</li>
+                                    </ul>
+                                </nav>
+                            </header>
+                            <a href="{{ partial_url }}{{ guild.id }}" role="button">Ajouter</a>
+                        </article>
+                    {% endfor %}
+                    {% if row_lenght > 0 %}
+                        {%- for n in range (3-row_lenght) %}
+                            <div></div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
             {% endfor %}
         {% endif %}
     </div>
-    {% endfor %}
-    {% endif %}
-</div>
 {% endblock %}

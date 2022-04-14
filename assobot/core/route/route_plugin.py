@@ -12,8 +12,11 @@ def get_auth_context():
 @APP.route('/guilds/<guild_id>/plugins/<plugin_id>', methods=['GET', 'POST'])
 def plugin_settings_open(guild_id, plugin_id):
    ctx = get_auth_context()
-   plugin = ctx.guild.plugins.get(uuid.UUID(plugin_id), None)
-   
+   plugin = None
+   try:
+      plugin = ctx.guild.plugins.get(uuid.UUID(plugin_id), None)
+   except:
+      pass
    if plugin is None:
       return redirect(f'/guilds/{guild_id}')
 

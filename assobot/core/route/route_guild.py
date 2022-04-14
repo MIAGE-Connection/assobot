@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from assobot import APP, ASSOBOT_PLUGIN_TEMP_FOLDER, BOT, GUILD_MANAGER, PARTIAL_URL_BOT_ADD, AUTH_MANAGER, PLUGIN_FACTORY
 
 @APP.route('/guilds')
+@APP.route('/guilds/')
 def guild_list():
     if not 'token' in session: return abort(403, description="Unauthorized action")
     
@@ -27,8 +28,10 @@ def guild_list():
 def guild_manage(guild_id):
     if 'token' in session and guild_id:
         ctx = AUTH_MANAGER.get_current_ctx()
-        ctx.guild = GUILD_MANAGER.get(int(guild_id))
-
+        try:
+            ctx.guild = GUILD_MANAGER.get(int(guild_id))
+        except:
+            pass
         if request.method == 'POST':
             if 'file' not in request.files:
                 return redirect(request.url)
@@ -46,11 +49,11 @@ def guild_manage(guild_id):
                 ctx.guild.add_plugin(plugin)
         return render_template('default/plugin/plugin_list.html', guild=ctx.guild)
     else:
-        return abort(404, description="Unauthorized action")
+        return abort(403, description="Unauthorized action")
 
 
 
 @APP.route('/guild/callback')
 def callback_guild():
     guild_id = request.args['guild_id']
-    return redirect(f"/guild/{guild_id}")
+    return redirect(f"/guilds/{guild_id}")
