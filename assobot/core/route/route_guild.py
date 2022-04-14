@@ -28,7 +28,10 @@ def guild_list():
 def guild_manage(guild_id):
     if 'token' in session and guild_id:
         ctx = AUTH_MANAGER.get_current_ctx()
-        ctx.guild = GUILD_MANAGER.get(int(guild_id))
+        try:
+            ctx.guild = GUILD_MANAGER.get(int(guild_id))
+        except:
+            pass
         if request.method == 'POST':
             if 'file' not in request.files:
                 return redirect(request.url)
