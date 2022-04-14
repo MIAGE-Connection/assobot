@@ -26,6 +26,16 @@
         pariatur et incididunt elit enim cupidatat Lorem ipsum ut est enim.</p>
 
     <h2>List Plugins</h2>
+    {% if guild.plugin_list|length == 0 %}
+    <div class="grid">
+        <div></div>
+        <div>
+            <h4>Aucun plugin est installé dans votre serveur</h4>
+            <p>Veuiller vous rendre dans <a href="#install-plugin">la section d'installation des plugins</a> pour pouvoir utiliser Assobot sur votre serveur.</p>
+        </div>
+        <div></div>
+    </div>
+    {% else %}
     {% for plugin_row in guild.plugin_list|batch(2) %}
     {% set row_lenght=plugin_row|length % 2 %}
     <div class="grid">
@@ -75,8 +85,9 @@
         {% endif %}
     </div>
     {% endfor %}
+    {% endif %}
     </hr>
-    <h2>Install Plugin</h2>
+    <h2 id="install-plugin">Install Plugin</h2>
     <form method="post" enctype=multipart/form-data>
         <label for="file">Add plugin
             <input type="file" id="file" name="file">
