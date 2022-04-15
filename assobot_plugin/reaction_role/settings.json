@@ -3,10 +3,10 @@
     "reaction-role-channel": -1,
     "reaction-role-message": "React to this message to get your roles !",
     "reaction-role-message-id": -1,
-    "reaction-emojis": [
+    "reaction-emoji-groups": [
         ":white_check_mark:"
     ],
-    "reaction-roles": [
+    "reaction-role-groups": [
         "-1"
     ]
 }
