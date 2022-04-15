@@ -1,5 +1,19 @@
 # AssoBot
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+
+
+## Authors
+
+- [@Ni-g-3l](https://www.github.com/Ni-g-3l)
+- [@shapeqs](https://www.github.com/shapeqs)
+- [@oreLINK](https://www.github.com/oreLINK)
+- [@Baptiste-crypto](https://www.github.com/Baptiste-crypto)
+- [@dawencalippe](https://www.github.com/dawencalippe)
+- [@yelhaddady](https://www.github.com/yelhaddady)
+- [@auroreGm](https://www.github.com/auroreGm)
+
+
 ## Getting Started with development
 
 ### Step 1: Get the source code
@@ -40,7 +54,9 @@ pip install poetry
 poetry install
 ```
 
-### Step 5 : Run app
+### Step 5 : Refere to [Environment Variables and secret.py file](#environment-variables-and-secret.py-file)
+
+### Step 6 : Run app
 
 * Test App launching
 
@@ -128,3 +144,24 @@ poetry run assobot-sdk --build-plugin <path_to_your_plugin_folder>
 Then you will find a **dist** folder with inside a file which looks like something like : **<plugin_name>-0.0.0.zip**. 
 
 Finally you can install this plugin web interface of the AssoBot.
+
+
+## Environment Variables and secret.py file
+
+To run this project, you will need to create a ```secret.py``` file next to the ```config.py``` file.
+
+To fill this ```secret.py``` file you can ask [@shapeqs](https://www.github.com/shapeqs) for all variables or create your own :
+
+`BOT_SECRET` : The Discord BOT's token
+
+`CLIENT_SECRET` : The client secret of the discord app
+
+`INSTAGRAM_ACCOUNT` : The username of the instagram account
+
+`INSTAGRAM_PASSWORD` : The password of the instagram account
+
+## Social
+
+![Facebook](https://img.shields.io/twitter/url?color=232374E1&label=Facebook&logo=Facebook&logoColor=%232374E1&style=for-the-badge&url=https%3A%2F%2Fwww.facebook.com%2Fmiageconnection%2F)
+![Instagram](https://img.shields.io/twitter/url?color=232374E1&label=Instagram&logo=instagram&style=for-the-badge&url=https%3A%2F%2Fwww.instagram.com%2Fmiageconnection)
+![Twitter](https://img.shields.io/twitter/url?color=232374E1&label=Twitter&logo=twitter&style=for-the-badge&url=https%3A%2F%2Ftwitter.com%2Fmiageconnection)
