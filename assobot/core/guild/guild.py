@@ -80,5 +80,14 @@ class Guild:
     def get_roles(self):
         return self.discord_guild.roles
 
+    def get_assignables_roles(self):
+        assignable_roles = []
+        for role in self.discord_guild.roles:
+            if role.name == 'Assobot':
+                return assignable_roles
+            else:
+                assignable_roles.append(role)
+        return assignable_roles
+
     def get_reactions(self):
         return self.discord_guild.emojis
