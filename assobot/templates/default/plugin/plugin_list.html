@@ -44,8 +44,7 @@
             <header>
                 <nav>
                     <ul>
-                        <li><img src="{{ url_for('static', filename='default/img/default-plugin.png') }}" />
-                        </li>
+                        <li><img src="{{url_for('static', filename='plugins/' + plugin.name.lower() + '/img/icon.png')}}"></li>
                         <li>{{ plugin.name }}</li>
                     </ul>
                     <ul>
@@ -68,9 +67,9 @@
                     </ul>
                     <ul>
                         <li>
-                            <a href="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}/uninstall" role="button"
+                            <a href="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}/uninstall"
                                 onclick="return confirm('Are you sure you want to uninstall this plugin {{ plugin.name }} ?')">
-                                <img src="{{ url_for('static', filename='default/img/x-mark.png') }}" alt="Uninstall" />
+                                <i class="fa-solid fa-trash-can" style="color: var(--muted-color);"></i>
                             </a>
                         </li>
                     </ul>

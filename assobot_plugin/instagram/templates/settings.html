@@ -15,7 +15,7 @@
     <h2>
       <nav>
         <ul>
-          <li><img src="{{url_for('static', filename='default/img/default-plugin.png')}}"></li>
+          <li><img src="{{url_for('static', filename='plugins/' + plugin.name.lower() + '/img/icon.png')}}"></li>
           <li>{{ plugin.name.title() }}</li>
         </ul>
         <ul>
