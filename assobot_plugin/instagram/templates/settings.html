@@ -12,36 +12,83 @@
 <!-- Main -->
 <div class="container">
   <form action="/guilds/{{guild.id}}/plugins/{{ plugin.id }}" method="post">
-      <h2>
-        <nav>
-          <ul>
-            <li><img src="{{url_for('static', filename='default/img/default-plugin.png')}}"></li>
-            <li>{{ plugin.name.title() }}</li>
-          </ul>
-          <ul>
-            <li>
-              <label for="switch">
-                <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch" value="true" {% if plugin.enabled %} checked {% endif %}>
-              </label>
-            </li>
-          </ul>
-        </nav>
-      </h2>
+    <h2>
+      <nav>
+        <ul>
+          <li><img src="{{url_for('static', filename='default/img/default-plugin.png')}}"></li>
+          <li>{{ plugin.name.title() }}</li>
+        </ul>
+        <ul>
+          <li>
+            <label for="switch">
+              <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch"
+                {% if plugin.enabled %} checked {% endif %}>
+            </label>
+          </li>
+        </ul>
+      </nav>
+    </h2>
 
-      <p>{{ plugin.description }}</p>
-
-      <div id="settings">
-        <!-- TODO : Implements your settings form here -->
-      </div>
-  
-      <div class="grid">
-        <div></div>
-        <div>
-          <input type="submit" value="Save settings" />
+    <p>{{ plugin.description }}</p>
+    <div id="settings">
+      <article>
+        <header>
+          Instagram login
+        </header>
+        <label for="instagram-login">
+          Login
+          <input type="text" id="instagram-login" name="instagram-login"
+            value="{{ plugin.get_settings_manager().get('instagram-login') }}" />
+        </label>
+        <label for="instagram-login">
+          Password
+          <input type="password" id="instagram-password" name="instagram-password"
+            value="{{ plugin.get_settings_manager().get('instagram-password') }}" />
+        </label>
+      </article>
+      <article>
+        <header>Liste des profils</header>
+        <div id="profiles-list">
+          {% set profile_list = plugin.get_settings_manager().get('instagram-profile-groups') %}
+          {% set channel_list = plugin.get_settings_manager().get('instagram-channel-groups') %}
+          {% for index in range(profile_list|length) %}
+          <div class="grid">
+            <label for="instagram-profile-groups">
+              Compte instagram
+              <input type="text" id="instagram-profile-groups" name="instagram-profile-groups"
+                placeholder="Entrer le nom d'un compte instagram..." value="{{ profile_list[index] }}">
+            </label>
+            <label for="instagram-channel-groups">
+              Channel
+              <select id="instagram-channel-groups" name="instagram-channel-groups">
+                <option value="-1">Please select a channel...</option>
+                {% for channel in guild.get_text_channels() %}
+                <option value="{{ channel.id }}" {% if channel.id | string== channel_list[index] %} selected {% endif %}> {{channel.name}} </option>
+                {% endfor%}
+              </select>
+          </div>
+          {% endfor %}
         </div>
-        <div></div>
+        <div class="grid">
+          <div>
+            <input type="button" value="Ajouter un profil" onclick="add_profile()" />
+          </div>
+          <div></div>
+          <div>
+            <input type="button" value="Supprimer un profil" onclick="remove_profile()" />
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grid">
+      <div></div>
+      <div>
+        <input type="submit" value="Save settings" />
       </div>
-    </form>
+      <div></div>
+    </div>
+  </form>
 </div>
 {% endblock %}
 

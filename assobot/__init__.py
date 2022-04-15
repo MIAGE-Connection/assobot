@@ -16,10 +16,6 @@ APP = Flask(__name__)
 BOT = commands.Bot(command_prefix='>', intents=discord.Intents.all())
 CLIENT = APIClient(BOT_SECRET, client_secret=CLIENT_SECRET)
 CURRENT_USER = None
-INSTA_LOGIN = {
-    "login_user" : INSTAGRAM_ACCOUNT,
-    "login_pass" : INSTAGRAM_PASSWORD
-}
 
 @BOT.event
 async def on_connect():
