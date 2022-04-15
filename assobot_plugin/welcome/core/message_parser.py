@@ -1,9 +1,9 @@
-def parse_welcome_message(msg, member):
+def parse_welcome_message(msg, member, channel):
 
     TOKENS = {
-        "{% MEMBER %}" : member.mention,
-        "{% GUILD %}" : member.guild,
-        "{% CHANNEL %}" : member.guild.system_channel
+        "[[MEMBER]]" : member.mention,
+        "[[GUILD]]" : member.guild.name,
+        "[[CHANNEL]]" : channel.name
     }
 
     for key in TOKENS.keys():
