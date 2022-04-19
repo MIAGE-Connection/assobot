@@ -43,7 +43,6 @@ ASSOBOT_SETTINGS_DEFAULT_FILE = get_or_create_json_file_path(Path(__file__).pare
 ASSOBOT_SETTINGS_USER_FILE = get_or_create_json_file_path(ASSOBOT_FOLDER / 'settings.json')
 
 ASSOBOT_GUILDS_FOLDER = get_or_create_folder_path(ASSOBOT_FOLDER / 'guilds')
-ASSOBOT_PLUGIN_SETTING_FOLDER = get_or_create_folder_path(ASSOBOT_FOLDER / 'plugins-settings')
 ASSOBOT_PLUGIN_TEMP_FOLDER = get_or_create_folder_path(ASSOBOT_FOLDER / 'tmp')
 
 PLUGIN_FOLDER = get_or_create_folder_path(Path(__file__).parent / 'plugins')
