@@ -64,8 +64,6 @@ poetry install
 poetry run launch_bot
 ```
 
-
-
 ## Project development
 
 ### FrontEnd
@@ -116,7 +114,7 @@ In order to create your first assobot plugin you can use the assobot-sdk. This S
 In order to create your plugin you should use the command below.
 
 ```bash
-poetry run assobot_sdk --create-plugin ./
+poetry run assobot_sdk --create-plugin <path_of_the_destination>
 ```
 
 Then, you just have to follow instructions in your terminal. 
@@ -141,20 +139,20 @@ When your plugin is ready, you can build it thanks to the command below.
 ```
 poetry run assobot_sdk --build-plugin <path_to_your_plugin_folder>
 ```
-Then you will find a **dist** folder with inside a file which looks like something like : **<plugin_name>-0.0.0.zip**. 
+Then you will find a **dist** folder with inside a file which looks like something like : **<plugin_name>.zip**. 
 
 Finally you can install this plugin web interface of the AssoBot.
 
-
 ## Environment Variables and secret.py file
 
-To run this project, you will need to create a ```secret.py``` file next to the ```config.py``` file.
+To run this project, you will need to create a ```secret.py``` in the root of the assobot module.
 
-To fill this ```secret.py``` file you can ask [@shapeqs](https://www.github.com/shapeqs) for all variables or create your own :
+You can copy/paste this code into the file and then fill it with you personnal tokens.
 
-`BOT_SECRET` : The Discord BOT's token
-
-`CLIENT_SECRET` : The client secret of the discord app
+```python
+BOT_SECRET='<your_personal_token_here>'
+CLIENT_SECRET='<your_personal_token_here>'
+```
 
 ## Socials
 
