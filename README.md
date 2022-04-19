@@ -156,8 +156,12 @@ To fill this ```secret.py``` file you can ask [@shapeqs](https://www.github.com/
 
 `CLIENT_SECRET` : The client secret of the discord app
 
-## Social
+## Socials
 
-![Facebook](https://img.shields.io/twitter/url?color=232374E1&label=Facebook&logo=Facebook&logoColor=%232374E1&style=for-the-badge&url=https%3A%2F%2Fwww.facebook.com%2Fmiageconnection%2F)
-![Instagram](https://img.shields.io/twitter/url?color=232374E1&label=Instagram&logo=instagram&style=for-the-badge&url=https%3A%2F%2Fwww.instagram.com%2Fmiageconnection)
-![Twitter](https://img.shields.io/twitter/url?color=232374E1&label=Twitter&logo=twitter&style=for-the-badge&url=https%3A%2F%2Ftwitter.com%2Fmiageconnection)
+<center>
+
+[![Facebook](https://img.shields.io/twitter/url?color=232374E1&label=Facebook&logo=Facebook&logoColor=%232374E1&style=for-the-badge&url=https%3A%2F%2Fwww.facebook.com%2Fmiageconnection%2F)](https://www.facebook.com/miageconnection)
+[![Instagram](https://img.shields.io/twitter/url?color=232374E1&label=Instagram&logo=instagram&style=for-the-badge&url=https%3A%2F%2Fwww.instagram.com%2Fmiageconnection)](https://www.instagram.com/miageconnection/)
+[![Twitter](https://img.shields.io/twitter/url?color=232374E1&label=Twitter&logo=twitter&style=for-the-badge&url=https%3A%2F%2Ftwitter.com%2Fmiageconnection)](https://twitter.com/MIAGEConnection)
+
+</center>
