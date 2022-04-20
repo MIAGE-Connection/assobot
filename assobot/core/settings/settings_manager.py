@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from ..utils import get_logger
 
-from assobot import SOURCE_PLUGIN_FOLDER, ASSOBOT_PLUGIN_SETTING_FOLDER, get_or_create_json_file_path
+from assobot import SOURCE_PLUGIN_FOLDER, get_or_create_json_file_path
 
 LOGGER = get_logger(__name__)
 
