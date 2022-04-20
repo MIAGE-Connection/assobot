@@ -16,22 +16,20 @@
         {% endif %}
         &nbsp; {{ guild.name }}
     </h1>
-    <p>Excepteur mollit cupidatat cupidatat veniam et irure ex aliquip deserunt velit eiusmod nulla commodo veniam.
-        Aute
-        elit consectetur dolore fugiat consectetur. Ea ut esse officia ex dolor.</p>
+    <p>Vous retrouverez ci-dessous la liste des plugins installés sur votre serveur discord avec la possibilité 
+        d'activer ou de désactiver chaque plugin installé via le bouton à bascule.
+    </p>
 
-    <p>Non deserunt labore occaecat duis aute qui officia excepteur. Sunt nostrud labore minim anim aute excepteur
-        proident. Cillum consequat irure mollit magna sit aliqua excepteur amet. Nisi labore sunt esse ullamco.
-        Velit
-        pariatur et incididunt elit enim cupidatat Lorem ipsum ut est enim.</p>
+    <p>A la suite, vous avez également la possibilité d'ajouter les fonctionnalités que vous souhaitez en installant directement les plugins dans la section correspondante. 
+        De plus, vous pouvez aussi développer votre propre module afin de l'ajouter au Bot et à votre serveur ! </p>
 
-    <h2>List Plugins</h2>
+    <h2>Liste des plugins</h2>
     {% if guild.plugin_list|length == 0 %}
     <div class="grid">
         <div></div>
         <div>
-            <h4>Aucun plugin est installé dans votre serveur</h4>
-            <p>Veuiller vous rendre dans <a href="#install-plugin">la section d'installation des plugins</a> pour pouvoir utiliser Assobot sur votre serveur.</p>
+            <h4>Aucun plugin n'est installé dans votre serveur</h4>
+            <p>Veuillez vous rendre dans <a href="#install-plugin">la section d'installation des plugins</a> pour pouvoir utiliser Assobot sur votre serveur.</p>
         </div>
         <div></div>
     </div>
@@ -86,12 +84,12 @@
     {% endfor %}
     {% endif %}
     </hr>
-    <h2 id="install-plugin">Install Plugin</h2>
+    <h2 id="install-plugin">Installation de plugins</h2>
     <form method="post" enctype=multipart/form-data>
-        <label for="file">Add plugin
+        <label for="file">Ajout plugin :
             <input type="file" id="file" name="file">
         </label>
-        <button type="submit">Install</button>
+        <button type="submit">Installer</button>
     </form>
 </div>
 {% endblock %}
