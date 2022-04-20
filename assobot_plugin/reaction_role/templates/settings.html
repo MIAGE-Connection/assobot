@@ -1,106 +1,102 @@
 {% extends 'default/layout/layout.html' %}
 
 {% block title %}
-    {{ plugin.name }} - Settings
+{{ plugin.name.replace('_', ' ') }} - Settings
 {% endblock %}
 
 {% block plugin_stylesheet %}
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='plugins/' + plugin.name.lower() + '/css/plugin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/' + plugin.name.lower() + '/css/plugin.css') }}">
 {% endblock %}
 
 {% block content %}
-    <!-- Main -->
-    <div class="container">
-        <form action="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}" method="post">
-            <h2>
-                <nav>
-                    <ul>
-                        <li><img src="{{url_for('static', filename='plugins/' + plugin.name.lower() + '/img/icon.png')}}"></li>
-                        <li>{{ plugin.name.title() }}</li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <label for="switch">
-                                <input type="checkbox" id="switch" class="plugin-switch" name="{{ plugin.id }}"
-                                       role="switch" value="true"
-                                        {% if plugin.enabled %} checked {% endif %}>
-                            </label>
-                        </li>
-                    </ul>
-                </nav>
-            </h2>
-
-            <p>{{ plugin.description }}</p>
-
-            <div id="settings">
-                <article>
-                    <header>Reactions role message</header>
-                    <label for="reaction-role-channel">
-                        Channel
-                        <select id="reaction-role-channel" name="reaction-role-channel">
-                            <option value="-1">Please select a channel...</option>
-                            {% for channel in guild.get_text_channels() %}
-                                <option value="{{ channel.id }}" {% if channel.id |
-              string==plugin.get_settings_manager().get('reaction-role-channel') %} selected {% endif %}>
-                                    {{ channel.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <label for="reaction-role-message">
-                            Message
-                            <input type="text" id="reaction-role-message" name="reaction-role-message"
-                                   placeholder="Messsage"
-                                   value="{{ plugin.get_settings_manager().get('reaction-role-message') }}">
+<!-- Main -->
+<div class="container">
+    <form action="/guilds/{{ guild.id }}/plugins/{{ plugin.id }}" method="post">
+        <h2>
+            <nav>
+                <ul>
+                    <li><img src="{{url_for('static', filename='plugins/' + plugin.name.lower() + '/img/icon.png')}}">
+                    </li>
+                    <li>{{ plugin.name.title().replace('_', ' ') }} plugin</li>
+                </ul>
+                <ul>
+                    <li>
+                        <label for="switch">
+                            <input type="checkbox" id="switch" class="plugin-switch" name="{{ plugin.id }}"
+                                role="switch" value="true" {% if plugin.enabled %} checked {% endif %}>
                         </label>
-                        <div id="reaction-role-list">
-                            {% set reaction_emojis = plugin.get_settings_manager().get('reaction-emoji-groups') %}
-                            {% set reaction_roles = plugin.get_settings_manager().get('reaction-role-groups') %}
-                            {% for index in range(reaction_emojis|length) %}
-                                <div class="grid">
-                                    <label for="reaction-emojis">
-                                        Emoji
-                                        <input type="text" id="reaction-emojis" name="reaction-emoji-groups"
-                                               placeholder="Entrer une réaction.."
-                                               value="{{ reaction_emojis[index] }}">
-                                    </label>
-                                    <label for="reaction-roles">
-                                        Role
-                                        <select id="reaction-roles" name="reaction-role-groups"
-                                                placeholder="Selectionner un rôle...">
-                                            {% for role in guild.get_assignables_roles() if role.name != '@everyone' %}
-                                                    <option value="{{ role.id }}"
-                                                            {% if role.id | string == reaction_roles[index] | string %}
-                                                            selected {% endif %}> {{ role.name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </label>
-                                </div>
-                            {% endfor %}
-                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </h2>
+        <p>Ce plugin permet de gérer la distribution des rôles au sein de votre serveur. Ainsi, vous pouvez choisir un émoji et ainsi que le rôle qui sera attribué lors de la réaction d'un des membres au message.</p>
+        <p>Après avoir paramétré votre plugin, vous pouvez afficher le message de distribution des réactions en lançant la commande <strong>'>display_reaction_message'</strong></p>
+        <div id="settings">
+            <article>
+                <header>Message</header>
+                <label for="reaction-role-channel">
+                    Channel
+                    <select id="reaction-role-channel" name="reaction-role-channel" placeholder="Sélectionner un channel...">
+                        <option value="-1">Sélectionner un channel...</option>
+                        {% for channel in guild.get_text_channels() %}
+                        <option value="{{ channel.id }}" {% if channel.id |
+                            string==plugin.get_settings_manager().get('reaction-role-channel') %} selected {% endif %}>
+                            {{ channel.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <label for="reaction-role-message">
+                        Message
+                        <input type="text" id="reaction-role-message" name="reaction-role-message"
+                            placeholder="Messsage"
+                            value="{{ plugin.get_settings_manager().get('reaction-role-message') }}">
+                    </label>
+                    <div id="reaction-role-list">
+                        {% set reaction_emojis = plugin.get_settings_manager().get('reaction-emoji-groups') %}
+                        {% set reaction_roles = plugin.get_settings_manager().get('reaction-role-groups') %}
+                        {% for index in range(reaction_emojis|length) %}
                         <div class="grid">
-                            <div>
-                                <input type="button" value="Add Reaction" onclick="add_reaction()"/>
-                            </div>
-                            <div></div>
-                            <div>
-                                <input type="button" value="Remove Reaction" onclick="remove_reaction()"/>
-                            </div>
+                            <label for="reaction-emojis">
+                                Emoji
+                                <input type="text" id="reaction-emojis" name="reaction-emoji-groups"
+                                    placeholder="Entrer une réaction.." value="{{ reaction_emojis[index] }}">
+                            </label>
+                            <label for="reaction-roles">
+                                Rôle
+                                <select id="reaction-roles" name="reaction-role-groups"
+                                    placeholder="Sélectionner un rôle...">
+                                    {% for role in guild.get_assignables_roles() if role.name != '@everyone' %}
+                                    <option value="{{ role.id }}" {% if role.id | string==reaction_roles[index] | string
+                                        %} selected {% endif %}> {{ role.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </label>
                         </div>
-                </article>
-            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="grid">
+                        <div>
+                            <input type="button" value="Add Reaction" onclick="add_reaction()" />
+                        </div>
+                        <div></div>
+                        <div>
+                            <input type="button" value="Remove Reaction" onclick="remove_reaction()" />
+                        </div>
+                    </div>
+            </article>
+        </div>
 
-            <div class="grid">
-                <div></div>
-                <div>
-                    <input type="submit" value="Save settings"/>
-                </div>
-                <div></div>
+        <div class="grid">
+            <div></div>
+            <div>
+                <input type="submit" value="Save settings" />
             </div>
-        </form>
-    </div>
+            <div></div>
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block plugin_script %}
-    <script src="{{ url_for('static', filename='plugins/' + plugin.name.lower() + '/js/plugin.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/' + plugin.name.lower() + '/js/plugin.js') }}"></script>
 {% endblock %}

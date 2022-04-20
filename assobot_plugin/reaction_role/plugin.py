@@ -11,10 +11,10 @@ from assobot.core.plugin import AbstractPlugin
 class reaction_rolePlugin(AbstractPlugin):
 
     def __init__(self) -> None:
-        super().__init__('Reaction_Role', 'Give roles on member reactions')
+        super().__init__('reaction_role', 'Laissez vos membres obtenir un rôle en réagissant à un message.')
 
     @has_permissions(administrator=True)
-    @commands.command(name='reaction_role')
+    @commands.command(name='display_reaction_message')
     async def invoke_reaction_role_message(self, ctx):
         settings_manager = self.get_settings_manager(ctx.guild)
         if not bool(settings_manager.get("enabled")): return
@@ -88,6 +88,8 @@ class reaction_rolePlugin(AbstractPlugin):
         reaction_role_message = self.add_role_reaction_to_message(settings_manager, ctx.guild,
                                                                   settings_manager.get('reaction-role-message'))
 
+        if reaction_role_channel is None: return
+        
         sended_reaction_role_message = await reaction_role_channel.send(reaction_role_message)
         await self.add_all_reactions_to_message(settings_manager, sended_reaction_role_message)
 
