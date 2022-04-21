@@ -20,10 +20,12 @@ class PluginFactory:
         LOGGER.info(f"Load plugin from {plugin_path}")
         plugin_name = self.__get_plugin_name(plugin_path)
         if not self.__plugins.__contains__(plugin_name):
+            self.__clean_tmp_folder()
             self.__extract_to_tmp_folder(plugin_name, plugin_path)
             self.__copy_to_plugin_folder(plugin_name)
             self.__install_dependencies(plugin_name)
             plugin = self.__add_plugin(plugin_name)
+            self.__clean_tmp_folder()
         else:
             plugin = self.__plugins[plugin_name]
         return plugin
@@ -94,3 +96,8 @@ class PluginFactory:
         self.__plugins[plugin_name] = plugin
         BOT.add_cog(plugin)
         return plugin
+    
+    def __clean_tmp_folder() -> None:
+        if ASSOBOT_PLUGIN_TEMP_FOLDER.exists():
+            ASSOBOT_PLUGIN_TEMP_FOLDER.rmtree()
+        ASSOBOT_PLUGIN_TEMP_FOLDER.mkdir()
