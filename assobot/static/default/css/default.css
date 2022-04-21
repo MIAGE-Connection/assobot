@@ -6,13 +6,24 @@
     text-align: center;
 }
 
-#mc-logo-header {
-    width: 25%;
-    height: auto;
-}
-
 #login-section {
     text-align: center;
+}
+
+#logout {
+    width: 6em;
+}
+
+#logout:hover #login_message {
+    display: none
+}
+
+#logout #logout_message {
+    display: none;
+}
+
+#logout:hover #logout_message {
+    display: inline;
 }
 
 #header-layout {
