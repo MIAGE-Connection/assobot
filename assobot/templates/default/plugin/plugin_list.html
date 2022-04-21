@@ -16,20 +16,37 @@
         {% endif %}
         &nbsp; {{ guild.name }}
     </h1>
-    <p>Vous retrouverez ci-dessous la liste des plugins installés sur votre serveur discord avec la possibilité 
+    <p>Vous retrouverez ci-dessous la liste des plugins installés sur votre serveur discord avec la possibilité
         d'activer ou de désactiver chaque plugin installé via le bouton à bascule.
     </p>
 
-    <p>A la suite, vous avez également la possibilité d'ajouter les fonctionnalités que vous souhaitez en installant directement les plugins dans la section correspondante. 
+    <p>A la suite, vous avez également la possibilité d'ajouter les fonctionnalités que vous souhaitez en installant
+        directement les plugins dans la section correspondante.
         De plus, vous pouvez aussi développer votre propre module afin de l'ajouter au Bot et à votre serveur ! </p>
 
-    <h2>Liste des plugins</h2>
+    <div class="grid">
+        <nav>
+            <ul>
+                <li>
+                    <h2>Liste des plugins</h2>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <button data-target="modal-install" onClick="toggleModal(event)">
+                        Ajouter un plugin
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
     {% if guild.plugin_list|length == 0 %}
     <div class="grid">
         <div></div>
         <div>
             <h4>Aucun plugin n'est installé dans votre serveur</h4>
-            <p>Veuillez vous rendre dans <a href="#install-plugin">la section d'installation des plugins</a> pour pouvoir utiliser Assobot sur votre serveur.</p>
+            <p>Veuillez vous rendre dans <a href="#install-plugin">la section d'installation des plugins</a> pour
+                pouvoir utiliser Assobot sur votre serveur.</p>
         </div>
         <div></div>
     </div>
@@ -42,7 +59,9 @@
             <header>
                 <nav>
                     <ul>
-                        <li><img src="{{url_for('static', filename='plugins/' + plugin.name.lower() + '/img/icon.png')}}"></li>
+                        <li><img
+                                src="{{url_for('static', filename='plugins/' + plugin.name.lower() + '/img/icon.png')}}">
+                        </li>
                         <li>{{ plugin.name }}</li>
                     </ul>
                     <ul>
@@ -84,12 +103,34 @@
     {% endfor %}
     {% endif %}
     </hr>
-    <h2 id="install-plugin">Installation de plugins</h2>
-    <form method="post" enctype=multipart/form-data>
-        <label for="file">Ajout plugin :
-            <input type="file" id="file" name="file">
-        </label>
-        <button type="submit">Installer</button>
-    </form>
 </div>
+
+<!-- Modal -->
+<dialog id="modal-install">
+    <form method="post" enctype="multipart/form-data">
+        <article>
+            <a href="#close" aria-label="Close" class="close" data-target="modal-install" onClick="toggleModal(event)">
+            </a>
+            <h3>Ajouter un plugin</h3>
+            <input type="file" id="file" name="file">
+            <footer>
+                <nav>
+                    <ul></ul>
+                    <ul>
+                        <li>
+                            <button href="#cancel" class="secondary" data-target="modal-install"
+                                onClick="toggleModal(event)">
+                                Annuler
+                            </button>
+                        </li>
+                        <li>
+                            <button type="submit">Installer</button>
+                        </li>
+                    </ul>
+                </nav>
+            </footer>
+        </article>
+    </form>
+</dialog>
+
 {% endblock %}
