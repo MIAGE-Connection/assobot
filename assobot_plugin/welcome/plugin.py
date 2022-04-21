@@ -10,7 +10,7 @@ LOGGER = get_logger(__name__)
 class welcomePlugin(AbstractPlugin):
 
     def __init__(self) -> None:
-        super().__init__('welcome', 'Allow bot to welcoming new members')
+        super().__init__('welcome', 'Envoyez un message de bienvenue aux nouveaux membres')
 
     @commands.command()
     async def hello(self, ctx):
