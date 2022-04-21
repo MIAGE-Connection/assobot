@@ -1,18 +1,19 @@
 {% extends 'default/layout/layout.html' %}
 
 {% block title %}
-    Choose your guild
+Assobot - Serveurs
 {% endblock %}
 
 {% block content %}
     <!-- Main -->
     <div class="container">
         <h1>Sélectionner un serveur</h1>
+        <p>Bienvenue sur la liste de vos serveurs Discord ! Ici vous pouvez choisir d’ajouter l’assobot sur ces derniers ou configurer ceux sur lesquels il est déjà présent.</p>
         <h3 style="padding-top: 50px;">Configurer vos serveurs :</h3>
         {% if guilds_joined|length == 0 %}
             <div class="grid">
                 <div></div>
-                <div><h4>Assobot est présent sur aucun de vos serveurs</h4></div>
+                <div><h4>Assobot n'est présent sur aucun de vos serveurs</h4></div>
                 <div></div>
             </div>
         {% else %}
@@ -50,13 +51,9 @@
             {% endfor %}
         {% endif %}
 
-
-
-
         <h3 style="padding-top: 50px;">Ajouter le bot à vos serveurs :</h3>
         {% if guilds_not_joined|length == 0 %}
             <div class="grid">
-                <div></div>
                 <div><h4>Assobot est présent sur tous vos serveurs</h4></div>
                 <div></div>
             </div>
