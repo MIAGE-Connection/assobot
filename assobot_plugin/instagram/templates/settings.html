@@ -21,19 +21,21 @@
         <ul>
           <li>
             <label for="switch">
-              <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch"
-                {% if plugin.enabled %} checked {% endif %}>
+              <input type="checkbox" id="switch" class="plugin-switch" name="{{plugin.id}}" role="switch" {% if
+                plugin.enabled %} checked {% endif %}>
             </label>
           </li>
         </ul>
       </nav>
     </h2>
-
-    <p>{{ plugin.description }}</p>
+    <p>Ce plugin permet de rester au courant des dernières actualités des comptes instagram que vous souhaitez. Ajouter
+      le nom d'un compte et le channel dans lequel vous souhaitez que les derniers posts soient publiés. Et le Bot fera
+      une vérification toutes les 3 min du dernier post Instagram de chaque compte. En cas de nouveautés il vous enverra
+      un message avec un lien vers le post dans le channel prévu à cet effet.</p>
     <div id="settings">
       <article>
         <header>
-          Instagram login
+          Compte Instagram
         </header>
         <label for="instagram-login">
           Login
@@ -41,13 +43,13 @@
             value="{{ plugin.get_settings_manager().get('instagram-login') }}" />
         </label>
         <label for="instagram-login">
-          Password
+          Mot de passe
           <input type="password" id="instagram-password" name="instagram-password"
             value="{{ plugin.get_settings_manager().get('instagram-password') }}" />
         </label>
       </article>
       <article>
-        <header>Liste des profils</header>
+        <header>Liste des comptes</header>
         <div id="profiles-list">
           {% set profile_list = plugin.get_settings_manager().get('instagram-profile-groups') %}
           {% set channel_list = plugin.get_settings_manager().get('instagram-channel-groups') %}
@@ -63,7 +65,8 @@
               <select id="instagram-channel-groups" name="instagram-channel-groups">
                 <option value="-1">Please select a channel...</option>
                 {% for channel in guild.get_text_channels() %}
-                <option value="{{ channel.id }}" {% if channel.id | string== channel_list[index] %} selected {% endif %}> {{channel.name}} </option>
+                <option value="{{ channel.id }}" {% if channel.id | string==channel_list[index] %} selected {% endif %}>
+                  {{channel.name}} </option>
                 {% endfor%}
               </select>
           </div>
@@ -71,11 +74,11 @@
         </div>
         <div class="grid">
           <div>
-            <input type="button" value="Ajouter un profil" onclick="add_profile()" />
+            <input type="button" value="Ajouter un compte" onclick="add_profile()" />
           </div>
           <div></div>
           <div>
-            <input type="button" value="Supprimer un profil" onclick="remove_profile()" />
+            <input type="button" value="Supprimer un compte" onclick="remove_profile()" />
           </div>
         </div>
       </article>
@@ -84,7 +87,7 @@
     <div class="grid">
       <div></div>
       <div>
-        <input type="submit" value="Save settings" />
+        <input type="submit" value="Sauvegarder les settings" />
       </div>
       <div></div>
     </div>

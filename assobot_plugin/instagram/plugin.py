@@ -11,7 +11,7 @@ BASE_URL = 'https://www.instagram.com/'
 class instagramPlugin(AbstractPlugin):
 
     def __init__(self) -> None:
-        super().__init__('instagram', 'Fetch and send all new posts of instagram account')
+        super().__init__('instagram', 'Publie une notification pour chaque nouveaux posts Instagram')
 
     @has_permissions(administrator=True)
     @commands.command(name="run_instagram_watch")
