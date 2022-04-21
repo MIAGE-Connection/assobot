@@ -74,6 +74,7 @@
                                 Rôle
                                 <select id="reaction-roles" name="reaction-role-groups"
                                     placeholder="Sélectionner un rôle...">
+                                    <option value="-1" selected>Sélectionner un rôle...</option>
                                     {% for role in guild.get_assignables_roles() if role.name != '@everyone' %}
                                     <option value="{{ role.id }}" {% if role.id | string==reaction_roles[index] | string
                                         %} selected {% endif %}> {{ role.name }}</option>

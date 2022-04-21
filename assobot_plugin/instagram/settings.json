@@ -3,21 +3,15 @@
     "instagram-login" : "",
     "instagram-password" : "",
     "instagram-profile-groups" : [
-        "test.insta.oui.2022",
-        "test.insta.oui.2021",
-        "miageconnection"
+        ""
     ],
     "instagram-channels-groups" : [
         "-1"
     ],
     "last_post_ids": [
-        -1,
-        -1,
         -1
     ],
     "last_message_ids": [
-        -1,
-        -1,
         -1
     ],
     "instagram_channel_id": -1
