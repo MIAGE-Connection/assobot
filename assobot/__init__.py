@@ -56,6 +56,7 @@ TEMPLATE_DEFAULT_FOLDER = get_or_create_folder_path(TEMPLATE_FOLDER / 'default')
 TEMPLATE_PLUGIN_FOLDER = get_or_create_folder_path(TEMPLATE_FOLDER / 'plugins')
 
 SOURCE_PLUGIN_FOLDER = get_or_create_folder_path(Path(__file__).parent / 'plugins')
+get_or_create_file_path(SOURCE_PLUGIN_FOLDER / "__init__.py")
 
 from assobot.core.settings.settings_manager import SettingManager
 

@@ -1,6 +1,8 @@
 import shutil
 from pathlib import Path
 
+from assobot import ASSOBOT_FOLDER, SOURCE_PLUGIN_FOLDER, STATIC_PLUGIN_FOLDER, TEMPLATE_PLUGIN_FOLDER
+
 
 __all__ = ['create_plugin', 'build_plugin']
 
@@ -73,3 +75,19 @@ def build_plugin(plugin_path : str):
 
     if Path(result_path).exists():
         print("Info : Plugin correctly packaged !")
+
+def __clean_folder(folder) -> None:
+    if folder.exists():
+        shutil.rmtree(folder)
+    folder.mkdir()
+
+def clean_plugins() -> None:
+    __clean_folder(TEMPLATE_PLUGIN_FOLDER)
+    __clean_folder(STATIC_PLUGIN_FOLDER)
+    __clean_folder(SOURCE_PLUGIN_FOLDER)
+
+    __clean_folder(ASSOBOT_FOLDER)
+
+    INIT_FILE = SOURCE_PLUGIN_FOLDER / '__init__.py'
+
+    INIT_FILE.touch()
