@@ -15,6 +15,11 @@
         <h2>
             <nav>
                 <ul>
+                    <li><a href="/guilds/{{guild.id}}" role="button" class="outline">
+                            < Retour</a>
+                    </li>
+                </ul>
+                <ul>
                     <li><img src="{{url_for('static', filename='plugins/' + plugin.name.lower() + '/img/icon.png')}}">
                     </li>
                     <li>{{ plugin.name.title().replace('_', ' ') }} plugin</li>
@@ -29,15 +34,18 @@
                 </ul>
             </nav>
         </h2>
-        <p>Ce plugin permet de gérer la distribution des rôles au sein de votre serveur. Ainsi, vous pouvez choisir un émoji et ainsi que le rôle qui sera attribué lors de la réaction d'un des membres au message.</p>
-        <p>Après avoir paramétré votre plugin, vous pouvez afficher le message de distribution des réactions en lançant la commande <strong>'>display_reaction_message'</strong></p>
+        <p>Ce plugin permet de gérer la distribution des rôles au sein de votre serveur. Ainsi, vous pouvez choisir un
+            émoji et ainsi que le rôle qui sera attribué lors de la réaction d'un des membres au message.</p>
+        <p>Après avoir paramétré votre plugin, vous pouvez afficher le message de distribution des réactions en lançant
+            la commande <strong>'>display_reaction_message'</strong></p>
         <br>
         <div id="settings">
             <article>
                 <header>Message</header>
                 <label for="reaction-role-channel">
                     Channel
-                    <select id="reaction-role-channel" name="reaction-role-channel" placeholder="Sélectionner un channel...">
+                    <select id="reaction-role-channel" name="reaction-role-channel"
+                        placeholder="Sélectionner un channel...">
                         <option value="-1">Sélectionner un channel...</option>
                         {% for channel in guild.get_text_channels() %}
                         <option value="{{ channel.id }}" {% if channel.id |

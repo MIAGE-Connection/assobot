@@ -15,6 +15,11 @@
     <h2>
       <nav>
         <ul>
+          <li><a href="/guilds/{{guild.id}}" role="button" class="outline">
+              < Retour</a>
+          </li>
+        </ul>
+        <ul>
           <li><img src="{{url_for('static', filename='plugins/' + plugin.name.lower() + '/img/icon.png')}}"></li>
           <li>{{ plugin.name.title() }}</li>
         </ul>

@@ -12,22 +12,27 @@
 
 <div class="container">
   <form action="/guilds/{{guild.id}}/plugins/{{ plugin.id }}" method="post">
-    <h1>
+    <h2>
       <nav>
         <ul>
+          <li><a href="/guilds/{{guild.id}}" role="button" class="outline">
+              < Retour</a>
+          </li>
+        </ul>
+        <ul>
           <li><img src="{{url_for('static', filename='plugins/' + plugin.name + '/img/icon.png')}}"></li>
-          <li>Welcome message</li> 
+          <li>Welcome message</li>
         </ul>
         <ul>
           <li>
             <label for="switch">
-              <input type="checkbox" id="switch" class="plugin-switch" name="{{guild.id}}~{{plugin.id}}"
-                role="switch" value="true" {% if plugin.enabled %} checked {% endif %}>
+              <input type="checkbox" id="switch" class="plugin-switch" name="{{guild.id}}~{{plugin.id}}" role="switch"
+                value="true" {% if plugin.enabled %} checked {% endif %}>
             </label>
-          </li> 
-        </ul> 
+          </li>
+        </ul>
       </nav>
-    </h1>
+    </h2>
 
     <p>Do quis tempor amet labore est non dolore anim dolor pariatur. Ipsum ea proident culpa dolor duis. Laboris sunt
       quis officia non. Cupidatat velit ad nulla officia nostrud sint do. Adipisicing commodo pariatur voluptate sunt
@@ -46,9 +51,10 @@
         </summary>
         <p>Personalize the welcoming message send with the command <strong>'>hello'</strong>.</p>
         <label>
-          Hello message <em data-tooltip="You can add some special values with [[MEMBER]], [[GUILD]] and [[CHANNEL]]"><i class="fa-solid fa-question"></i></em> :
+          Hello message <em data-tooltip="You can add some special values with [[MEMBER]], [[GUILD]] and [[CHANNEL]]"><i
+              class="fa-solid fa-question"></i></em> :
           <input type="text" id="hello-message" name="hello-message" placeholder="Hello message"
-          value="{{ plugin.get_settings_manager().get('hello-message') }}">
+            value="{{ plugin.get_settings_manager().get('hello-message') }}">
         </label>
       </details>
 
@@ -66,14 +72,18 @@
           <select id="welcome-message-channel" name="welcome-message-channel">
             <option value="-1">Select channel to send the message...</option>
             {% for channel in guild.get_text_channels() %}
-              <option value="{{ channel.id }}" {% if channel.id | string == plugin.get_settings_manager().get('welcome-message-channel') %} selected {% endif %}> {{channel.name}}</option>
+            <option value="{{ channel.id }}" {% if channel.id |
+              string==plugin.get_settings_manager().get('welcome-message-channel') %} selected {% endif %}>
+              {{channel.name}}</option>
             {% endfor%}
           </select>
-        <label for="welcome-message">
-          Welcome message <em data-tooltip="You can add some special values with [[MEMBER]], [[GUILD]] and [[CHANNEL]]"><i class="fa-solid fa-question"></i></em> :
-          <input type="text" id="welcome-message" name="welcome-message" placeholder="Channel"
-            value="{{ plugin.get_settings_manager().get('welcome-message') }}">
-        </label>
+          <label for="welcome-message">
+            Welcome message <em
+              data-tooltip="You can add some special values with [[MEMBER]], [[GUILD]] and [[CHANNEL]]"><i
+                class="fa-solid fa-question"></i></em> :
+            <input type="text" id="welcome-message" name="welcome-message" placeholder="Channel"
+              value="{{ plugin.get_settings_manager().get('welcome-message') }}">
+          </label>
       </details>
     </div>
 
