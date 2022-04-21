@@ -1,7 +1,7 @@
 
 from discord import TextChannel
 
-from assobot import BOT, ASSOBOT_GUILDS_FOLDER, PLUGIN_FACTORY, get_or_create_folder_path, get_or_create_json_file_path
+from assobot import BOT, ASSOBOT_GUILDS_FOLDER, NAME_OF_BOT, PLUGIN_FACTORY, get_or_create_folder_path, get_or_create_json_file_path
 from assobot.core.settings import SettingManager
 
 class Guild:
@@ -83,7 +83,7 @@ class Guild:
     def get_assignables_roles(self):
         assignable_roles = []
         for role in self.discord_guild.roles:
-            if role.name == 'Assobot':
+            if role.name == NAME_OF_BOT:
                 return assignable_roles
             else:
                 assignable_roles.append(role)
