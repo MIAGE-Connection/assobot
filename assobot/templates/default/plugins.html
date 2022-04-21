@@ -16,7 +16,8 @@
         {% endif %}
         &nbsp; {{ guild.name }}
     </h1>
-    <p>Vous retrouverez ci-dessous la liste des plugins installés sur votre serveur discord avec la possibilité
+    <p>
+        Vous retrouverez ci-dessous la liste des plugins installés sur votre serveur discord avec la possibilité
         d'activer ou de désactiver chaque plugin installé via le bouton à bascule.
     </p>
 
@@ -43,10 +44,10 @@
     {% if guild.plugin_list|length == 0 %}
     <div class="grid">
         <div></div>
-        <div>
-            <h4>Aucun plugin n'est installé dans votre serveur</h4>
-            <p>Veuillez vous rendre dans <a href="#install-plugin">la section d'installation des plugins</a> pour
-                pouvoir utiliser Assobot sur votre serveur.</p>
+        <div style="text-align: center;">
+            <img src="{{ url_for('static', filename='default/img/plugin.png') }}"/>
+            <p></p>
+            <p>Aucun plugin installés</p>
         </div>
         <div></div>
     </div>

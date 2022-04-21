@@ -47,7 +47,7 @@ def guild_manage(guild_id):
                 file.save(dst_file_path)
                 plugin = PLUGIN_FACTORY.install_plugin(dst_file_path)
                 ctx.guild.add_plugin(plugin)
-        return render_template('default/plugin/plugin_list.html', guild=ctx.guild)
+        return render_template('default/plugins.html', guild=ctx.guild)
     else:
         return abort(403, description="Unauthorized action")
 
