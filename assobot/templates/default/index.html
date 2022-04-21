@@ -83,13 +83,9 @@ Assobot - MIAGE Connection
                     <h2>Nous contacter</h2>
                     <h3>Tu as une question concernant le Bot Discord, ou plus généralement MIAGE Connection ?</h3>
                 </hgroup>
-                <form class="grid">
+                <form class="grid" action="mailto:contact@miage-connection.fr" method="GET" enctype="text/plain">
                     <dl>
-                        <input type="text" id="nom" name="nom" placeholder="Nom et Prénom" aria-label="Nom" required="">
-                        <input type="email" id="email" name="email" placeholder="Votre adresse email" aria-label="Email" required="">
-                        <input type="text" id="objet" name="objet" placeholder="Objet du mail" aria-label="Objet" required="">
-                        <textarea type="texte" id="message" name="message" placeholder="Votre message..." aria-label="Texte" required="" style="resize: none"></textarea>
-                        <button type="submit" onclick="event.preventDefault()">Envoyer</button>
+                        <input type="submit" name="submit" value="Contacter" />
                     </dl>
                 </form>
             </article>
