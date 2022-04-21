@@ -55,5 +55,8 @@ def guild_manage(guild_id):
 
 @APP.route('/guild/callback')
 def callback_guild():
-    guild_id = request.args['guild_id']
-    return redirect(f"/guilds/{guild_id}")
+    if 'guild_id' in request.args:
+        guild_id = request.args['guild_id']
+        return redirect(f"/guilds/{guild_id}")
+    else:
+        return redirect(f"/guilds/")
